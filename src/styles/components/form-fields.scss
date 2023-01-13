@@ -1,0 +1,43 @@
+.form-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+
+  column-gap: 14px;
+
+  .form-field__label {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 27px;
+
+    color: $dark-primary;
+  }
+
+  .form-field__input {
+    padding: 10px;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: $dark-primary;
+
+    border: 1px solid $dark-secondary;
+    box-shadow: $input-shadow;
+    border-radius: 8px;
+
+    &::placeholder {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+
+      color: $dark-primary;
+    }
+  }
+}

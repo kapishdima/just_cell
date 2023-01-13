@@ -1,18 +1,26 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
+  <input-field
+    type="text"
+    id="login"
+    name="login"
+    label="Логін:"
+    placeholder="+38 (0_ _) _ _ _-_ _-_ _"
+  />
+
+  <input-field
+    type="password"
+    id="password"
+    name="password"
+    label="Введіть пароль:"
+    placeholder="Введіть пароль"
+  />
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
-
-@Options({
+import InputField from "@/components/InputField/InputField.vue";
+export default {
   components: {
-    HelloWorld,
+    InputField,
   },
-})
-export default class HomeView extends Vue {}
+};
 </script>
