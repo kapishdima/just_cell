@@ -1,0 +1,66 @@
+.signup-banking {
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 28px;
+    text-align: center;
+  }
+
+  &__title {
+    margin-top: 16px;
+    margin-bottom: 28px;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 150%;
+
+    color: $dark-primary;
+  }
+  &__subtitle {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 150%;
+
+    color: $accent-primary;
+  }
+  &__caption {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+
+    color: $dark-primary;
+
+    a {
+      color: $accent-primary;
+      text-decoration: none;
+    }
+  }
+
+  &__list {
+    min-height: 650px;
+  }
+
+  &__footer {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+
+    text-align: center;
+    color: $dark-primary;
+
+    a {
+      text-decoration: none;
+      color: $accent-primary;
+    }
+  }
+}

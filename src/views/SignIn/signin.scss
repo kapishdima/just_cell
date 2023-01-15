@@ -1,0 +1,22 @@
+.signin-content {
+  margin-bottom: 45%;
+
+  .signin-link {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 150%;
+
+    color: $dark-primary;
+    text-decoration: none;
+
+    span {
+      color: $accent-primary;
+    }
+  }
+
+  &__title {
+    margin-bottom: 24px;
+  }
+}

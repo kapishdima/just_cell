@@ -3,9 +3,11 @@
   flex-direction: column;
   flex: 1 1 100%;
 
-  column-gap: 14px;
+  position: relative;
 
-  .form-field__label {
+  row-gap: 14px;
+
+  &__label {
     font-family: "Roboto";
     font-style: normal;
     font-weight: 500;
@@ -15,7 +17,7 @@
     color: $dark-primary;
   }
 
-  .form-field__input {
+  &__input {
     padding: 10px;
 
     font-family: "Roboto";
@@ -27,7 +29,7 @@
     color: $dark-primary;
 
     border: 1px solid $dark-secondary;
-    box-shadow: $input-shadow;
+    // box-shadow: $input-shadow;
     border-radius: 8px;
 
     &::placeholder {
@@ -37,7 +39,19 @@
       font-size: 16px;
       line-height: 24px;
 
-      color: $dark-primary;
+      color: $dark-secondary;
+    }
+  }
+
+  &__extra {
+    position: absolute;
+    right: 10px;
+    bottom: 9px;
+  }
+
+  &--centered {
+    .form-field__label {
+      text-align: center;
     }
   }
 }

@@ -1,0 +1,140 @@
+.auth-layout {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  &__image {
+    display: flex;
+    flex: 1 1 50%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 50%;
+
+    padding: 32px 75px 48px 30px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-link {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 21px;
+
+      color: $dark-primary;
+
+      a {
+        color: $accent-primary;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &__logo {
+    max-width: 190px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &__title {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 150%;
+
+    color: $dark-primary;
+
+    text-align: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 13px;
+  }
+
+  &__caption {
+    margin-top: 11px;
+    margin-bottom: 16px;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+
+    color: $dark-primary;
+
+    a {
+      color: $accent-primary;
+      text-decoration: none;
+    }
+  }
+
+  &__actions {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .button {
+      max-width: 300px;
+    }
+  }
+
+  &__footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    column-gap: 6px;
+
+    .languages {
+      display: flex;
+      align-items: center;
+      column-gap: 4px;
+
+      cursor: pointer;
+    }
+
+    .about {
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+
+      border-right: 1px solid $dark-primary;
+      border-left: 1px solid $dark-primary;
+
+      a {
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+
+        text-decoration: none;
+        color: $dark-primary;
+      }
+    }
+  }
+}

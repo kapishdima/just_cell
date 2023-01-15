@@ -1,0 +1,46 @@
+.confirm-code-content {
+  margin-bottom: 50%;
+  &__actions {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    row-gap: 16px;
+  }
+
+  &__title {
+    margin-bottom: 16px;
+  }
+
+  &__resend {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: $dark-primary;
+
+    span {
+      color: $accent-primary;
+    }
+  }
+
+  &__phone {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 150%;
+
+    text-align: center;
+
+    color: $dark-primary;
+
+    a {
+      color: $accent-primary;
+    }
+  }
+}
