@@ -39,7 +39,7 @@ export default defineComponent({
 
   methods: {
     signIn() {
-      this.$router.push({ name: "welcome" });
+      this.$router.push({ name: "dashboard" });
     },
   },
 });
