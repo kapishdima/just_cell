@@ -1,6 +1,11 @@
 @import "./FormField/form-field";
 @import "./PasswordField/password-field.scss";
-@import "./Button/button.scss";
 @import "./Modal/modal.scss";
+@import "./Button/index.scss";
 
 @import "./AuthLayout/index.scss";
+@import "./AppLayout/app-layout.scss";
+@import "./AppNavbar/app-navbar.scss";
+@import "./AppSidebar/app-sidebar.scss";
+@import "./AppLocales/app-locales.scss";
+@import "./AppUser/app-user.scss";

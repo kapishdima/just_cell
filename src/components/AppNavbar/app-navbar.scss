@@ -1,0 +1,28 @@
+.app-navbar {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: relative;
+  z-index: 1;
+
+  padding: 0 62px 0 40px;
+
+  background: #ffffff;
+  box-shadow: $navbar-shadow;
+
+  &__logo {
+    height: 66px;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  &__tools {
+    display: flex;
+    align-items: center;
+    column-gap: 32px;
+  }
+}

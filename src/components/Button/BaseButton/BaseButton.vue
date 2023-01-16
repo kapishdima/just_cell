@@ -1,7 +1,9 @@
 <template>
   <button
     :type="type"
-    :class="`button--${variant} ${rounded ? 'button--rounded' : ''}`"
+    :class="`button--${variant} ${rounded ? 'button--rounded' : ''} ${
+      hasMaxWidth ? 'button--max-width' : ''
+    } `"
     @click="$emit('click')"
     class="button"
   >
@@ -13,18 +15,20 @@
 <script setup lang="ts">
 import { ButtonHTMLAttributes } from "vue";
 
-type ButtonVariants = "primary" | "secondary" | "danger";
+type ButtonVariants = "primary" | "secondary" | "danger" | "ghost";
 
 interface ButtonProps {
   type?: ButtonHTMLAttributes["type"];
   variant?: ButtonVariants;
   rounded?: boolean;
+  hasMaxWidth?: boolean;
 }
 
 withDefaults(defineProps<ButtonProps>(), {
   type: "button",
   variant: "primary",
   rounded: false,
+  hasMaxWidth: true,
 });
 </script>
 

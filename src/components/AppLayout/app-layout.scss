@@ -1,0 +1,14 @@
+.app-layout {
+  &__row {
+    display: flex;
+    min-height: calc(100vh - 66px);
+    max-height: calc(100vh - 66px);
+  }
+
+  &__content {
+    display: flex;
+    flex: 1 1 84%;
+
+    padding: 0 24px;
+  }
+}
