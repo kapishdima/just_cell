@@ -10,7 +10,7 @@
   </auth-layout>
 </template>
 <script lang="ts">
-import AuthLayout from "@/components/AuthLayout/AuthLayout.vue";
+import AuthLayout from "@/components/layout/AuthLayout/AuthLayout.vue";
 import ResetForm from "./ResetPasswordForm.vue";
 export default {
   components: {

@@ -51,10 +51,10 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import FormField from "@/components/FormField/FormField.vue";
-import InputField from "@/components/InputField/InputField.vue";
-import PasswordField from "@/components/PasswordField/PasswordField.vue";
-import SubmitButton from "@/components/Button/BaseButton/BaseButton.vue";
+import FormField from "@/components/fields/FormField/FormField.vue";
+import InputField from "@/components/fields/InputField/InputField.vue";
+import PasswordField from "@/components/fields/PasswordField/PasswordField.vue";
+import SubmitButton from "@/components/buttons/BaseButton/BaseButton.vue";
 
 export default defineComponent({
   components: {

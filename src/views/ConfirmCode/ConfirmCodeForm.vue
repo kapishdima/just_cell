@@ -32,9 +32,9 @@
   </div>
 </template>
 <script lang="ts">
-import FormField from "@/components/FormField/FormField.vue";
-import InputField from "@/components/InputField/InputField.vue";
-import VButton from "@/components/Button/BaseButton/BaseButton.vue";
+import FormField from "@/components/fields/FormField/FormField.vue";
+import InputField from "@/components/fields/InputField/InputField.vue";
+import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 export default {
   components: {
     FormField,

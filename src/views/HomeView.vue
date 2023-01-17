@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts">
-import FormField from "@/components/FormField/FormField.vue";
-import InputField from "@/components/InputField/InputField.vue";
-import PasswordField from "@/components/PasswordField/PasswordField.vue";
+import FormField from "@/components/fields/FormField/FormField.vue";
+import InputField from "@/components/fields/InputField/InputField.vue";
+import PasswordField from "@/components/fields/PasswordField/PasswordField.vue";
 export default {
   components: {
     InputField,

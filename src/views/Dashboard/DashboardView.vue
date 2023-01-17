@@ -10,7 +10,7 @@
   </app-layout>
 </template>
 <script lang="ts">
-import AppLayout from "@/components/AppLayout/AppLayout.vue";
+import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
 import UserStats from "./Stats/UserStats.vue";
 
 export default {

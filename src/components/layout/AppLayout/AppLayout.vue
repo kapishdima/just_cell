@@ -10,8 +10,8 @@
   </div>
 </template>
 <script lang="ts">
-import AppNavbar from "@/components/AppNavbar/AppNavbar.vue";
-import AppSidebar from "@/components/AppSidebar/AppSidebar.vue";
+import AppNavbar from "../AppNavbar/AppNavbar.vue";
+import AppSidebar from "../AppSidebar/AppSidebar.vue";
 export default {
   components: {
     AppNavbar,

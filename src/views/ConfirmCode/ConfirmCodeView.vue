@@ -10,7 +10,7 @@
   </auth-layout>
 </template>
 <script lang="ts">
-import AuthLayout from "@/components/AuthLayout/AuthLayout.vue";
+import AuthLayout from "@/components/layout/AuthLayout/AuthLayout.vue";
 import ConfirmForm from "./ConfirmCodeForm.vue";
 export default {
   components: {

@@ -11,7 +11,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import AuthLayout from "@/components/AuthLayout/AuthLayout.vue";
+import AuthLayout from "@/components/layout/AuthLayout/AuthLayout.vue";
 import SignupForm from "./SignUpForm.vue";
 
 export default defineComponent({

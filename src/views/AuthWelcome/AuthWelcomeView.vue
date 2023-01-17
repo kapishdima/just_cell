@@ -35,7 +35,7 @@
   </auth-layout>
 </template>
 <script lang="ts">
-import AuthLayout from "@/components/AuthLayout/AuthLayout.vue";
+import AuthLayout from "@/components/layout/AuthLayout/AuthLayout.vue";
 
 export default {
   components: {

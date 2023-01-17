@@ -26,7 +26,7 @@
   </auth-layout-banking>
 </template>
 <script lang="ts">
-import AuthLayoutBanking from "@/components/AuthLayout/AuthLayoutBanking.vue";
+import AuthLayoutBanking from "@/components/layout/AuthLayout/AuthLayoutBanking.vue";
 
 export default {
   components: {
