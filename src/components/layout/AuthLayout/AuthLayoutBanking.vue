@@ -8,11 +8,7 @@
       </div>
       <slot name="auth-content"></slot>
       <div class="auth-layout-banking__footer">
-        <div class="languages">
-          <img src="@/assets/flags/uk.svg" alt="UK" />
-          Укр
-          <img src="@/assets/icons/chevron-down.svg" alt="open" />
-        </div>
+        <app-locales />
         <div class="about">
           <a href="#">Про компанію</a>
         </div>
@@ -24,6 +20,11 @@
   </div>
 </template>
 <script lang="ts">
-export default {};
+import AppLocales from "@/components/layout/AppLocales/AppLocales.vue";
+export default {
+  components: {
+    AppLocales,
+  },
+};
 </script>
 <style lang=""></style>

@@ -28,6 +28,10 @@
     border: 1px solid #ff7a2e;
     border-radius: 8px;
     padding: 18px;
+
+    @include mobile {
+      margin: 0 10px;
+    }
   }
 }
 

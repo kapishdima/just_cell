@@ -1,4 +1,7 @@
 .signup-content {
+  @include mobile {
+    padding: 75px 14px 90px 14px;
+  }
   .sigup-link {
     display: flex;
     align-items: center;

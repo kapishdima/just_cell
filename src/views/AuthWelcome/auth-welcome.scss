@@ -1,5 +1,11 @@
 .auth-welcome {
   margin-bottom: 20%;
+
+  @include mobile {
+    margin-bottom: 0;
+    padding: 0 20px;
+  }
+
   &__title {
     margin-bottom: 24px;
 
@@ -10,6 +16,15 @@
     line-height: 150%;
 
     color: $accent-primary;
+
+    @include mobile {
+      text-align: center;
+
+      font-size: 12px;
+      line-height: 150%;
+
+      margin-bottom: 18px;
+    }
   }
   &__services {
     .services-title {
@@ -22,11 +37,24 @@
       line-height: 150%;
 
       color: $dark-primary;
+
+      @include mobile {
+        text-align: center;
+
+        font-size: 16px;
+        line-height: 150%;
+
+        margin-bottom: 28px;
+      }
     }
     .services-list {
       display: flex;
       flex-direction: column;
       row-gap: 36px;
+
+      @include mobile {
+        row-gap: 18px;
+      }
     }
 
     .service {
@@ -44,6 +72,22 @@
       border-radius: 8px;
       text-decoration: none;
 
+      @include mobile {
+        padding: 11px 16px;
+      }
+
+      &-icon {
+        @include mobile {
+          width: 20px;
+          height: 20px;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+
       &-text {
         font-family: "Roboto";
         font-style: normal;
@@ -52,6 +96,11 @@
         line-height: 150%;
 
         color: $dark-primary;
+
+        @include mobile {
+          font-size: 12px;
+          line-height: 150%;
+        }
       }
     }
   }

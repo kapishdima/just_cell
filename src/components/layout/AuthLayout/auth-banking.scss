@@ -4,10 +4,37 @@
 
   display: flex;
 
+  @include mobile {
+    min-height: 100vh;
+
+    @include mobile {
+      margin-bottom: 60px;
+
+      position: relative;
+
+      &::before {
+        content: "";
+
+        width: 20px;
+        height: 100%;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        background-color: $accent-primary;
+      }
+    }
+  }
+
   &__image {
     display: flex;
     flex: 1 1 40%;
     overflow: hidden;
+
+    @include mobile {
+      display: none;
+    }
 
     img {
       width: 100%;
@@ -24,16 +51,29 @@
     flex: 1 1 60%;
 
     padding: 32px 148px 48px 148px;
+
+    @include mobile {
+      flex: 1 1 100%;
+      padding: 24px 32px 16px 32px;
+    }
   }
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @include mobile {
+      margin-bottom: 38px;
+    }
   }
 
   &__logo {
     max-width: 190px;
+
+    @include mobile {
+      max-width: 80px;
+    }
 
     img {
       width: 100%;
@@ -46,12 +86,8 @@
     justify-content: center;
     column-gap: 6px;
 
-    .languages {
-      display: flex;
-      align-items: center;
-      column-gap: 4px;
-
-      cursor: pointer;
+    @include mobile {
+      margin-top: 60px;
     }
 
     .about {
@@ -71,6 +107,11 @@
 
         text-decoration: none;
         color: $dark-primary;
+
+        @include mobile {
+          font-size: 12px;
+          line-height: 14px;
+        }
       }
     }
   }

@@ -1,6 +1,10 @@
 <template>
   <div class="success-modal__content">
-    <img src="@/assets/icons/succes-circle-icon.svg" alt="Success" />
+    <img
+      class="success-modal__content-icon"
+      src="@/assets/icons/succes-circle-icon.svg"
+      alt="Success"
+    />
     <h3 class="success-modal__content-title">
       Тепер ви можете ввести новий пароль!
     </h3>

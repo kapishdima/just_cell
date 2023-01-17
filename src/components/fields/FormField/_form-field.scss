@@ -7,6 +7,10 @@
 
   row-gap: 14px;
 
+  @include mobile {
+    row-gap: 8px;
+  }
+
   &__label {
     font-family: "Roboto";
     font-style: normal;
@@ -15,6 +19,11 @@
     line-height: 27px;
 
     color: $dark-primary;
+
+    @include mobile {
+      font-size: 14px;
+      line-height: 150%;
+    }
   }
 
   &__input {
@@ -29,8 +38,11 @@
     color: $dark-primary;
 
     border: 1px solid $dark-secondary;
-    // box-shadow: $input-shadow;
     border-radius: 8px;
+
+    @include mobile {
+      padding: 6px 10px;
+    }
 
     &::placeholder {
       font-family: "Roboto";
@@ -47,6 +59,10 @@
     position: absolute;
     right: 10px;
     bottom: 9px;
+
+    @include mobile {
+      bottom: 4px;
+    }
   }
 
   &--centered {

@@ -1,6 +1,11 @@
 .signin-content {
   margin-bottom: 45%;
 
+  @include mobile {
+    margin-bottom: 0;
+    padding: 0 40px 0 40px;
+  }
+
   .signin-link {
     font-family: "Roboto";
     font-style: normal;
@@ -13,6 +18,11 @@
 
     span {
       color: $accent-primary;
+    }
+
+    @include mobile {
+      font-size: 12px;
+      line-height: 150%;
     }
   }
 

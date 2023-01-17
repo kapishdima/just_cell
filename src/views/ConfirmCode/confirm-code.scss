@@ -1,5 +1,11 @@
 .confirm-code-content {
   margin-bottom: 50%;
+
+  @include mobile {
+    margin-bottom: 0;
+    padding: 0 20px;
+  }
+
   &__actions {
     width: 100%;
 
@@ -53,6 +59,22 @@
 
   padding: 60px 100px;
 
+  @include mobile {
+    padding: 20px 28px;
+  }
+
+  &-icon {
+    @include mobile {
+      width: 50px;
+      height: 50px;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
   &-title {
     font-family: "Roboto";
     font-style: normal;
@@ -61,5 +83,12 @@
     line-height: 150%;
 
     color: $accent-primary;
+
+    @include mobile {
+      text-align: center;
+
+      font-size: 16px;
+      line-height: 150%;
+    }
   }
 }
