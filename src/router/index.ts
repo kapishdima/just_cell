@@ -19,9 +19,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/ResetPassword/ResetPasswordView.vue"),
   },
   {
-    path: "/reset-confirm",
+    path: "/confirm-code",
     name: "confirm",
     component: () => import("@/views/ConfirmCode/ConfirmCodeView.vue"),
+  },
+  {
+    path: "/confirm-password",
+    name: "confirmPassword",
+    component: () => import("@/views/ConfirmPassword/ConfirmPasswordView.vue"),
   },
   {
     path: "/signup",

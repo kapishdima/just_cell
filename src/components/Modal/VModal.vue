@@ -1,40 +1,44 @@
 <template>
-  <div class="modal" tabindex="-1" role="dialog" ref="modal">
+  <div
+    class="modal"
+    :class="{ 'modal--opened': opened }"
+    tabindex="-1"
+    role="dialog"
+  >
     <div class="modal-content">
-      <slot name="content"></slot>
+      <slot name="content" :close="close"></slot>
     </div>
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  modalController: null,
   data() {
     return {
       opened: false,
     };
-  },
-  mounted() {
-    this.open();
   },
 
   methods: {
     open() {
       let resolve;
       let reject;
+
       const popupPromise = new Promise<boolean>((ok, fail) => {
         resolve = ok;
         reject = fail;
       });
 
-      this.$options.popupController = { resolve, reject };
+      this.$options.modalController = { resolve, reject };
       this.opened = true;
 
       return popupPromise;
     },
     close() {
-      this.$options.popupController.resolve(false);
-      this.$router.back();
+      this.$options.modalController.resolve(true);
       this.opened = false;
     },
   },

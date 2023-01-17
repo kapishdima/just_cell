@@ -5,7 +5,11 @@
     </h3>
     <form class="auth-layout__form">
       <form-field label="Введіть ваш номер телефону" :centered="true">
-        <input-field name="phone" placeholder="+38 (0_ _) _ _ _-_ _-_ _" />
+        <tel-field
+          v-model="tel"
+          name="phone"
+          placeholder="+38 (0_ _) _ _ _-_ _-_ _"
+        />
       </form-field>
       <div class="reset-password-content__actions">
         <v-button @click="sendCode">
@@ -22,21 +26,26 @@
 </template>
 <script lang="ts">
 import FormField from "@/components/fields/FormField/FormField.vue";
-import InputField from "@/components/fields/InputField/InputField.vue";
+import TelField from "@/components/fields/TelField/TelField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import { defineComponent } from "vue";
 
 export default defineComponent({
   components: {
     FormField,
-    InputField,
+    TelField,
     VButton,
+  },
+
+  data() {
+    return {
+      tel: this.$route.query.tel || "",
+    };
   },
 
   methods: {
     sendCode() {
-      console.log("click");
-      this.$router.push({ name: "confirm" });
+      this.$router.push({ name: "confirm", query: { tel: this.tel } });
     },
   },
 });

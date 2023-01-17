@@ -3,6 +3,7 @@
     :type="type"
     :placeholder="placeholder"
     :name="name"
+    :required="required"
     class="form-field__input"
   />
   <password-visibility-button @change="changeType" />
@@ -14,6 +15,7 @@
 export interface PasswordFieldProps {
   name: string;
   placeholder?: string;
+  required?: boolean;
 }
 
 defineProps<PasswordFieldProps>();

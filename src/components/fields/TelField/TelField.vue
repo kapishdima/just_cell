@@ -1,9 +1,10 @@
 <template>
-  <input
-    :type="type"
+  <imask-input
     :placeholder="placeholder"
     :name="name"
     :required="required"
+    :mask="`+{38}(000)000-00-00`"
+    type="tel"
     class="form-field__input"
   />
 </template>
@@ -11,11 +12,8 @@
 <style scoped lang="scss"></style>
 
 <script setup lang="ts">
-import { InputHTMLAttributes } from "vue";
-
 export interface InputFieldProps {
   name: string;
-  type?: InputHTMLAttributes["type"];
   placeholder?: string;
   required?: boolean;
 }
@@ -23,5 +21,12 @@ export interface InputFieldProps {
 defineProps<InputFieldProps>();
 </script>
 <script lang="ts">
-export default {};
+import { defineComponent } from "vue";
+import { IMaskComponent } from "vue-imask";
+
+export default defineComponent({
+  components: {
+    "imask-input": IMaskComponent,
+  },
+});
 </script>

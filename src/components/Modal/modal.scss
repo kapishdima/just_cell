@@ -1,10 +1,11 @@
 .modal {
+  display: none;
+
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
 
-  display: flex;
   align-items: center;
   justify-content: center;
 
@@ -13,10 +14,37 @@
 
   background-color: rgba(#000, 0.5);
 
+  &--opened {
+    display: flex;
+    animation: fadeInModal 0.5s;
+
+    .modal-content {
+      animation: slideInContent 0.5s;
+    }
+  }
+
   &-content {
     background: #ffffff;
     border: 1px solid #ff7a2e;
     border-radius: 8px;
     padding: 18px;
+  }
+}
+
+@keyframes fadeInModal {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInContent {
+  0% {
+    transform: translateY(10%);
+  }
+  100% {
+    transform: translateY(0);
   }
 }

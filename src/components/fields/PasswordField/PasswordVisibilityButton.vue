@@ -2,6 +2,7 @@
   <button
     type="button"
     class="form-field__extra password-visibility-button"
+    tabindex="-1"
     @click="changeVisibility"
   >
     <img

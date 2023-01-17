@@ -1,17 +1,21 @@
 <template>
   <div class="signin-content">
     <h3 class="auth-layout__title signin-content__title">Вхід</h3>
-    <form class="auth-layout__form">
+    <form class="auth-layout__form" @submit.prevent @submit="signIn">
       <form-field label="Логін:">
-        <input-field name="phone" placeholder="+38 (0_ _) _ _ _-_ _-_ _" />
+        <tel-field
+          required
+          name="phone"
+          placeholder="+38 (0_ _) _ _ _-_ _-_ _"
+        />
       </form-field>
 
       <form-field label="Пароль*:">
-        <password-field name="password" placeholder="Введіть пароль" />
+        <password-field required name="password" placeholder="Введіть пароль" />
       </form-field>
 
       <div class="auth-layout__actions">
-        <submit-button @click="signIn">
+        <submit-button type="submit">
           <template #text>Увійти</template>
         </submit-button>
 
@@ -25,16 +29,16 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import FormField from "@/components/fields/FormField/FormField.vue";
-import InputField from "@/components/fields/InputField/InputField.vue";
+import TelField from "@/components/fields/TelField/TelField.vue";
 import PasswordField from "@/components/fields/PasswordField/PasswordField.vue";
 import SubmitButton from "@/components/buttons/BaseButton/BaseButton.vue";
 
 export default defineComponent({
   components: {
-    InputField,
     FormField,
     PasswordField,
     SubmitButton,
+    TelField,
   },
 
   methods: {
