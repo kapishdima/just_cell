@@ -48,6 +48,32 @@ const routes: Array<RouteRecordRaw> = [
     name: "dashboard",
     component: () => import("@/views/Dashboard/DashboardView.vue"),
   },
+  {
+    path: "/department",
+    name: "department",
+    children: [
+      {
+        path: "create",
+        name: "departmentCreate",
+        component: () => import("@/views/Department/CreateDepartmentView.vue"),
+      },
+    ],
+  },
+  {
+    path: "/users",
+    children: [
+      {
+        path: "create",
+        name: "usersCreate",
+        component: () => import("@/views/Users/CreateUserView.vue"),
+      },
+      {
+        path: "",
+        name: "users",
+        component: () => import("@/views/Users/UsersEmptyVuiew.vue"),
+      },
+    ],
+  },
 ];
 
 const router = createRouter({

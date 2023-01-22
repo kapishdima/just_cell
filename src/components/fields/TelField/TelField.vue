@@ -1,6 +1,6 @@
 <template>
   <imask-input
-    :placeholder="placeholder"
+    :placeholder="placeholder || '+38 (0_ _) _ _ _-_ _-_ _'"
     :name="name"
     :required="required"
     :mask="`+{38}(000)000-00-00`"

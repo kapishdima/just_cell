@@ -1,0 +1,77 @@
+.checkbox-field {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  cursor: pointer;
+
+  &--checked {
+    .checkbox-field__box {
+      background-color: $accent-primary;
+      border-color: $accent-primary;
+    }
+  }
+
+  &--right {
+    flex-direction: row;
+  }
+
+  &--left {
+    flex-direction: row-reverse;
+    column-gap: 4px;
+
+    .checkbox-field__label {
+      padding-right: 0;
+    }
+  }
+
+  &__label {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 150%;
+
+    color: $dark-primary;
+    cursor: pointer;
+
+    padding-right: 30px;
+  }
+
+  &__input {
+    display: none;
+  }
+
+  &__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+
+    border: 1px solid rgba($dark-primary, 0.5);
+    border-radius: 4px;
+    background-color: transparent;
+
+    transition: 0.25s ease background-color;
+  }
+}
+
+.checkbox-field__group {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+
+  max-width: max-content;
+  &-title {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+
+    color: $dark-primary;
+  }
+}

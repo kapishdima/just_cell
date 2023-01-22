@@ -1,0 +1,12 @@
+.schedule-field {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
+  column-gap: 16%;
+
+  .checkbox-field {
+    width: auto;
+    min-width: 50px;
+    max-width: 84px;
+  }
+}

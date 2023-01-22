@@ -1,5 +1,8 @@
 <template>
-  <div class="form-field" :class="{ 'form-field--centered': centered }">
+  <div
+    class="form-field"
+    :class="{ 'form-field--centered': centered, 'form-field--shadow': shadow }"
+  >
     <label class="form-field__label">{{ label }}</label>
     <slot></slot>
   </div>
@@ -9,6 +12,7 @@ export interface FormFieldProps {
   label?: string;
   helpText?: string;
   centered?: boolean;
+  shadow?: boolean;
 }
 
 defineProps<FormFieldProps>();

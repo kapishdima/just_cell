@@ -2,13 +2,105 @@
   &__row {
     display: flex;
     min-height: calc(100vh - 66px);
-    max-height: calc(100vh - 66px);
   }
 
   &__content {
     display: flex;
     flex: 1 1 84%;
+    flex-direction: column;
 
-    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+
+    padding: 60px 24px 74px 24px;
+
+    &:before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      z-index: -1;
+
+      width: 100%;
+      height: 100%;
+
+      background: linear-gradient(89.36deg, #ffffff 0.49%, #ff7a2e 99.41%);
+      opacity: 0.1;
+    }
+  }
+
+  &__title {
+    text-align: center;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 150%;
+
+    color: $dark-primary;
+
+    margin-bottom: 32px;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    row-gap: 8px;
+
+    margin-top: 60px;
+  }
+
+  &__caption {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+
+    color: $dark-secondary;
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+
+    flex: 1 1 50%;
+    max-width: 50%;
+
+    &__row {
+      display: flex;
+      column-gap: 24px;
+    }
+  }
+}
+
+.app-empty {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    row-gap: 28px;
+  }
+
+  &__title {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 150%;
+
+    color: $accent-primary;
   }
 }
