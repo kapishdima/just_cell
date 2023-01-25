@@ -48,11 +48,19 @@
         </router-link>
       </div>
       <div class="app-menu__item">
-        <router-link to="/">
+        <router-link :to="{ name: 'users' }">
           <div class="app-menu__item-icon">
             <img src="@/assets/icons/menu/users_icon.svg" alt="dashboard" />
           </div>
           Користувачі
+        </router-link>
+      </div>
+      <div class="app-menu__item">
+        <router-link to="/">
+          <!-- <div class="app-menu__item-icon">
+            <img src="@/assets/icons/menu/users_icon.svg" alt="dashboard" />
+          </div> -->
+          Управління користувачами
         </router-link>
       </div>
     </div>

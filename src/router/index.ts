@@ -70,7 +70,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "",
         name: "users",
-        component: () => import("@/views/Users/UsersEmptyVuiew.vue"),
+        component: () => import("@/views/Users/UsersListView.vue"),
       },
     ],
   },

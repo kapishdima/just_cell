@@ -1,0 +1,74 @@
+.user-card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  //   flex: 1 1 auto;
+
+  max-width: 334px;
+  padding: 12px;
+
+  background: #ffffff;
+  border: 1px solid $dark-secondary;
+  box-shadow: $card-shadow;
+  border-radius: 8px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+  }
+
+  &__avatar {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+  }
+
+  &__username {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 150%;
+
+    color: $dark-primary;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__footer {
+    padding: 0 20px;
+  }
+}
+
+// Edit Link
+
+.user-edit__link {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 150%;
+
+  color: $accent-primary;
+  text-decoration: none;
+}

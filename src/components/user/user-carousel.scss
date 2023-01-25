@@ -1,0 +1,41 @@
+// User Carousel
+
+.user-carousel {
+  margin-bottom: 18px;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+  }
+
+  &__navigation {
+    display: flex;
+    align-items: center;
+
+    svg path {
+      transition: opacity 0.25s ease;
+    }
+
+    &--disabled {
+      path {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  &__title {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 150%;
+
+    color: $dark-primary;
+  }
+
+  &__navigation {
+    cursor: pointer;
+  }
+}
