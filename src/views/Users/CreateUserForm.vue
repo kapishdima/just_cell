@@ -26,6 +26,7 @@
           :options="options"
         />
       </form-field>
+      <user-permissions />
     </div>
     <div class="app-layout-form">
       <form-field shadow label="Додати фото нового користувача*:">
@@ -42,6 +43,7 @@ import InputField from "@/components/fields/InputField/InputField.vue";
 import TelField from "@/components/fields/TelField/TelField.vue";
 import SelectField from "@/components/fields/SelectField/SelectField.vue";
 import FileField from "@/components/fields/FileField/FileField.vue";
+import UserPermissions from "@/components/persmission/UserPermissions.vue";
 
 export default defineComponent({
   components: {
@@ -50,6 +52,7 @@ export default defineComponent({
     SelectField,
     TelField,
     FileField,
+    UserPermissions,
   },
 
   data() {

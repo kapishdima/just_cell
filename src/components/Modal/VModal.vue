@@ -1,11 +1,20 @@
 <template>
   <div
     class="modal"
-    :class="{ 'modal--opened': opened }"
+    :class="{ 'modal--opened': opened, [`${classNames}`]: Boolean(classNames) }"
     tabindex="-1"
     role="dialog"
+    @click="close"
   >
-    <div class="modal-content">
+    <div class="modal-content" @click.stop>
+      <div class="modal-header">
+        <h4 class="modal-title">
+          <slot name="title"></slot>
+        </h4>
+        <div class="modal-close-button" v-if="showCloseButton" @click="close">
+          <img src="@/assets/icons/close-icon.svg" alt="Close" />
+        </div>
+      </div>
       <slot name="content" :close="close"></slot>
     </div>
   </div>
@@ -16,10 +25,25 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   modalController: null,
+  props: {
+    classNames: String,
+    showCloseButton: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       opened: false,
     };
+  },
+
+  mounted() {
+    document.addEventListener("keydown", this.onKeydown);
+  },
+
+  beforeUnmount() {
+    document.removeEventListener("keydown", this.onKeydown);
   },
 
   methods: {
@@ -40,6 +64,11 @@ export default defineComponent({
     close() {
       this.$options.modalController.resolve(true);
       this.opened = false;
+    },
+    onKeydown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        this.close();
+      }
     },
   },
 });

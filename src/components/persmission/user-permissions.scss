@@ -1,0 +1,61 @@
+.user-permissions {
+  &__field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-label {
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 150%;
+
+      color: $dark-primary;
+    }
+
+    &-button {
+      background: none;
+      border: none;
+
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 150%;
+      text-decoration-line: underline;
+
+      color: $accent-primary;
+    }
+  }
+
+  &__title {
+    margin: 18px 0;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 150%;
+    text-align: center;
+
+    color: $dark-primary;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 28px;
+  }
+
+  &__template {
+    padding: 10px;
+    border: 1px solid $accent-primary;
+  }
+
+  &__modal {
+    .modal-content {
+      width: 50vw;
+    }
+  }
+}

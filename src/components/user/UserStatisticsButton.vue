@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'users' }">
+  <router-link :to="{ name: 'userStatistics', params: { id: 1 } }">
     <v-button type="button" :hasMaxWidth="false">
       <template #afterIcon>
         <img src="@/assets/icons/statistics-icon.svg" alt="" />
