@@ -1,0 +1,28 @@
+.branch-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 20px 10px;
+  background: #ffffff;
+  border: 1px solid $dark-secondary;
+
+  box-shadow: $card-shadow;
+  border-radius: 8px;
+  text-decoration: none;
+
+  &__name {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 150%;
+
+    color: $accent-primary;
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+  }
+}

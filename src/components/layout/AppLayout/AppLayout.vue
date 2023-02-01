@@ -4,9 +4,17 @@
     <div class="app-layout__row">
       <app-sidebar />
       <div class="app-layout__content">
-        <h2 class="app-layout__title">
-          <slot name="appTitle"></slot>
-        </h2>
+        <div class="app-layout__header">
+          <div class="app-layout__link">
+            <slot name="appLink"></slot>
+          </div>
+          <h2 class="app-layout__title">
+            <slot name="appTitle"></slot>
+          </h2>
+          <div class="app-layout__extra">
+            <slot name="appExtra"></slot>
+          </div>
+        </div>
         <slot name="appContent"></slot>
         <div class="app-layout__actions">
           <slot name="appActions"></slot>

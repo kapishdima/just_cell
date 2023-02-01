@@ -1,11 +1,3 @@
-.accordion-list {
-  .accordion:first-child {
-    .accordion-title {
-      border-bottom: 0;
-    }
-  }
-}
-
 .accordion {
   &--opened {
     .accordion-title {

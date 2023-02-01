@@ -21,7 +21,6 @@
 .form-field {
   display: flex;
   flex-direction: column;
-  // flex: 1 1 100%;
 
   position: relative;
 
@@ -46,13 +45,22 @@
     }
   }
 
-  &__input {
-    padding: 10px;
+  &--iconed {
+    .form-field__input {
+      padding-left: 36px;
+    }
+  }
 
+  &__before-icon {
+    position: absolute;
+    left: 8px;
+    top: 42%;
+  }
+
+  &__input {
     color: $dark-primary;
 
     background: #fff;
-    border: 1px solid $dark-secondary;
     border-radius: 8px;
 
     @include mobile {
@@ -61,6 +69,26 @@
 
     @include input-value;
     @include input-placeholder;
+
+    // Size
+
+    &--lg {
+      padding: 10px;
+    }
+
+    &--sm {
+      padding: 8px;
+    }
+
+    // Variants
+
+    &--default {
+      border: 1px solid $dark-secondary;
+    }
+
+    &--accent {
+      border: 1px solid $accent-primary;
+    }
   }
 
   &__extra {

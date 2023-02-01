@@ -26,6 +26,18 @@
     }
   }
 
+  &--primary {
+    .checkbox-field__label {
+      color: $dark-primary;
+    }
+  }
+
+  &--secondary {
+    .checkbox-field__label {
+      color: $dark-checkbox-secondary;
+    }
+  }
+
   &__label {
     font-family: "Roboto";
     font-style: normal;
@@ -33,7 +45,6 @@
     font-size: 16px;
     line-height: 150%;
 
-    color: $dark-primary;
     cursor: pointer;
 
     padding-right: 30px;

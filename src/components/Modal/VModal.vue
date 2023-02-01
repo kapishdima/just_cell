@@ -16,6 +16,9 @@
         </div>
       </div>
       <slot name="content" :close="close"></slot>
+      <div class="modal-footer">
+        <slot name="footer"></slot>
+      </div>
     </div>
   </div>
 </template>

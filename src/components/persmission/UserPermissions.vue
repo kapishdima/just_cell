@@ -22,8 +22,7 @@
       <template #title>Права користувача</template>
       <template #content>
         <div class="user-permissions__title">Тип системи</div>
-        <div
-          class="accordion-list"
+        <template
           v-for="[name, permissions] in Object.entries(permissions)"
           :key="name"
         >
@@ -33,11 +32,17 @@
               <permissions-list :permissions="permissions" />
             </template>
           </v-accordion>
-        </div>
+        </template>
         <div class="user-permissions__title">Шаблони</div>
         <div class="user-permissions__template">
           <checkbox-field name="payment" direction="right" label="Шаблон 1" />
         </div>
+        <save-template :permissions="selected"></save-template>
+      </template>
+      <template #footer>
+        <v-button type="button">
+          <template #text> Зберегти </template>
+        </v-button>
       </template>
     </v-modal>
   </div>
@@ -45,11 +50,14 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import FormField from "../fields/FormField/FormField.vue";
-import VModal from "../Modal/VModal.vue";
-import VAccordion from "../accordion/VAccordion.vue";
-import CheckboxField from "../fields/CheckboxField/CheckboxField.vue";
+import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
+import CheckboxField from "@/components/fields/CheckboxField/CheckboxField.vue";
+import FormField from "@/components/fields/FormField/FormField.vue";
+import VModal from "@/components/modal/VModal.vue";
+import VAccordion from "@/components/accordion/VAccordion.vue";
+
 import PermissionsList from "./PermissionsList.vue";
+import SaveTemplate from "./SaveTemplate.vue";
 
 export default defineComponent({
   components: {
@@ -57,7 +65,9 @@ export default defineComponent({
     VAccordion,
     FormField,
     CheckboxField,
+    VButton,
     PermissionsList,
+    SaveTemplate,
   },
 
   data() {
@@ -84,6 +94,7 @@ export default defineComponent({
           },
         ],
       },
+      selected: ["Приймати платежі"],
     };
   },
 

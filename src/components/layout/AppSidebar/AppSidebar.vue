@@ -56,10 +56,7 @@
         </router-link>
       </div>
       <div class="app-menu__item">
-        <router-link to="/">
-          <!-- <div class="app-menu__item-icon">
-            <img src="@/assets/icons/menu/users_icon.svg" alt="dashboard" />
-          </div> -->
+        <router-link :to="{ name: 'manageUsers' }">
           Управління користувачами
         </router-link>
       </div>

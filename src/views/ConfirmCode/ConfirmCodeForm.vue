@@ -47,7 +47,7 @@ import { defineComponent } from "vue";
 import FormField from "@/components/fields/FormField/FormField.vue";
 import CodeField from "@/components/fields/CodeField/CodeField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
-import VModal from "@/components/Modal/VModal.vue";
+import VModal from "@/components/modal/VModal.vue";
 
 import SuccessModal from "./SuccessModal.vue";
 

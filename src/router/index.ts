@@ -77,6 +77,21 @@ const routes: Array<RouteRecordRaw> = [
         name: "userStatistics",
         component: () => import("@/views/Users/UserStatisticsView.vue"),
       },
+      {
+        path: "manage",
+        name: "manageUsers",
+        component: () => import("@/views/ManageUsers/BranchesView.vue"),
+      },
+      {
+        path: "manage/:id",
+        name: "manageUser",
+        component: () => import("@/views/ManageUsers/BranchUsersView.vue"),
+      },
+      {
+        path: "manage/:id/schedule",
+        name: "userSchedule",
+        component: () => import("@/views/ManageUsers/UserScheduleView.vue"),
+      },
     ],
   },
 ];

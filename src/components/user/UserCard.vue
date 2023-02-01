@@ -18,10 +18,10 @@
         {{ branchName }}
       </div>
     </div>
-    <div class="user-card__actions">
+    <div class="user-card__actions" v-if="hasActionsSlot">
       <slot name="actions"></slot>
     </div>
-    <div class="user-card__footer">
+    <div class="user-card__footer" v-if="hasFooterSlot">
       <slot name="footer"></slot>
     </div>
   </div>
@@ -38,6 +38,17 @@ interface UserCardProps {
 defineProps<UserCardProps>();
 </script>
 <script lang="ts">
-export default {};
+import { defineComponent } from "vue";
+
+export default defineComponent({
+  computed: {
+    hasActionsSlot(): boolean {
+      return Boolean(this.$slots.actions);
+    },
+    hasFooterSlot(): boolean {
+      return Boolean(this.$slots.footer);
+    },
+  },
+});
 </script>
 <style lang=""></style>

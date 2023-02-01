@@ -10,6 +10,7 @@
     :class="{
       'checkbox-field--checked': checked,
       [`checkbox-field--${direction}`]: true,
+      [`checkbox-field--${variant}`]: true,
     }"
     @click="check"
   >
@@ -31,10 +32,12 @@ interface CheckboxFieldProps {
   label?: string;
   direction?: "right" | "left";
   defaultChecked?: boolean;
+  variant?: "primary" | "secondary";
 }
 
 withDefaults(defineProps<CheckboxFieldProps>(), {
   direction: "right",
+  variant: "primary",
 });
 </script>
 <script lang="ts">

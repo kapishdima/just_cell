@@ -5,6 +5,7 @@
     :name="name"
     :required="required"
     class="form-field__input"
+    :class="`form-field__input--${size} form-field__input--${variant}`"
   />
 </template>
 
@@ -18,9 +19,14 @@ export interface InputFieldProps {
   type?: InputHTMLAttributes["type"];
   placeholder?: string;
   required?: boolean;
+  size?: "lg" | "sm";
+  variant?: "default" | "accent";
 }
 
-defineProps<InputFieldProps>();
+withDefaults(defineProps<InputFieldProps>(), {
+  size: "lg",
+  variant: "default",
+});
 </script>
 <script lang="ts">
 export default {};

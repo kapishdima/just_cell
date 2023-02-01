@@ -41,8 +41,6 @@
     line-height: 150%;
 
     color: $dark-primary;
-
-    margin-bottom: 32px;
   }
 
   &__actions {
@@ -63,6 +61,14 @@
     line-height: 150%;
 
     color: $dark-secondary;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 32px;
   }
 
   &-form {

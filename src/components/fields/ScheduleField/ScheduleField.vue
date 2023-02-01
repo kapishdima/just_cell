@@ -49,7 +49,6 @@ export default defineComponent({
 
   methods: {
     onChange(item: string, checked: boolean) {
-      console.log(item, checked);
       if (item === ALL_DAYS && checked) {
         this.selected = days.reduce<SelectedItem>((selected, day) => {
           selected[day.value] = true;
@@ -57,12 +56,10 @@ export default defineComponent({
           return selected;
         }, {});
 
-        console.log(this.selected);
         return;
       }
 
       this.selected[item] = checked;
-      console.log(this.selected);
     },
   },
 });
