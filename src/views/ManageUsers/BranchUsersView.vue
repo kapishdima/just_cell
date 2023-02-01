@@ -17,7 +17,10 @@
           >
             <template #footer>
               <router-link
-                :to="{ name: 'userSchedule', params: { id: user.id || '1' } }"
+                :to="{
+                  name: 'userSchedule',
+                  params: { id: user.id || '1', name: 'Точка “Цекурка”' },
+                }"
               >
                 <v-button :hasMaxWidth="false">
                   <template #beforeIcon>
