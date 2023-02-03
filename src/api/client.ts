@@ -6,7 +6,10 @@ import { ApiRoutes } from "./routes";
 const CORS_PROXY = "https://proxy.cors.sh/";
 
 export const http = axios.create({
-  baseURL: CORS_PROXY + process.env.VUE_APP_API_BASE_URL,
+  baseURL:
+    process.env.NODE_ENV === "production"
+      ? process.env.VUE_APP_API_BASE_URL
+      : `${CORS_PROXY}${process.env.VUE_APP_API_BASE_URL}`,
   headers: {
     "x-cors-api-key": "temp_ac1fb286376b61708a37600107cfca5d",
     "Content-Type": "application/json",
