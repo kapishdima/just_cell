@@ -4,22 +4,13 @@
     :placeholder="placeholder"
     :name="name"
     :required="required"
+    :value="modelValue"
     class="form-field__input"
+    @input="input($event)"
   />
   <password-visibility-button @change="changeType" />
 </template>
 
-<style scoped lang="scss"></style>
-
-<script setup lang="ts">
-export interface PasswordFieldProps {
-  name: string;
-  placeholder?: string;
-  required?: boolean;
-}
-
-defineProps<PasswordFieldProps>();
-</script>
 <script lang="ts">
 import { defineComponent } from "vue";
 import PasswordVisibilityButton from "./PasswordVisibilityButton.vue";
@@ -31,6 +22,22 @@ interface PasswordDataValues {
 }
 
 export default defineComponent({
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+    placeholder: {
+      type: String,
+      required: false,
+    },
+    required: {
+      type: Boolean,
+      required: false,
+    },
+    modelValue: String,
+  },
+  emits: ["update:modelValue"],
   components: {
     PasswordVisibilityButton,
   },
@@ -40,6 +47,10 @@ export default defineComponent({
   methods: {
     changeType(type: InputType) {
       this.type = type;
+    },
+    input(event: Event) {
+      const value = (event.target as HTMLInputElement)?.value;
+      this.$emit("update:modelValue", value);
     },
   },
 });

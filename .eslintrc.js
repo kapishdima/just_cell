@@ -22,4 +22,5 @@ module.exports = {
     defineExpose: "readonly",
     withDefaults: "readonly",
   },
+  ignorePatterns: ["src/lib/bigint.js"],
 };

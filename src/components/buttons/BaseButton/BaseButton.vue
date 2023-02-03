@@ -7,9 +7,12 @@
     @click="$emit('click')"
     class="button"
   >
-    <slot name="beforeIcon"></slot>
-    <slot name="text"></slot>
-    <slot name="afterIcon"></slot>
+    <template v-if="loading"> <v-spinner /> </template>
+    <template v-else>
+      <slot name="beforeIcon"></slot>
+      <slot name="text"></slot>
+      <slot name="afterIcon"></slot>
+    </template>
   </button>
 </template>
 <script setup lang="ts">
@@ -22,6 +25,7 @@ interface ButtonProps {
   variant?: ButtonVariants;
   rounded?: boolean;
   hasMaxWidth?: boolean;
+  loading?: boolean;
 }
 
 withDefaults(defineProps<ButtonProps>(), {
@@ -29,12 +33,17 @@ withDefaults(defineProps<ButtonProps>(), {
   variant: "primary",
   rounded: false,
   hasMaxWidth: true,
+  loading: true,
 });
 </script>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import VSpinner from "./VSpinner.vue";
 export default defineComponent({
   emits: ["click"],
+  components: {
+    VSpinner,
+  },
 });
 </script>
