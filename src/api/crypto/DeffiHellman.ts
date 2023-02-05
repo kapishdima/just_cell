@@ -1,4 +1,5 @@
 import bigInt from "@/lib/bigint.js";
+import { sha256 } from "./sha256";
 
 export const generatePartClientKey = () => {
   let GLOBAL_P = 0;
@@ -17,8 +18,7 @@ export const generatePartClientKey = () => {
 
 export const sign = async (data: any, token: string) => {
   const values = Object.values(data);
-  const encoder = new TextEncoder();
   const message = values.join("") + token;
 
-  return await crypto.subtle.digest("SHA-256", encoder.encode(message));
+  return await sha256(message);
 };

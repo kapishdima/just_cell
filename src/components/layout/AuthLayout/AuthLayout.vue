@@ -6,7 +6,8 @@
     <div class="auth-layout__content">
       <div class="auth-layout__header">
         <div class="auth-layout__logo">
-          <img src="@/assets/logo.png" alt="Just sell" />
+          <!-- <img src="@/assets/logo.png" alt="Just sell" /> -->
+          <app-logo />
         </div>
         <div class="auth-layout__header-link">
           <slot name="auth-link"></slot>
@@ -24,9 +25,11 @@
 </template>
 <script lang="ts">
 import AppLocales from "../AppLocales/AppLocales.vue";
+import AppLogo from "../AppLogo/AppLogo.vue";
 export default {
   components: {
     AppLocales,
+    AppLogo,
   },
 };
 </script>

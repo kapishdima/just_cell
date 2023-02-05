@@ -70,22 +70,26 @@ export default defineComponent({
 
   methods: {
     async signIn() {
-      this.isLoading = true;
-      await login(
-        { phone: this.phone, pass: this.pass },
-        {
-          onSuccess: () => {
-            this.toast.success("Авторизація пройшла успішно!");
-            this.$router.push({ name: "dashboard" });
-          },
-          onError: () => {
-            this.toast.error(
-              "Помилка входу! Введений номер телефону чи пароль невірні"
-            );
-          },
-        }
-      );
-      this.isLoading = false;
+      try {
+        this.isLoading = true;
+        await login(
+          { phone: this.phone, pass: this.pass },
+          {
+            onSuccess: () => {
+              this.toast.success("Авторизація пройшла успішно!");
+              this.$router.push({ name: "dashboard" });
+            },
+            onError: () => {
+              this.toast.error(
+                "Помилка входу! Введений номер телефону чи пароль невірні"
+              );
+            },
+          }
+        );
+        this.isLoading = false;
+      } catch (error) {
+        this.isLoading = false;
+      }
     },
   },
 });

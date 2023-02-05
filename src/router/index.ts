@@ -1,3 +1,6 @@
+import { isAuthorized } from "@/api/auth/checkAuth";
+import { store } from "@/store";
+import { UserActions } from "@/store/modules/user";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
 const routes: Array<RouteRecordRaw> = [
@@ -99,6 +102,17 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const isAuthPage = to.name === "signin";
+
+  if (!isAuthorized() && !isAuthPage) {
+    return next({ name: "signin" });
+  }
+
+  store.commit(UserActions.SET_USER);
+  return next();
 });
 
 export default router;

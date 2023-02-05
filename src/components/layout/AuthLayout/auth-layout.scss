@@ -88,14 +88,17 @@
   }
 
   &__logo {
-    max-width: 190px;
-
-    @include mobile {
-      max-width: 85px;
-    }
-
     img {
-      width: 100%;
+      width: 136px;
+
+      @include mobile {
+      }
+
+      //   max-width: 190px;
+
+      // @include mobile {
+      //   max-width: 85px;
+      // }
     }
   }
 

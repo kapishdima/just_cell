@@ -17,13 +17,13 @@ export const http = axios.create({
 });
 
 http.interceptors.request.use(
-  function (config) {
+  async function (config) {
     if (config.url === ApiRoutes.LOGIN) {
       return config;
     }
 
     const token = getToken();
-    const signedData = sign(config.data, token);
+    const signedData = await sign(config.data, token);
     return {
       ...config,
       data: {

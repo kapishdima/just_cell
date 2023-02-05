@@ -33,7 +33,7 @@ withDefaults(defineProps<ButtonProps>(), {
   variant: "primary",
   rounded: false,
   hasMaxWidth: true,
-  loading: true,
+  loading: false,
 });
 </script>
 
