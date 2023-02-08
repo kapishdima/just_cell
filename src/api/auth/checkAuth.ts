@@ -4,5 +4,8 @@ import { getUserFromSession } from "../user/user";
 export const isAuthorized = () => {
   const user = getUserFromSession();
   const token = getToken();
-  return user && token;
+  console.log("user", user);
+  console.log("token", token);
+
+  return Boolean(user && token);
 };

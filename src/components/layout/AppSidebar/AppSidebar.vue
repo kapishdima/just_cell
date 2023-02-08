@@ -2,11 +2,22 @@
   <aside class="app-sidebar">
     <div class="app-menu">
       <div class="app-menu__item">
-        <router-link to="/signup">
+        <router-link :to="{ name: 'dashboard' }">
           <div class="app-menu__item-icon">
             <img src="@/assets/icons/menu/dashboard_icon.svg" alt="dashboard" />
           </div>
           Dashboard
+        </router-link>
+      </div>
+      <div class="app-menu__item">
+        <router-link :to="{ name: 'terminals' }">
+          <div class="app-menu__item-icon">
+            <img
+              src="@/assets/icons/menu/transactions_icon.svg"
+              alt="dashboard"
+            />
+          </div>
+          Перегляд терміналів
         </router-link>
       </div>
       <div class="app-menu__item">

@@ -97,6 +97,21 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: "/terminals",
+    children: [
+      {
+        path: "",
+        name: "terminals",
+        component: () => import("@/views/Terminals/TerminalsListView.vue"),
+      },
+      {
+        path: "create",
+        name: "createTerminal",
+        component: () => import("@/views/Terminals/CreateTerminalView.vue"),
+      },
+    ],
+  },
 ];
 
 const router = createRouter({
@@ -105,9 +120,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuthPage = to.name === "signin";
-
-  if (!isAuthorized() && !isAuthPage) {
+  if (!isAuthorized() && to.name !== "signin") {
     return next({ name: "signin" });
   }
 

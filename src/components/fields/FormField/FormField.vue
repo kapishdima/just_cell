@@ -12,6 +12,9 @@
       <slot name="beforeIcon"></slot>
     </div>
     <slot></slot>
+    <div class="form-field__hint" v-if="hasHint">
+      <slot name="hint"></slot>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -31,6 +34,9 @@ export default defineComponent({
   computed: {
     hasBeforeIcon(): boolean {
       return Boolean(this.$slots.beforeIcon);
+    },
+    hasHint(): boolean {
+      return Boolean(this.$slots.hint);
     },
   },
 });

@@ -1,0 +1,37 @@
+@mixin table-spacing($spacing) {
+  &:before {
+    content: "@";
+    display: block;
+    line-height: #{$spacing}px;
+    text-indent: -99999px;
+  }
+}
+
+.table {
+  &-tbody {
+    @include table-spacing(10);
+  }
+  &-thead {
+  }
+  &-tr {
+    background-color: #fff;
+    border-bottom: 8px solid transparent;
+  }
+  &-th {
+    text-align: left;
+  }
+  &-td {
+  }
+
+  &-cell {
+    padding: 10px;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+
+    color: $dark-primary;
+  }
+}

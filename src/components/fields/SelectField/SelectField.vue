@@ -4,14 +4,17 @@
     :class="{ 'select-field--active': opened }"
     ref="selectField"
   >
-    <div class="select-field__container form-field__input" @click="open">
+    <div
+      class="select-field__container form-field__input"
+      @click="!hasSearch ? toggle() : open()"
+    >
       <selected-input
-        v-if="!opened"
+        v-if="!hasSearch || !opened"
         :value="value"
         :placeholder="inputPlaceholder"
       />
       <search-input
-        v-if="opened"
+        v-if="opened && hasSearch"
         :name="name"
         :placeholder="searchPlaceholder"
         @clear="clear"
@@ -34,9 +37,12 @@ interface SelectFieldProps {
   options: Option[];
   inputPlaceholder?: string;
   searchPlaceholder?: string;
+  hasSearch?: boolean;
 }
 
-defineProps<SelectFieldProps>();
+withDefaults(defineProps<SelectFieldProps>(), {
+  hasSearch: true,
+});
 </script>
 <script lang="ts">
 import { defineComponent } from "vue";
@@ -48,9 +54,11 @@ interface Option {
   label: string;
   value: string;
   icon?: string;
+  hint?: string;
 }
 
 export default defineComponent({
+  emits: ["update:modelValue"],
   components: {
     SearchInput,
     SelectedInput,
@@ -82,12 +90,16 @@ export default defineComponent({
     open() {
       this.opened = true;
     },
+    toggle() {
+      this.opened = !this.opened;
+    },
     close() {
       this.opened = false;
     },
     select(option: Option) {
       this.selected = option;
       this.close();
+      this.$emit("update:modelValue", option.value);
     },
     clear() {
       this.value = "";

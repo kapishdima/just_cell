@@ -3,7 +3,7 @@
     <div class="app-user__avatar">
       <img src="@/assets/icons/user_avatar.svg" alt="" />
     </div>
-    <div class="app-user__name">{{ $store.state.users.user.sh_name }}</div>
+    <div class="app-user__name">{{ $store.state.users.user?.sh_name }}</div>
   </div>
 </template>
 <script lang="ts">

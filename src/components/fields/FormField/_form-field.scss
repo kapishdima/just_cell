@@ -18,6 +18,16 @@
   line-height: 24px;
 }
 
+@mixin hint {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+
+  color: $dark-secondary;
+}
+
 .form-field {
   display: flex;
   flex-direction: column;
@@ -43,6 +53,14 @@
       font-size: 14px;
       line-height: 150%;
     }
+  }
+
+  &__hint {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+
+    @include hint;
   }
 
   &--iconed {
@@ -92,6 +110,10 @@
     &--accent {
       border: 1px solid $accent-primary;
     }
+  }
+
+  &__textarea {
+    min-height: 140px;
   }
 
   &__extra {

@@ -59,7 +59,7 @@ export default defineComponent({
   },
 
   data() {
-    // phone: "380222222222",
+    // phone: "380500",
     // pass: "202cb962ac59075b964b07152d234b70",
     return {
       phone: "",
@@ -80,6 +80,7 @@ export default defineComponent({
               this.$router.push({ name: "dashboard" });
             },
             onError: () => {
+              this.$router.push({ name: "dashboard" });
               this.toast.error(
                 "Помилка входу! Введений номер телефону чи пароль невірні"
               );

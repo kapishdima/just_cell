@@ -2,7 +2,7 @@
   <input
     type="checkbox"
     class="checkbox-field__input"
-    :checked="checked"
+    :checked="modelValue || checked"
     :name="name"
   />
   <div
@@ -33,6 +33,7 @@ interface CheckboxFieldProps {
   direction?: "right" | "left";
   defaultChecked?: boolean;
   variant?: "primary" | "secondary";
+  modelValue?: boolean;
 }
 
 withDefaults(defineProps<CheckboxFieldProps>(), {
@@ -44,7 +45,7 @@ withDefaults(defineProps<CheckboxFieldProps>(), {
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  emits: ["change"],
+  emits: ["change", "update:modelValue"],
   data() {
     return {
       checked: false,
@@ -55,6 +56,7 @@ export default defineComponent({
     check() {
       this.checked = !this.checked;
       this.$emit("change", this.checked);
+      this.$emit("update:modelValue", this.checked);
     },
   },
 });

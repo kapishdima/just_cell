@@ -22,11 +22,7 @@ export const login = async (
     p_client,
   };
 
-  const { data } = await http.post<
-    LoginResponse,
-    AxiosResponse<LoginResponse>,
-    LoginRequest
-  >(ApiRoutes.LOGIN, payload, { params: { lng: "UA" } });
+  const { data } = await http.post(ApiRoutes.LOGIN, payload);
 
   if (data.code !== 0) {
     onError && onError();

@@ -3,6 +3,10 @@ module.exports = defineConfig({
   transpileDependencies: true,
   publicPath: process.env.NODE_ENV === "production" ? "" : "/",
 
+  devServer: {
+    host: "0.0.0.0",
+    port: 8080,
+  },
   css: {
     loaderOptions: {
       scss: {

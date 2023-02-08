@@ -3,22 +3,18 @@ import { sign } from "./crypto/DeffiHellman";
 import { getToken } from "./crypto/token";
 import { ApiRoutes } from "./routes";
 
-const CORS_PROXY = "https://proxy.cors.sh/";
-
 export const http = axios.create({
-  baseURL:
-    process.env.NODE_ENV === "production"
-      ? process.env.VUE_APP_API_BASE_URL
-      : `${CORS_PROXY}${process.env.VUE_APP_API_BASE_URL}`,
+  baseURL: process.env.VUE_APP_API_BASE_URL,
   headers: {
-    "x-cors-api-key": "temp_ac1fb286376b61708a37600107cfca5d",
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 http.interceptors.request.use(
   async function (config) {
-    if (config.url === ApiRoutes.LOGIN) {
+    console.log(config.method);
+    if (config.url === ApiRoutes.LOGIN || config.method === "get") {
       return config;
     }
 

@@ -39,7 +39,7 @@ withDefaults(defineProps<ButtonProps>(), {
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import VSpinner from "./VSpinner.vue";
+import VSpinner from "@/components/spinner/VSpinner.vue";
 export default defineComponent({
   emits: ["click"],
   components: {

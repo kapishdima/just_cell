@@ -17,7 +17,7 @@ export const generatePartClientKey = () => {
 };
 
 export const sign = async (data: any, token: string) => {
-  const values = Object.values(data);
+  const values = Object.values(data) || {};
   const message = values.join("") + token;
 
   return await sha256(message);

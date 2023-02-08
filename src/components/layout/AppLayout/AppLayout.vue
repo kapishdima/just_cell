@@ -4,6 +4,7 @@
     <div class="app-layout__row">
       <app-sidebar />
       <div class="app-layout__content">
+        <slot name="appLoading" />
         <div class="app-layout__header">
           <div class="app-layout__link">
             <slot name="appLink"></slot>
