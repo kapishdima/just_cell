@@ -1,8 +1,8 @@
-import { AxiosResponse } from "axios";
 import { http } from "@/api/client";
 import { ApiRoutes } from "@/api/routes";
 import { generatePartClientKey } from "@/api/crypto/DeffiHellman";
 import { generateToken, saveToken } from "@/api/crypto/token";
+import md5 from "md5";
 
 import { LoginDTO, LoginRequest, LoginResponse } from "./login.model";
 
@@ -17,7 +17,8 @@ export const login = async (
   const { onSuccess, onError } = options || {};
 
   const payload: LoginRequest = {
-    ...credentials,
+    phone: credentials.phone,
+    pass: md5(credentials.pass),
     common_p,
     p_client,
   };
