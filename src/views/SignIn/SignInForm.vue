@@ -21,7 +21,7 @@
       </form-field>
 
       <div class="auth-layout__actions">
-        <submit-button type="submit" :loading="isLoading">
+        <submit-button type="submit" :loading="loading">
           <template #text>Увійти</template>
         </submit-button>
 
@@ -42,7 +42,7 @@ import TelField from "@/components/fields/TelField/TelField.vue";
 import PasswordField from "@/components/fields/PasswordField/PasswordField.vue";
 import SubmitButton from "@/components/buttons/BaseButton/BaseButton.vue";
 
-import { login } from "@/api/auth/login";
+import { AuthActions } from "@/store/modules/auth";
 
 export default defineComponent({
   components: {
@@ -59,8 +59,6 @@ export default defineComponent({
   },
 
   data() {
-    // phone: "380500",
-    // pass: "202cb962ac59075b964b07152d234b70",
     return {
       phone: "",
       pass: "",
@@ -68,29 +66,22 @@ export default defineComponent({
     };
   },
 
+  computed: {
+    loading(): boolean {
+      return this.$store.state.terminals.loading;
+    },
+  },
+
   methods: {
-    async signIn() {
-      try {
-        this.isLoading = true;
-        await login(
-          { phone: this.phone, pass: this.pass },
-          {
-            onSuccess: () => {
-              this.toast.success("Авторизація пройшла успішно!");
-              this.$router.push({ name: "dashboard" });
-            },
-            onError: () => {
-              this.$router.push({ name: "dashboard" });
-              this.toast.error(
-                "Помилка входу! Введений номер телефону чи пароль невірні"
-              );
-            },
-          }
-        );
-        this.isLoading = false;
-      } catch (error) {
-        this.isLoading = false;
-      }
+    signIn() {
+      const loginData = {
+        pass: this.pass,
+        phone: this.phone,
+      };
+      this.$store.dispatch(AuthActions.LOGIN, {
+        loginData,
+        toast: this.toast,
+      });
     },
   },
 });

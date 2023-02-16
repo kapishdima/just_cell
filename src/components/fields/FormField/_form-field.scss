@@ -63,6 +63,45 @@
     @include hint;
   }
 
+  .hint-more {
+    &__title {
+      margin-bottom: 4px;
+    }
+    &__item {
+      cursor: pointer;
+      span {
+        position: relative;
+        &:before {
+          content: "";
+
+          width: 0;
+          height: 1px;
+
+          position: absolute;
+          left: 0;
+          top: 50%;
+
+          transform: translateY(-50%);
+          background: $dark-secondary;
+
+          transition: width 0.25s ease;
+        }
+      }
+      &--selected {
+        span {
+          &:before {
+            width: 100%;
+          }
+        }
+      }
+    }
+    &-btn {
+      margin-top: 4px;
+      color: $dark-primary;
+      cursor: pointer;
+    }
+  }
+
   &--iconed {
     .form-field__input {
       padding-left: 36px;

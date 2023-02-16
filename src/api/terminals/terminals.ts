@@ -13,3 +13,30 @@ export const getTerminalRefs = async () => {
 
   return data;
 };
+
+export const createOfflineTerminal = async (terminalData: any) => {
+  const { data } = await http.post(ApiRoutes.CREATE_OFFLINE_TERMINAL, {
+    settings: parseInt(terminalData.settings),
+    max_offline_sum: parseInt(terminalData.max_offline_sum),
+    is_default_offline: terminalData.is_default_offline,
+    is_for_all_card: terminalData.is_for_all_card,
+    can_user_add_card: terminalData.can_user_add_card,
+    endpoint_result: terminalData.endpoint_result,
+    add_get: terminalData.add_get,
+    headers: terminalData.headers,
+    payload: terminalData.payload,
+    sign_stract: terminalData.sign_stract,
+    card_wait: parseInt(terminalData.card_wait),
+    req_type: terminalData.req_type,
+    need_shift: terminalData.need_shift,
+    sync_type: parseInt(terminalData.sync_type),
+    sync_period: parseInt(terminalData.sync_period),
+    update_all_term: terminalData.update_all_term,
+  });
+
+  return data;
+};
+
+export const createKeyFile = (publicKey: string) => {
+  return "data:text/plain;charset=utf-8," + encodeURIComponent(publicKey);
+};

@@ -1,5 +1,5 @@
 export type Terminal = {
-  settings: null;
+  settings: any;
   name: string;
   terminal_type: string;
   address: string;
@@ -61,5 +61,41 @@ export type TerminalRef = {
   cities: City[];
   transport_list: Transport[];
   transport_support: TerminalModel[];
+  offline_settings: TerminalOfflineSettings[];
+  sync_type: TerminalSyncType[];
   sign: string;
+};
+
+export type TerminalOfflineSettings = {
+  name: string;
+  id: number;
+};
+
+export type TerminalSyncType = {
+  name: string;
+  id: number;
+};
+
+export type OfflineTerminalPayload = {
+  settings: string;
+  max_offline_sum: number;
+  is_default_offline: boolean;
+  is_for_all_card: boolean;
+  can_user_add_card: boolean;
+  sync_type: string;
+  sync_period: number;
+  endpoint_result: string;
+  add_get: string;
+  req_type: string;
+  headers: string;
+  payload: string;
+  sign_stract: string;
+  need_shift: boolean;
+  card_wait: number;
+  update_all_term: boolean;
+};
+
+export type CreateOfflineTerminalResponse = {
+  code: number;
+  public_key: string;
 };

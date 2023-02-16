@@ -38,6 +38,7 @@ interface SelectFieldProps {
   inputPlaceholder?: string;
   searchPlaceholder?: string;
   hasSearch?: boolean;
+  modelValue?: string;
 }
 
 withDefaults(defineProps<SelectFieldProps>(), {

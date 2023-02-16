@@ -110,6 +110,17 @@ const routes: Array<RouteRecordRaw> = [
         name: "createTerminal",
         component: () => import("@/views/Terminals/CreateTerminalView.vue"),
       },
+      {
+        path: "offlineTerminal",
+        name: "offlineTerminal",
+        component: () =>
+          import("@/views/Terminals/CreateOfflineTerminalView.vue"),
+      },
+      {
+        path: "success",
+        name: "offlineTerminalSuccess",
+        component: () => import("@/views/Terminals/SuccessOfflineView.vue"),
+      },
     ],
   },
 ];

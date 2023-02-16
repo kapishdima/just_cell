@@ -31,7 +31,6 @@ export default defineComponent({
 
   computed: {
     showOsSelect(): boolean {
-      console.log(this.$store.state.terminals);
       const terminal: TerminalModel = this.$store.getters.terminalModel(
         this.model
       );

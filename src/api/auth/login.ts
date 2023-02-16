@@ -2,6 +2,7 @@ import { http } from "@/api/client";
 import { ApiRoutes } from "@/api/routes";
 import { generatePartClientKey } from "@/api/crypto/DeffiHellman";
 import { generateToken, saveToken } from "@/api/crypto/token";
+import { saveMenu } from "@/api/menu/menu.api";
 import md5 from "md5";
 
 import { LoginDTO, LoginRequest, LoginResponse } from "./login.model";
@@ -32,6 +33,8 @@ export const login = async (
 
   createAndSaveToken(data);
   saveUserToSession(data.user_info);
+  saveMenu(data.user_menu);
+
   onSuccess && onSuccess();
   return true;
 };

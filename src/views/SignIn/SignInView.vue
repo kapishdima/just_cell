@@ -13,7 +13,6 @@
 <script lang="ts">
 import AuthLayout from "@/components/layout/AuthLayout/AuthLayout.vue";
 import SigninForm from "./SignInForm.vue";
-// import { UserActions } from "@/store/modules/user";
 
 export default {
   components: {
@@ -22,7 +21,7 @@ export default {
   },
 
   mounted() {
-    // this.$store.users.commit(UserActions.CLEA_USER);
+    window.localStorage.clear();
   },
 };
 </script>

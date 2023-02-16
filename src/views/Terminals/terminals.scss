@@ -2,3 +2,75 @@
   display: block;
   width: 200px;
 }
+
+.success-offline-terminal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__icon {
+    width: 124px;
+    height: 124px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background-color: $accent-primary;
+    margin-bottom: 32px;
+
+    img {
+      width: 62px;
+    }
+  }
+
+  &__title {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 150%;
+
+    color: $accent-primary;
+  }
+
+  &__subtitle {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;
+
+    color: $dark-primary;
+    margin-top: 12px;
+  }
+
+  &__description {
+    max-width: 65%;
+    margin: 18px 0;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 150%;
+    text-align: center;
+
+    color: $dark-primary;
+  }
+
+  &__link {
+    display: block;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: $accent-primary;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 150%;
+    text-decoration: none;
+    color: #fff;
+  }
+}

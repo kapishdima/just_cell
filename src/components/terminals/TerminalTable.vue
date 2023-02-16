@@ -47,8 +47,5 @@ export default {
   components: {
     VTable,
   },
-  mounted() {
-    // console.log(this.data);
-  },
 };
 </script>

@@ -45,7 +45,6 @@ export default defineComponent({
 
   methods: {
     async submitPassword() {
-      console.log(this.$data);
       this.$router.push({ name: "signin" });
     },
   },
