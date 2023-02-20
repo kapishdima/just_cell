@@ -2,6 +2,10 @@
   &__row {
     display: flex;
     min-height: calc(100vh - 66px);
+
+    @include mobile {
+      flex-direction: column;
+    }
   }
 
   &__content {
@@ -15,6 +19,10 @@
     padding: 60px 24px 74px 24px;
 
     overflow-x: hidden;
+
+    @include mobile {
+      flex: 1 1 100%;
+    }
 
     &:before {
       content: "";
@@ -31,6 +39,31 @@
     }
   }
 
+  &__text {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+
+    @include mobile {
+      row-gap: 4px;
+    }
+  }
+
+  &__subtitle {
+    text-align: center;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+
+    color: $dark-secondary;
+
+    @include mobile {
+      font-size: 10px;
+    }
+  }
+
   &__title {
     text-align: center;
 
@@ -41,6 +74,10 @@
     line-height: 150%;
 
     color: $dark-primary;
+
+    @include mobile {
+      font-size: 28px;
+    }
   }
 
   &__actions {
@@ -110,5 +147,15 @@
     line-height: 150%;
 
     color: $accent-primary;
+  }
+}
+
+.form-actions {
+  display: flex;
+  column-gap: 8px;
+
+  @include mobile {
+    flex-direction: column;
+    row-gap: 8px;
   }
 }

@@ -6,7 +6,18 @@
 
   cursor: pointer;
 
-  &--checked {
+  &--disabled {
+    .checkbox-field__label {
+      cursor: not-allowed;
+    }
+    .checkbox-field__box {
+      cursor: not-allowed;
+      background-color: lighten($dark-secondary, 70);
+      border-color: lighten($dark-secondary, 70);
+    }
+  }
+
+  &--checked:not(.checkbox-field--disabled) {
     .checkbox-field__box {
       background-color: $accent-primary;
       border-color: $accent-primary;
@@ -48,6 +59,10 @@
     cursor: pointer;
 
     padding-right: 30px;
+
+    @include mobile {
+      font-size: 14px;
+    }
   }
 
   &__input {

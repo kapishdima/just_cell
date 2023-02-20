@@ -1,10 +1,10 @@
 <template lang="">
   <div class="selected-input">
     <div class="selected-input__field">
-      <span v-if="!value && placeholder" class="selected-input__placeholder">{{
+      <span v-if="!label && placeholder" class="selected-input__placeholder">{{
         placeholder
       }}</span>
-      {{ value }}
+      {{ label }}
     </div>
     <img src="@/assets/icons/chevron-down-accent.svg" />
   </div>
@@ -12,7 +12,7 @@
 <script setup lang="ts">
 interface SelectedInputProps {
   placeholder?: string;
-  value?: string;
+  label?: string;
 }
 
 defineProps<SelectedInputProps>();

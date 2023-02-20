@@ -4,10 +4,11 @@
     :placeholder="placeholder"
     :name="name"
     :required="required"
-    class="form-field__input"
     :class="`form-field__input--${size} form-field__input--${variant}`"
     :value="modelValue"
+    :disabled="!canEdit"
     @input="input($event)"
+    class="form-field__input"
   />
 </template>
 
@@ -34,7 +35,19 @@ withDefaults(defineProps<InputFieldProps>(), {
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
+  inject: ["rules"],
   emits: ["update:modelValue"],
+
+  data() {
+    return {
+      canEdit: false,
+    };
+  },
+
+  mounted() {
+    this.canEdit = Boolean(this.rules);
+  },
+
   methods: {
     input(event: Event) {
       const value = (event.target as HTMLInputElement)?.value;

@@ -6,6 +6,7 @@
     class="form-field__input form-field__textarea"
     :class="`form-field__input--${size} form-field__input--${variant}`"
     :value="modelValue"
+    :disabled="!canEdit"
     @input="input($event)"
   />
 </template>
@@ -33,6 +34,18 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   emits: ["update:modelValue"],
+  inject: ["rules"],
+
+  data() {
+    return {
+      canEdit: false,
+    };
+  },
+
+  mounted() {
+    this.canEdit = Boolean(this.rules);
+  },
+
   methods: {
     input(event: Event) {
       const value = (event.target as HTMLInputElement)?.value;

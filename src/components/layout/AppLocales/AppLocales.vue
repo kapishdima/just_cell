@@ -6,7 +6,7 @@
     <div class="app-locales__current" @click="toggleOpened">
       <div class="app-locales__item">
         <img :src="current.icon" alt="UK" />
-        {{ current.name }}
+        <div class="app-locales__item-label">{{ current.name }}</div>
         <img
           class="app-locales__icon"
           src="@/assets/icons/chevron-down.svg"

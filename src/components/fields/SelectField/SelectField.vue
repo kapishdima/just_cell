@@ -1,7 +1,10 @@
 <template>
   <div
     class="select-field"
-    :class="{ 'select-field--active': opened }"
+    :class="{
+      'select-field--active': opened,
+      'select-field--disabled': !canEdit,
+    }"
     ref="selectField"
   >
     <div
@@ -10,7 +13,7 @@
     >
       <selected-input
         v-if="!hasSearch || !opened"
-        :value="value"
+        :label="selectedLabel"
         :placeholder="inputPlaceholder"
       />
       <search-input
@@ -59,22 +62,31 @@ interface Option {
 }
 
 export default defineComponent({
+  inject: ["rules"],
   emits: ["update:modelValue"],
   components: {
     SearchInput,
     SelectedInput,
     OptionItem,
   },
-  data(): { opened: boolean; value: string; selected: Option | null } {
+  data(): any {
     return {
       opened: false,
-      value: "",
+      value: this.modelValue || "",
+      selectedLabel: "",
       selected: null,
+      canEdit: false,
     };
   },
 
   mounted() {
     document.addEventListener("keydown", this.onEscapePressed);
+
+    this.canEdit = Boolean(this.rules);
+    this.selectedLabel =
+      (this.$props.options as any).find(
+        ({ value }: any) => value === this.$props.modelValue
+      )?.label || "";
   },
 
   beforeUnmount() {
@@ -99,6 +111,7 @@ export default defineComponent({
     },
     select(option: Option) {
       this.selected = option;
+      this.selectedLabel = option.label;
       this.close();
       this.$emit("update:modelValue", option.value);
     },

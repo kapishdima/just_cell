@@ -61,6 +61,7 @@ export default defineComponent({
 
   methods: {
     open(index: number) {
+      console.log(index);
       if (this.activeIndex === index) {
         this.activeIndex = -1;
       } else {

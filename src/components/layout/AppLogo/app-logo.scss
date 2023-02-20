@@ -4,6 +4,12 @@
   align-items: center;
   row-gap: 4px;
 
+  img {
+    @include mobile() {
+      width: 65px;
+    }
+  }
+
   &__text {
     font-family: "Inter";
     font-style: normal;
@@ -12,5 +18,10 @@
     line-height: 10px;
 
     color: $dark-primary;
+
+    @include mobile() {
+      font-size: 6px;
+      line-height: 7px;
+    }
   }
 }

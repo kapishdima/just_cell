@@ -1,8 +1,16 @@
 @import "./selected-input";
 @import "./search-input";
+@import "../FormField/form-field";
 
 .select-field {
   position: relative;
+
+  &--disabled {
+    pointer-events: none;
+    .select-field__container.form-field__input {
+      @include disabled();
+    }
+  }
 
   &--active {
     .select-field__container {

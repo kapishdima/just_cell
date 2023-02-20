@@ -6,7 +6,7 @@
       name="payload"
       placeholder="Наприклад, {\r\n\'status\':${status_code},\r\n\'error_msg\':\'${error_msg}\',\r\n\'terminal_id\':\'${terminal_id}\',\r\n\'transaction_id\':\'${transaction_id}\',\r\n\'amount\':\'${amount}\',\r\n\'transaction_time\':\'${transaction_time}\',\r\n\'tax_num\':\'${tax_num}\',\r\n\'fiscal_transaction_id\':\'${fiscal_transaction_id}\'\r\n}"
     />
-    <template #hint>
+    <template #hint v-if="canEdit">
       <div class="hint-more">
         <div class="hint-more__title">
           Натисніть на потрібний елемент, щоб додати до шаблону
@@ -34,6 +34,7 @@ import FormField from "../fields/FormField/FormField.vue";
 import TextareaField from "../fields/TextareaField/TextareaField.vue";
 
 export default defineComponent({
+  inject: ["rules"],
   props: {
     modelValue: String,
   },
@@ -42,6 +43,7 @@ export default defineComponent({
     return {
       payload: "",
       hintOpened: false,
+      canEdit: false,
       hintMessages: [
         { name: "${transaction_id}", message: " - ідентифікатор платежу" },
         { name: "${pay_time}", message: " – час платежу" },
@@ -56,6 +58,13 @@ export default defineComponent({
         { name: "${sign}", message: " – підпис" },
       ],
     };
+  },
+
+  mounted() {
+    this.canEdit = Boolean(this.rules);
+    if (this.modelValue) {
+      this.payload = this.modelValue;
+    }
   },
 
   computed: {

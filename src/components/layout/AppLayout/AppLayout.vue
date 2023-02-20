@@ -9,9 +9,14 @@
           <div class="app-layout__link">
             <slot name="appLink"></slot>
           </div>
-          <h2 class="app-layout__title">
-            <slot name="appTitle"></slot>
-          </h2>
+          <div class="app-layout__text">
+            <h2 class="app-layout__title">
+              <slot name="appTitle"></slot>
+            </h2>
+            <h4 class="app-layout__subtitle">
+              <slot name="appSubtitle"></slot>
+            </h4>
+          </div>
           <div class="app-layout__extra">
             <slot name="appExtra"></slot>
           </div>

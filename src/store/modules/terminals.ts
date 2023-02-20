@@ -9,6 +9,8 @@ import {
   getTerminalsList,
   createOfflineTerminal,
   createKeyFile,
+  getTerminalConfig,
+  activateTeminal,
 } from "@/api/terminals/terminals";
 
 import router from "@/router";
@@ -21,6 +23,7 @@ type KeyFile = {
 type TerminalState = {
   terminals: Terminal[];
   terminalsRef: TerminalRef | null;
+  terminalConfig: OfflineTerminalPayload | null;
   loading: boolean;
   key: KeyFile | null;
 };
@@ -29,10 +32,13 @@ export enum TerminalsActions {
   GET_TERMINALS = "get_terminals",
   SET_TERMINALS = "set_terminals",
   GET_TERMINALS_REF = "get_terminals_ref",
+  GET_TERMINAL_CONFIG = "get_terminal_config",
+  SET_TERMINAL_CONFIG = "set_terminal_config",
   SET_TERMINALS_REF = "set_terminals_ref",
   SET_LOADING = "set_loading",
   CREATE_OFFLINE_TERMINAL = "create_offline_terminal",
   SET_KEY_LINK = "set_key_link",
+  ACTIVATE_TERMINAL = "activate_terminal",
 }
 
 const TERMINAL_KEY_FILENAME = "JustSell_publicKey.pem";
@@ -40,6 +46,7 @@ const TERMINAL_KEY_FILENAME = "JustSell_publicKey.pem";
 const state = (): TerminalState => ({
   terminals: [],
   terminalsRef: null,
+  terminalConfig: null,
   loading: false,
   key: null,
 });
@@ -56,6 +63,12 @@ const mutations = {
     terminalsRef: TerminalRef
   ) {
     state.terminalsRef = terminalsRef;
+  },
+  [TerminalsActions.SET_TERMINAL_CONFIG](
+    state: TerminalState,
+    terminalConfig: OfflineTerminalPayload
+  ) {
+    state.terminalConfig = terminalConfig;
   },
   [TerminalsActions.SET_LOADING](state: TerminalState, loading: boolean) {
     state.loading = loading;
@@ -98,6 +111,26 @@ const actions = {
       commit(TerminalsActions.SET_KEY_LINK, key);
       router.push({ name: "offlineTerminalSuccess" });
     }
+    commit(TerminalsActions.SET_LOADING, false);
+  },
+  async [TerminalsActions.GET_TERMINAL_CONFIG]({ commit }: any) {
+    commit(TerminalsActions.SET_LOADING, true);
+    const terminalConfig = await getTerminalConfig();
+
+    commit(TerminalsActions.SET_TERMINAL_CONFIG, terminalConfig);
+    commit(TerminalsActions.SET_LOADING, false);
+  },
+  async [TerminalsActions.ACTIVATE_TERMINAL](
+    { commit }: any,
+    { terminalId, toast }: any
+  ) {
+    commit(TerminalsActions.SET_LOADING, true);
+    const code = await activateTeminal(terminalId);
+
+    if (code === 0) {
+      toast.success("Термінал успішно активовано!");
+    }
+
     commit(TerminalsActions.SET_LOADING, false);
   },
 };

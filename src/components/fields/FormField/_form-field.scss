@@ -28,6 +28,12 @@
   color: $dark-secondary;
 }
 
+@mixin disabled {
+  background-color: lighten($dark-secondary, 70);
+  color: $dark-secondary;
+  cursor: not-allowed;
+}
+
 .form-field {
   display: flex;
   flex-direction: column;
@@ -148,6 +154,10 @@
 
     &--accent {
       border: 1px solid $accent-primary;
+    }
+
+    &:disabled {
+      @include disabled();
     }
   }
 

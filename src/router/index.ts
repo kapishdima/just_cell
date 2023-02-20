@@ -123,6 +123,10 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  {
+    path: "/Terminal/Activate",
+    component: () => import("@/views/Terminals/ActivateTerminalView.vue"),
+  },
 ];
 
 const router = createRouter({
@@ -130,8 +134,10 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (!isAuthorized() && to.name !== "signin") {
+router.beforeEach(async (to, from, next) => {
+  const authorized = await isAuthorized();
+
+  if (!authorized && to.name !== "signin") {
     return next({ name: "signin" });
   }
 

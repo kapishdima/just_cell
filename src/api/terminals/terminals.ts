@@ -36,6 +36,34 @@ export const createOfflineTerminal = async (terminalData: any) => {
 
   return data;
 };
+export const getTerminalConfig = async () => {
+  const { data } = await http.get(ApiRoutes.GET_TERMINAL_CONFIG);
+  const terminalConfig = data.terminal_config.at(0);
+
+  return {
+    settings: terminalConfig.settings,
+    max_offline_sum: terminalConfig.max_offline_sum,
+    is_default_offline: JSON.parse(terminalConfig.is_default_offline),
+    is_for_all_card: JSON.parse(terminalConfig.is_for_all_card),
+    can_user_add_card: JSON.parse(terminalConfig.can_user_add_card),
+    sync_type: terminalConfig.sync_type,
+    sync_period: terminalConfig.sync_period,
+    endpoint_result: terminalConfig.endpoint_result,
+    add_get: terminalConfig.add_get,
+    req_type: terminalConfig.req_type,
+    headers: terminalConfig.headers,
+    payload: terminalConfig.payload,
+    sign_stract: terminalConfig.sign_stract,
+    need_shift: JSON.parse(terminalConfig.need_shift),
+    card_wait: terminalConfig.card_wait,
+  };
+};
+
+export const activateTeminal = async (id: string) => {
+  const { data } = await http.post(ApiRoutes.ACTIVATE_TERMINAL, { id });
+
+  return data.code;
+};
 
 export const createKeyFile = (publicKey: string) => {
   return "data:text/plain;charset=utf-8," + encodeURIComponent(publicKey);

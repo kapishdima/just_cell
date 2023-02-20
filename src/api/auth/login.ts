@@ -8,7 +8,7 @@ import md5 from "md5";
 import { LoginDTO, LoginRequest, LoginResponse } from "./login.model";
 
 import { RequestOptions } from "../response";
-import { saveUserToSession } from "../user/user";
+import { saveUserRulesToSession, saveUserToSession } from "../user/user";
 
 export const login = async (
   credentials: LoginDTO,
@@ -33,6 +33,7 @@ export const login = async (
 
   createAndSaveToken(data);
   saveUserToSession(data.user_info);
+  saveUserRulesToSession(data.rules);
   saveMenu(data.user_menu);
 
   onSuccess && onSuccess();

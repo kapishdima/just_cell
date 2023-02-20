@@ -1,16 +1,19 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template lang="">
-  <div class="terminal-form__container">
-    <form
-      action="#"
-      class="terminal-form"
-      @submit.prevent
-      @submit.stop
-      @submit="onSubmit"
-    >
-      <settings-select v-model="settings" />
+  <div class="terminal-form__container" v-if="Boolean(this.configData)">
+    <form action="#" class="terminal-form" @submit.prevent @submit.stop>
+      <form-field label="Назва терміналу" v-if="showTerminalName">
+        <input-field
+          v-model="this.configData.name"
+          name="name"
+          type="text"
+          placeholder="Введіть назву термінала"
+        />
+      </form-field>
+      <settings-select v-model="this.configData.settings" />
       <form-field label="Максимальна сума для оффлайн платежу">
         <input-field
-          v-model="max_offline_sum"
+          v-model="this.configData.max_offline_sum"
           name="max_offline_sum"
           type="number"
           placeholder="Введіть максимальну суму для оффлайн платежу"
@@ -19,73 +22,73 @@
       <div class="checkbox-container">
         <checkbox-field
           name="is_default_offline"
-          v-model="is_default_offline"
+          v-model="this.configData.is_default_offline"
           label="Оффлайн по замовченню"
         />
       </div>
       <div class="checkbox-container">
         <checkbox-field
-          v-model="is_for_all_card"
+          v-model="this.configData.is_for_all_card"
           name="is_for_all_card"
           label="Чи для всіх карт"
         />
       </div>
       <div class="checkbox-container">
         <checkbox-field
-          v-model="can_user_add_card"
+          v-model="this.configData.can_user_add_card"
           name="can_user_add_card"
           label="Чи може користувач додавати карту"
         />
       </div>
       <form-field label="Endpoint для повідомлень про результати транзакцій">
         <input-field
-          v-model="endpoint_result"
+          v-model="this.configData.endpoint_result"
           name="endpoint_result"
           placeholder="Наприклад, https://example.com/callback"
         />
       </form-field>
       <form-field label="GET параметри для передачі">
         <input-field
-          v-model="add_get"
+          v-model="this.configData.add_get"
           name="add_get"
           placeholder="Наприклад, ?param_name=param_value"
         />
       </form-field>
       <form-field label="headers запиту">
         <textarea-field
-          v-model="headers"
+          v-model="this.configData.headers"
           name="headers"
           placeholder="Наприклад, Content-type: application/json; Host:example.it"
         />
       </form-field>
-      <payload-field v-model="payload" />
+      <payload-field v-model="this.configData.payload" />
       <form-field label="Структура підпису">
         <textarea-field
-          v-model="sign_stract"
+          v-model="this.configData.sign_stract"
           name="sign_stract"
           placeholder="Наприклад, ${transaction_id}${pay_time}${get_time}${device_id}${pay_inst}${pan_mask}${end_pay_time}${code}${transaction_type}${msg}${amount}${ticket_num}"
         />
       </form-field>
-      <request-type-select v-model="req_type" />
+      <request-type-select v-model="this.configData.req_type" />
       <form-field label="Час очікування картки, в секундах">
         <input-field
-          v-model="card_wait"
+          v-model="this.configData.card_wait"
           name="card_wait"
           placeholder="Наприклад, 30"
           type="number"
         />
       </form-field>
-      <synctype-select v-model="sync_type" />
+      <synctype-select v-model="this.configData.sync_type" />
       <div class="checkbox-container">
         <checkbox-field
-          v-model="need_shift"
+          v-model="this.configData.need_shift"
           name="need_shift"
           label="Необхідне відкриття зміни"
         />
       </div>
       <form-field label="Час синхронізації, в секундах">
         <input-field
-          v-model="sync_period"
+          v-model="this.configData.sync_period"
           name="sync_period"
           placeholder="Наприклад, 30"
           type="number"
@@ -94,15 +97,20 @@
 
       <div class="checkbox-container">
         <checkbox-field
-          v-model="update_all_term"
+          v-model="this.configData.update_all_term"
           name="need_shift"
           label="Оновити всі термінали"
         />
       </div>
 
-      <v-button type="submit" :loading="loading">
-        <template #text>Додати термінал</template>
-      </v-button>
+      <div class="form-actions">
+        <v-button type="button" :loading="loading" @click="sendConfig">
+          <template #text>Додати налаштування термінала</template>
+        </v-button>
+        <v-button type="button" :loading="loading" @click="activeTerminal">
+          <template #text>Активувати термінал</template>
+        </v-button>
+      </div>
     </form>
   </div>
 </template>
@@ -121,7 +129,47 @@ import SettingsSelect from "./SettingsSelect.vue";
 import RequestTypeSelect from "./RequestTypeSelect.vue";
 import SynctypeSelect from "./SyncTypeSelect.vue";
 
+const defaultConfigData = {
+  name: "",
+  settings: "",
+  max_offline_sum: 0,
+  is_default_offline: false,
+  is_for_all_card: false,
+  can_user_add_card: false,
+  endpoint_result: "",
+  add_get: "",
+  headers: "",
+  payload: "",
+  sign_stract: "",
+  card_wait: 30,
+  req_type: "",
+  need_shift: false,
+  sync_type: "",
+  sync_period: 30,
+  update_all_term: false,
+};
+
 export default defineComponent({
+  props: {
+    showTerminalName: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    configData: {
+      type: Object,
+      required: false,
+      default() {
+        return defaultConfigData;
+      },
+    },
+    isActivateForm: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
+
   components: {
     FormField,
     InputField,
@@ -134,27 +182,6 @@ export default defineComponent({
     SynctypeSelect,
   },
 
-  data() {
-    return {
-      settings: "",
-      max_offline_sum: 0,
-      is_default_offline: false,
-      is_for_all_card: false,
-      can_user_add_card: false,
-      endpoint_result: "",
-      add_get: "",
-      headers: "",
-      payload: "",
-      sign_stract: "",
-      card_wait: 30,
-      req_type: "",
-      need_shift: false,
-      sync_type: "",
-      sync_period: 30,
-      update_all_term: false,
-    };
-  },
-
   computed: {
     loading(): boolean {
       return this.$store.state.terminals.loading;
@@ -162,11 +189,15 @@ export default defineComponent({
   },
 
   methods: {
-    onSubmit() {
+    sendConfig() {
       this.$store.dispatch(
         TerminalsActions.CREATE_OFFLINE_TERMINAL,
-        this.$data
+        this.$props.configData
       );
+    },
+    activeTerminal() {
+      const id = this.$route.query.id as string;
+      this.$store.dispatch(TerminalsActions.ACTIVATE_TERMINAL, id);
     },
   },
 });

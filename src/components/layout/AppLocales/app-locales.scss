@@ -55,6 +55,12 @@
       font-size: 12px;
       line-height: 14px;
     }
+
+    &-label {
+      @include mobile {
+        display: none;
+      }
+    }
   }
 
   &__dropdown {
