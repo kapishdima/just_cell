@@ -10,7 +10,7 @@
 
   &__content {
     display: flex;
-    flex: 1 1 84%;
+    flex: 1 1 80%;
     flex-direction: column;
 
     position: relative;
@@ -160,11 +160,12 @@
   }
 
   &--fixed {
-    width: 81.5%;
-    right: 0;
+    justify-content: center;
+    width: calc(100% - 17.6%);
     padding: 15px 24px;
 
     position: fixed;
+    right: 0;
     bottom: 0;
 
     background-color: #fff;
