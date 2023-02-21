@@ -11,6 +11,7 @@
       <offline-terminal-form
         :showTerminalName="true"
         :configData="configData"
+        :actions-fixed="true"
       />
     </template>
   </app-layout>

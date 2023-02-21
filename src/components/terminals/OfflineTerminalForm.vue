@@ -103,11 +103,24 @@
         />
       </div>
 
-      <div class="form-actions">
-        <v-button type="button" :loading="loading" @click="sendConfig">
+      <div
+        class="form-actions"
+        :class="{ 'form-actions--fixed': actionsFixed }"
+      >
+        <v-button
+          type="button"
+          :loading="loading"
+          @click="sendConfig"
+          v-if="canEdit"
+        >
           <template #text>Додати налаштування термінала</template>
         </v-button>
-        <v-button type="button" :loading="loading" @click="activeTerminal">
+        <v-button
+          type="button"
+          :loading="loading"
+          @click="activeTerminal"
+          fixed
+        >
           <template #text>Активувати термінал</template>
         </v-button>
       </div>
@@ -150,7 +163,13 @@ const defaultConfigData = {
 };
 
 export default defineComponent({
+  inject: ["rules"],
   props: {
+    actionsFixed: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     showTerminalName: {
       type: Boolean,
       required: false,
@@ -182,6 +201,16 @@ export default defineComponent({
     SynctypeSelect,
   },
 
+  data() {
+    return {
+      canEdit: false,
+    };
+  },
+
+  mounted() {
+    this.canEdit = Boolean(this.rules);
+  },
+
   computed: {
     loading(): boolean {
       return this.$store.state.terminals.loading;
@@ -192,7 +221,7 @@ export default defineComponent({
     sendConfig() {
       this.$store.dispatch(
         TerminalsActions.CREATE_OFFLINE_TERMINAL,
-        this.$props.configData
+        (this.$props as any).configData
       );
     },
     activeTerminal() {

@@ -3,7 +3,7 @@
     :type="type"
     :class="`button--${variant} ${rounded ? 'button--rounded' : ''} ${
       hasMaxWidth ? 'button--max-width' : ''
-    } `"
+    } ${fixed ? 'button--fixed' : ''}`"
     @click="$emit('click')"
     class="button"
   >
@@ -26,6 +26,7 @@ interface ButtonProps {
   rounded?: boolean;
   hasMaxWidth?: boolean;
   loading?: boolean;
+  fixed?: boolean;
 }
 
 withDefaults(defineProps<ButtonProps>(), {
@@ -34,6 +35,7 @@ withDefaults(defineProps<ButtonProps>(), {
   rounded: false,
   hasMaxWidth: true,
   loading: false,
+  fixed: false,
 });
 </script>
 
