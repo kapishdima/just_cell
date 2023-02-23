@@ -63,6 +63,11 @@ export type TerminalRef = {
   transport_support: TerminalModel[];
   offline_settings: TerminalOfflineSettings[];
   sync_type: TerminalSyncType[];
+  status_list: {
+    name: string;
+    color: string;
+    id: string;
+  }[];
   sign: string;
 };
 

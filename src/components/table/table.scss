@@ -8,6 +8,24 @@
 }
 
 .table {
+  display: block;
+  white-space: nowrap;
+  overflow-x: auto;
+
+  margin-top: 14px;
+
+  &::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: lighten($dark-primary, 90);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: lighten($dark-primary, 70);
+  }
+
   &-tbody {
     @include table-spacing(10);
   }
@@ -15,7 +33,7 @@
   }
   &-tr {
     background-color: #fff;
-    border-bottom: 8px solid transparent;
+    border-bottom: 4px solid #fff;
   }
   &-th {
     text-align: left;
@@ -33,5 +51,43 @@
     line-height: 150%;
 
     color: $dark-primary;
+
+    text-align: left;
+    white-space: nowrap;
+
+    &__content {
+      display: block;
+      white-space: normal;
+    }
+  }
+
+  &--empty {
+    overflow-x: hidden;
+    .table-thead {
+      display: block;
+      width: 100%;
+
+      tr {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+    }
+  }
+
+  &-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #fff;
+
+    padding: 20px;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 150%;
   }
 }

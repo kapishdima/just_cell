@@ -144,6 +144,10 @@
 
     &--sm {
       padding: 8px;
+
+      ::placeholder {
+        font-size: 14px;
+      }
     }
 
     // Variants
@@ -184,6 +188,13 @@
   &--shadow {
     .form-field__input {
       box-shadow: $input-shadow;
+    }
+  }
+
+  &--small {
+    row-gap: 4px;
+    .form-field__label {
+      font-size: 14px;
     }
   }
 }

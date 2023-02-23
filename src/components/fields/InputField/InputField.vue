@@ -4,10 +4,12 @@
     :placeholder="placeholder"
     :name="name"
     :required="required"
-    :class="`form-field__input--${size} form-field__input--${variant}`"
+    :class="`
+    form-field__input--${size} form-field__input--${variant}`"
     :value="modelValue"
-    :disabled="!canEdit"
+    :disabled="disabled !== undefined ? disabled : !canEdit"
     @input="input($event)"
+    @blur="$emit('blur')"
     class="form-field__input"
   />
 </template>
@@ -25,6 +27,7 @@ export interface InputFieldProps {
   size?: "lg" | "sm";
   variant?: "default" | "accent";
   modelValue?: string | number;
+  disabled?: boolean;
 }
 
 withDefaults(defineProps<InputFieldProps>(), {
@@ -36,7 +39,7 @@ withDefaults(defineProps<InputFieldProps>(), {
 import { defineComponent } from "vue";
 export default defineComponent({
   inject: ["rules"],
-  emits: ["update:modelValue"],
+  emits: ["update:modelValue", "blur"],
 
   data() {
     return {

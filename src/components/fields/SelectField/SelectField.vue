@@ -3,12 +3,13 @@
     class="select-field"
     :class="{
       'select-field--active': opened,
-      'select-field--disabled': !canEdit,
+      'select-field--disabled': disabled !== undefined ? disabled : !canEdit,
     }"
     ref="selectField"
   >
     <div
       class="select-field__container form-field__input"
+      :class="`form-field__input--${size}`"
       @click="!hasSearch ? toggle() : open()"
     >
       <selected-input
@@ -42,10 +43,13 @@ interface SelectFieldProps {
   searchPlaceholder?: string;
   hasSearch?: boolean;
   modelValue?: string;
+  disabled?: boolean;
+  size?: "md" | "sm";
 }
 
 withDefaults(defineProps<SelectFieldProps>(), {
   hasSearch: true,
+  size: "md",
 });
 </script>
 <script lang="ts">

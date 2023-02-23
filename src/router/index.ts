@@ -124,6 +124,16 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
+    path: "/transac_ptks",
+    component: () =>
+      import("@/views/Transactions/TransactionsPTKSListView.vue"),
+  },
+  {
+    path: "/transac_transport",
+    component: () =>
+      import("@/views/Transactions/TransactionsTransportListView.vue"),
+  },
+  {
     path: "/Terminal/Activate",
     component: () => import("@/views/Terminals/ActivateTerminalView.vue"),
   },

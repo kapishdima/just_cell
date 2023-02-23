@@ -5,11 +5,17 @@
         v-for="cell in row.getVisibleCells()"
         :key="cell.id"
         class="table-td table-cell"
+        :style="{ color: row.original.status_color || '#000' }"
       >
-        <FlexRender
-          :render="cell.column.columnDef.cell"
-          :props="cell.getContext()"
-        />
+        <div
+          class="table-cell__content"
+          :style="{ width: `${cell.column.getSize()}px` }"
+        >
+          <FlexRender
+            :render="cell.column.columnDef.cell"
+            :props="cell.getContext()"
+          />
+        </div>
       </td>
     </tr>
   </tbody>

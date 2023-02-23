@@ -5,6 +5,7 @@
       'form-field--centered': centered,
       'form-field--shadow': shadow,
       'form-field--iconed': hasBeforeIcon,
+      'form-field--small': small,
     }"
   >
     <label class="form-field__label">{{ label }}</label>
@@ -23,6 +24,7 @@ export interface FormFieldProps {
   helpText?: string;
   centered?: boolean;
   shadow?: boolean;
+  small?: boolean;
 }
 
 defineProps<FormFieldProps>();

@@ -5,13 +5,9 @@
       :key="menuGroup.title"
       class="app-menu__group"
       :class="{ active: activeIndex === menuGroup.index }"
-      @click="open(menuGroup.index)"
     >
-      <div class="app-menu__group-parent">
+      <div class="app-menu__group-parent" @click="open(menuGroup.index)">
         <div class="app-menu__item app-menu__item--parent">
-          <!-- <div class="app-menu__item-icon">
-            <img src="@/assets/icons/menu/dashboard_icon.svg" alt="dashboard" />
-          </div> -->
           {{ menuGroup.title }}
           <div class="app-menu-icon">
             <img src="@/assets/icons/chevron-down.svg" alt="Open" />
@@ -19,14 +15,25 @@
         </div>
       </div>
       <div class="app-menu__group-children">
-        <router-link
-          v-for="child in menuGroup.children"
+        <div
+          class="app-menu__child"
+          v-for="(child, index) in menuGroup.children"
           :key="child.NAME"
-          :to="`/${child.LINK}`"
-          class="app-menu__item"
         >
-          {{ child.NAME }}
-        </router-link>
+          <app-submenu
+            :submenu="child"
+            :index="index"
+            v-if="Boolean(child.children)"
+          />
+          <router-link
+            :to="`/${child.LINK}`"
+            :class="{ 'app-menu__item--active': $route.path === child.LINK }"
+            class="app-menu__item"
+            v-else
+          >
+            {{ child.NAME }}
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -34,8 +41,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { getMenu, MenuView } from "@/api/menu/menu.api";
+import AppSubmenu from "./AppSubmenu.vue";
 
 export default defineComponent({
+  components: {
+    AppSubmenu,
+  },
   data(): { activeIndex: number; menu: MenuView[] } {
     return {
       activeIndex: -1,
@@ -52,6 +63,9 @@ export default defineComponent({
 
   watch: {
     activeIndex() {
+      if (this.activeIndex < 0) {
+        window.localStorage.setItem("activeSubmenu", "-1");
+      }
       window.localStorage.setItem(
         "activeMenu",
         JSON.stringify(this.activeIndex)
@@ -61,7 +75,6 @@ export default defineComponent({
 
   methods: {
     open(index: number) {
-      console.log(index);
       if (this.activeIndex === index) {
         this.activeIndex = -1;
       } else {

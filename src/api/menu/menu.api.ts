@@ -1,4 +1,8 @@
-export type Menu = { NAME: string; LINK: string | null };
+export type Menu = {
+  NAME: string;
+  LINK: string | null;
+  children?: Menu[];
+};
 export type MenuList = { [key: string]: Menu };
 export type MenuView = {
   index: number;
@@ -19,14 +23,16 @@ export const getMenu = () => {
 
   const menu: MenuView[] = Object.entries(menuList).map((menuItem, index) => {
     const children = menuItem[1] as Menu[];
+
     children.unshift({
       NAME: "Оффлайн",
       LINK: "terminals/offlineTerminal",
     });
+
     return {
       index,
       title: menuItem[0],
-      children,
+      children: children.map((child, index) => ({ ...child, index })),
     };
   });
 

@@ -6,5 +6,5 @@ export enum ApiRoutes {
   TERMINALS_REFS = "Terminals/Ref/index.php",
   GET_TERMINAL_CONFIG = "Terminals/Config/Get/index.php",
   CREATE_OFFLINE_TERMINAL = "Terminals/Config/Set/index.php",
-  TEST = "/testSign.php",
+  TRANSACTIONS_LIST = "Terminals/Transactions/index.php",
 }

@@ -1,0 +1,14 @@
+.filters {
+  margin: 16px 0 24px 0;
+}
+.filters-row {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+
+  margin-bottom: 18px;
+}
+
+.filter-select__container {
+  width: 33%;
+}
