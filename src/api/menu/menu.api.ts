@@ -24,10 +24,10 @@ export const getMenu = () => {
   const menu: MenuView[] = Object.entries(menuList).map((menuItem, index) => {
     const children = menuItem[1] as Menu[];
 
-    children.unshift({
-      NAME: "Оффлайн",
-      LINK: "terminals/offlineTerminal",
-    });
+    // children.unshift({
+    //   NAME: "Оффлайн",
+    //   LINK: "terminals/offlineTerminal",
+    // });
 
     return {
       index,
