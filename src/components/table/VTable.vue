@@ -1,5 +1,7 @@
 <template lang="">
+  <table-empty v-if="empty" />
   <table
+    v-else
     class="table"
     border="0"
     rules="none"
@@ -7,11 +9,16 @@
   >
     <table-header :table="table" />
     <table-body :table="table" v-if="!empty" />
-    <table-empty v-else />
   </table>
 </template>
 <script setup lang="ts">
-import { ColumnDef, getCoreRowModel, useVueTable } from "@tanstack/vue-table";
+import {
+  ColumnDef,
+  getCoreRowModel,
+  getExpandedRowModel,
+  useVueTable,
+} from "@tanstack/vue-table";
+
 interface TableProps {
   columns: ColumnDef<any>[];
   data: any;
@@ -25,7 +32,9 @@ const table = useVueTable({
     return props.data;
   },
   columns: props.columns,
+  getSubRows: (row) => row.subRows,
   getCoreRowModel: getCoreRowModel(),
+  getExpandedRowModel: getExpandedRowModel(),
 });
 </script>
 <script lang="ts">

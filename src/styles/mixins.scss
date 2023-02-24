@@ -3,3 +3,8 @@
     @content;
   }
 }
+@mixin fullHD {
+  @media (min-width: 1680px) {
+    @content;
+  }
+}

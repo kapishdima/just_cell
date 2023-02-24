@@ -6,7 +6,6 @@
     <template #appTitle>Перегляд ПТКС транзакцій</template>
     <template #appContent>
       <transaction-filters @change="onFilterChange" />
-
       <transactions-table :data="transactions" :empty="!hasTransactions" />
     </template>
   </app-layout>

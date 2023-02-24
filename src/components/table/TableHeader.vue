@@ -1,14 +1,14 @@
 <template>
-  <thead class="table-thead">
-    <tr
+  <div class="table-thead">
+    <div
       class="table-tr"
       v-for="headerGroup in table.getHeaderGroups()"
       :key="headerGroup.id"
     >
-      <th
+      <!-- :style="{ minWidth: `${header.column.getSize()}px` }" -->
+      <div
         v-for="header in headerGroup.headers"
         :key="header.id"
-        :colSpan="header.colSpan"
         class="table-th table-cell"
       >
         <FlexRender
@@ -16,9 +16,9 @@
           :render="header.column.columnDef.header"
           :props="header.getContext()"
         />
-      </th>
-    </tr>
-  </thead>
+      </div>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 import { Table, FlexRender } from "@tanstack/vue-table";

@@ -1,5 +1,5 @@
 <template>
-  <form-field label="Статус" :small="small">
+  <form-field label="Статус" :small="small" shadow>
     <select-field
       :options="statuses"
       name="syncTypes"

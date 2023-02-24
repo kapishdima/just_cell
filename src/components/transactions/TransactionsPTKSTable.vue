@@ -14,7 +14,21 @@ const columnHelper = createColumnHelper<Transaction>();
 
 const columns = [
   columnHelper.accessor("term_name", {
-    cell: (info) => info.getValue(),
+    cell: (info) => {
+      return h("div", { class: "table-expanded__column" }, [
+        h(
+          "button",
+          {
+            class: `table-expanded__button ${
+              info.row.getIsExpanded() ? "expanded" : ""
+            }`,
+            onClick: info.row.getToggleExpandedHandler(),
+          },
+          [h("img", { src: require("@/assets/icons/chevron-right.svg") })]
+        ),
+        info.getValue(),
+      ]);
+    },
     header: "Темінал",
   }),
   columnHelper.accessor("terminal_id", {
@@ -32,7 +46,6 @@ const columns = [
   columnHelper.accessor("amount", {
     cell: (info) => info.getValue(),
     header: "Сума",
-    size: 120,
   }),
   columnHelper.accessor("bank_name", {
     cell: (info) => info.getValue(),
@@ -40,53 +53,11 @@ const columns = [
   }),
   columnHelper.accessor("pan_mask", {
     cell: (info) => info.getValue(),
-    header: "Маска",
-  }),
-  columnHelper.accessor("rrn", {
-    cell: (info) => info.getValue(),
-    header: "RRN",
-  }),
-  columnHelper.accessor("tax_num", {
-    cell: (info) => info.getValue(),
-    header: "Tax",
-    size: 100,
-  }),
-  columnHelper.accessor("is_revers", {
-    cell: (info) => (JSON.parse(info.getValue()) === true ? "Так" : "Ні"),
-    header: "Чи повернення?",
-    size: 50,
-  }),
-  columnHelper.accessor("revers_amount", {
-    cell: (info) => info.getValue(),
-    header: "Сумма повернення",
-    size: 100,
-  }),
-  columnHelper.accessor("revers_time", {
-    cell: (info) => info.getValue(),
-    header: "Час повернення",
-    size: 100,
-  }),
-  columnHelper.accessor("FISCAL_TRANSACTION_ID", {
-    cell: (info) => info.getValue(),
-    header: "FISCAL_TRANSACTION_ID",
-  }),
-  columnHelper.accessor("answ_code", {
-    cell: (info) => info.getValue(),
-    header: "Код відповіді",
-    size: 100,
-  }),
-  columnHelper.accessor("answ_description", {
-    cell: (info) => info.getValue(),
-    header: "Відповідь",
-    size: 180,
+    header: "Карта/Токен",
   }),
   columnHelper.accessor("status_name", {
     cell: (info) => info.getValue(),
     header: "Статус",
-  }),
-  columnHelper.accessor("add_time", {
-    cell: (info) => info.getValue(),
-    header: "Час створення",
   }),
 ];
 
@@ -94,6 +65,7 @@ defineProps<TerminalTableProps>();
 </script>
 <script lang="ts">
 import VTable from "../table/VTable.vue";
+import { h } from "vue";
 
 export default {
   components: {
