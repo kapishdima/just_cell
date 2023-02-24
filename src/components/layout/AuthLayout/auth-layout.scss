@@ -93,12 +93,6 @@
 
       @include mobile {
       }
-
-      //   max-width: 190px;
-
-      // @include mobile {
-      //   max-width: 85px;
-      // }
     }
   }
 
@@ -159,7 +153,7 @@
       row-gap: 12px;
     }
 
-    .button {
+    .v-button {
       max-width: 300px;
     }
   }

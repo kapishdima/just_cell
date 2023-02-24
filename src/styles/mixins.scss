@@ -8,3 +8,9 @@
     @content;
   }
 }
+
+@mixin canHover {
+  @media (hover: hover) {
+    @content;
+  }
+}

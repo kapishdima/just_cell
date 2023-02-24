@@ -1,11 +1,11 @@
 <template>
   <button
     :type="type"
-    :class="`button--${variant} ${rounded ? 'button--rounded' : ''} ${
-      hasMaxWidth ? 'button--max-width' : ''
-    } ${fixed ? 'button--fixed' : ''}`"
+    :class="`v-button--${variant} ${rounded ? 'v-button--rounded' : ''} ${
+      hasMaxWidth ? 'v-button--max-width' : ''
+    } ${fixed ? 'v-button--fixed' : ''}`"
     @click="$emit('click')"
-    class="button"
+    class="v-button"
   >
     <template v-if="loading"> <v-spinner /> </template>
     <template v-else>

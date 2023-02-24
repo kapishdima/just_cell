@@ -4,6 +4,10 @@
   display: flex;
   flex-direction: column;
 
+  @include mobile {
+    height: auto;
+  }
+
   &__item.router-link-active {
     &::before {
       width: 100%;
@@ -42,9 +46,11 @@
       }
     }
 
-    &:hover {
-      &::before {
-        width: 100%;
+    @include canHover {
+      &:hover {
+        &::before {
+          width: 100%;
+        }
       }
     }
 

@@ -1,8 +1,14 @@
 .filters {
   margin: 16px 0 24px 0;
-
+  @include mobile {
+    margin: 0 0 16px 0;
+  }
   &-item {
     width: 20%;
+
+    @include mobile {
+      width: 100%;
+    }
   }
 
   &-row {
@@ -11,14 +17,24 @@
     column-gap: 8px;
 
     margin-bottom: 18px;
+
+    @include mobile {
+      flex-direction: column;
+      margin-bottom: 8px;
+      row-gap: 8px;
+    }
   }
 
   &-actions {
-    display: flex;
-    align-items: flex-end;
+    @include mobile {
+      margin-top: 14px;
+    }
   }
 }
 
 .filter-select__container {
   width: 40%;
+  @include mobile {
+    width: 100%;
+  }
 }

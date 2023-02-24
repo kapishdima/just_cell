@@ -7,7 +7,10 @@
       <app-locales />
       <app-user />
       <logout-button v-if="showLogoutButton" />
-      <app-hamburget-button v-if="showHamburgerButton" />
+      <app-hamburget-button
+        v-if="showHamburgerButton"
+        @mobile-button-click="(value: boolean) => $emit('mobileButtonClick', value)"
+      />
     </div>
   </nav>
 </template>
@@ -21,6 +24,7 @@ import AppLogo from "../AppLogo/AppLogo.vue";
 import AppHamburgetButton from "../AppSidebar/AppHamburgetButton.vue";
 
 export default defineComponent({
+  emits: ["mobileButtonClick"],
   components: {
     AppLocales,
     AppUser,

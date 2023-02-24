@@ -126,6 +126,12 @@
       max-width: 11%;
       margin-right: 20px;
     }
+
+    @include mobile {
+      min-width: 50%;
+      max-width: 50%;
+      margin-right: 10px;
+    }
   }
 
   &--empty {

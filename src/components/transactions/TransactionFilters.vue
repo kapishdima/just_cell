@@ -86,7 +86,7 @@
       <div class="filters-item filter-select__container">
         <status-select small v-model="filters.status" />
       </div>
-      <div class="filters-item">
+      <div class="filters-item filters-actions">
         <v-button :has-max-width="false" type="button" @click="applyFilter">
           <template #text>Фільтрувати</template>
         </v-button>

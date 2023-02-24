@@ -31,7 +31,6 @@ const actions = {
       },
       onError: () => {
         router.push({ name: "dashboard" });
-        toast.error("Помилка входу! Введений номер телефону чи пароль невірні");
       },
     });
 

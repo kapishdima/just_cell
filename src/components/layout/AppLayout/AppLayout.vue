@@ -1,8 +1,8 @@
 <template>
   <div class="app-layout">
-    <app-navbar />
+    <app-navbar @mobileButtonClick="(value: boolean) => menuOpened = value" />
     <div class="app-layout__row">
-      <app-sidebar />
+      <app-sidebar :menuOpened="menuOpened" />
       <div class="app-layout__content">
         <slot name="appLoading" />
         <div class="app-layout__header">
@@ -36,6 +36,12 @@ export default {
   components: {
     AppNavbar,
     AppSidebar,
+  },
+
+  data() {
+    return {
+      menuOpened: false,
+    };
   },
 };
 </script>
