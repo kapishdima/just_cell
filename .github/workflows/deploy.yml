@@ -24,10 +24,12 @@ jobs:
       # Setup key
       - run: set -eu
       - run: mkdir "$HOME/.ssh"
-      - run: echo "${{ secrets.DEPLOY_KEY }}" > "$HOME/.ssh/key"
+      - run: echo "${{ secrets.DEPLOY_SSH_KEY }}" > "$HOME/.ssh/key"
       - run: chmod 600 "$HOME/.ssh/key"
+      #Setup yarn
+      - run: yarn -v
       # Build
-      - run: npm ci
-      - run: npm run build
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
       # Deploy
       - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . $SSH_USER@$SSH_ADDRESS:$DEPLOY_FOLDER
