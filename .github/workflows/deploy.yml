@@ -1,0 +1,33 @@
+name: Deploy to ssh server
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  SSH_ADDRESS: justsell-front.maketest.it
+  SSH_USER: js_test
+  DEPLOY_FOLDER: /var/www/maketest.it/justsell-front
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      # Setup key
+      - run: set -eu
+      - run: mkdir "$HOME/.ssh"
+      - run: echo "${{ secrets.DEPLOY_KEY }}" > "$HOME/.ssh/key"
+      - run: chmod 600 "$HOME/.ssh/key"
+      # Build
+      - run: npm ci
+      - run: npm run build
+      # Deploy
+      - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . $SSH_USER@$SSH_ADDRESS:$DEPLOY_FOLDER
