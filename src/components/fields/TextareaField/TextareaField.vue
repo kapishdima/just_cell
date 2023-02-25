@@ -6,7 +6,7 @@
     class="form-field__input form-field__textarea"
     :class="`form-field__input--${size} form-field__input--${variant}`"
     :value="modelValue"
-    :disabled="!canEdit"
+    :disabled="disabled !== undefined ? disabled : !canEdit"
     @input="input($event)"
   />
 </template>
@@ -22,6 +22,7 @@ export interface InputFieldProps {
   size?: "lg" | "sm";
   variant?: "default" | "accent";
   modelValue?: string;
+  disabled?: boolean;
 }
 
 withDefaults(defineProps<InputFieldProps>(), {

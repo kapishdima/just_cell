@@ -19,8 +19,8 @@
 
   &--checked:not(.checkbox-field--disabled) {
     .checkbox-field__box {
-      background-color: $accent-primary;
-      border-color: $accent-primary;
+      background-color: $success-primary;
+      border-color: $success-primary;
     }
   }
 

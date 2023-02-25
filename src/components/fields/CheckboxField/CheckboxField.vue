@@ -9,7 +9,7 @@
     class="checkbox-field"
     :class="{
       'checkbox-field--checked': checked,
-      'checkbox-field--disabled': !canEdit,
+      'checkbox-field--disabled': disabled !== undefined ? disabled : !canEdit,
       [`checkbox-field--${direction}`]: true,
       [`checkbox-field--${variant}`]: true,
     }"
@@ -35,6 +35,7 @@ interface CheckboxFieldProps {
   defaultChecked?: boolean;
   variant?: "primary" | "secondary";
   modelValue?: boolean;
+  disabled?: boolean;
 }
 
 withDefaults(defineProps<CheckboxFieldProps>(), {

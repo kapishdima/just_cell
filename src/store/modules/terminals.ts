@@ -25,6 +25,7 @@ type TerminalState = {
   terminalsRef: TerminalRef | null;
   terminalConfig: OfflineTerminalPayload | null;
   loading: boolean;
+  formLoading: boolean;
   key: KeyFile | null;
 };
 
@@ -36,6 +37,7 @@ export enum TerminalsActions {
   SET_TERMINAL_CONFIG = "set_terminal_config",
   SET_TERMINALS_REF = "set_terminals_ref",
   SET_LOADING = "set_loading",
+  SET_FORM_LOADING = "set_form_loading",
   CREATE_OFFLINE_TERMINAL = "create_offline_terminal",
   SET_KEY_LINK = "set_key_link",
   ACTIVATE_TERMINAL = "activate_terminal",
@@ -48,6 +50,7 @@ const state = (): TerminalState => ({
   terminalsRef: null,
   terminalConfig: null,
   loading: false,
+  formLoading: false,
   key: null,
 });
 
@@ -72,6 +75,9 @@ const mutations = {
   },
   [TerminalsActions.SET_LOADING](state: TerminalState, loading: boolean) {
     state.loading = loading;
+  },
+  [TerminalsActions.SET_FORM_LOADING](state: TerminalState, loading: boolean) {
+    state.formLoading = loading;
   },
   [TerminalsActions.SET_KEY_LINK](state: TerminalState, key: KeyFile) {
     state.key = key;
@@ -124,14 +130,14 @@ const actions = {
     { commit }: any,
     { terminalId, toast }: any
   ) {
-    commit(TerminalsActions.SET_LOADING, true);
+    commit(TerminalsActions.SET_FORM_LOADING, true);
     const code = await activateTeminal(terminalId);
 
     if (code === 0) {
       toast.success("Термінал успішно активовано!");
     }
 
-    commit(TerminalsActions.SET_LOADING, false);
+    commit(TerminalsActions.SET_FORM_LOADING, false);
   },
 };
 

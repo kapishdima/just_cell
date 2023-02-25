@@ -8,6 +8,7 @@
           name="phone"
           placeholder="+38 (0_ _) _ _ _-_ _-_ _"
           v-model="phone"
+          ref="phoneInput"
         />
       </form-field>
 
@@ -17,6 +18,7 @@
           name="password"
           placeholder="Введіть пароль"
           v-model="pass"
+          ref="passwordInput"
         />
       </form-field>
 
@@ -74,6 +76,8 @@ export default defineComponent({
 
   methods: {
     signIn() {
+      this.blurAllInputs();
+
       const loginData = {
         pass: this.pass,
         phone: this.phone,
@@ -81,7 +85,17 @@ export default defineComponent({
       this.$store.dispatch(AuthActions.LOGIN, {
         loginData,
         toast: this.toast,
+        route: this.$route,
       });
+    },
+
+    blurAllInputs() {
+      const inputsEls = document.querySelectorAll("input");
+      if (!inputsEls) {
+        return;
+      }
+
+      inputsEls.forEach((inputEl) => inputEl.blur());
     },
   },
 });

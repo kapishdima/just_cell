@@ -5,8 +5,9 @@
   display: flex;
 
   @include mobile {
-    min-height: 100vh;
+    height: 90vh;
     flex-direction: column;
+    overflow: hidden;
 
     position: relative;
     z-index: 1;

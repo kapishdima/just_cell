@@ -8,7 +8,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "root",
     redirect: {
-      name: "signin",
+      name: "dashboard",
     },
   },
   {
@@ -145,10 +145,12 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const authorized = await isAuthorized();
+  if (to.name !== "signin") {
+    const authorized = await isAuthorized();
 
-  if (!authorized && to.name !== "signin") {
-    return next({ name: "signin" });
+    if (!authorized) {
+      return next({ name: "signin", query: { redirect: to.fullPath } });
+    }
   }
 
   store.commit(UserActions.SET_USER);

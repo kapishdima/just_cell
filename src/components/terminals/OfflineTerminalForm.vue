@@ -213,7 +213,7 @@ export default defineComponent({
 
   computed: {
     loading(): boolean {
-      return this.$store.state.terminals.loading;
+      return this.$store.state.terminals.formLoading;
     },
   },
 
