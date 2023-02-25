@@ -33,8 +33,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: |
-            whoami
-            cd ${{ secrets.FOLDER }}
-            ls -al
+          script: rsync --archive --compress --delete --progress --verbose ./dist/ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.FOLDER }}
           # script: rsync -avz --archive --compress --delete --progress --verbose ./dist/ ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.FOLDER }}
