@@ -29,7 +29,7 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           known_hosts: unnecessary
       - name: Adding Known Hosts
-        run: ssh-keyscan -p $SSH_PORT -H $SSH_ADDRESS  >> ~/.ssh/known_hosts
+        run: ssh-keyscan -p $SSH_PORT -H $SSH_HOST  >> ~/.ssh/known_hosts
       #Setup yarn
       - run: yarn -v
       # Build
@@ -42,4 +42,4 @@ jobs:
           host: $SSH_HOST
           user: $SSH_USER
           pass: ${{ secrets.SSH_PASSWORD }}
-          run: rsync -avz -e --archive --compress --delete --progress --verbose ./dist/ $SSH_USER@$SSH_ADDRESS:$DEPLOY_FOLDER
+          run: rsync -avz -e --archive --compress --delete --progress --verbose ./dist/ $SSH_USER@$SSH_HOST:$DEPLOY_FOLDER
