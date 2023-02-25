@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  SSH_ADDRESS: justsell-front.maketest.it
+  SSH_HOST: justsell-front.maketest.it
   SSH_USER: js_test
   SSH_PORT: 22
   DEPLOY_FOLDER: /var/www/maketest.it/justsell-front/
@@ -36,5 +36,10 @@ jobs:
       - run: yarn install
       - run: yarn build
       # Deploy
-      - run: apt-get install sshpass
-      - run: cd dist && rsync -avz -e "sshpass -p 'PASSWORD' ssh -p $SSH_PORT" --archive --compress --delete --progress --verbose . $SSH_USER@$SSH_ADDRESS:$DEPLOY_FOLDER
+      - name: Run sshpass commands
+        uses: matheusvanzan/sshpass-action@v2
+        with:
+          host: $SSH_HOST
+          user: $SSH_USER
+          pass: ${{ secrets.SSH_PASSWORD }}
+          run: rsync -avz -e --archive --compress --delete --progress --verbose ./dist/ $SSH_USER@$SSH_ADDRESS:$DEPLOY_FOLDER
