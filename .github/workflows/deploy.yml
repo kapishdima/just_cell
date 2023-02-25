@@ -29,7 +29,7 @@ jobs:
       #Setup yarn
       - run: yarn -v
       # Build
-      - run: yarn install --frozen-lockfile
+      - run: yarn install
       - run: yarn build
       # Deploy
       - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . $SSH_USER@$SSH_ADDRESS:$DEPLOY_FOLDER
