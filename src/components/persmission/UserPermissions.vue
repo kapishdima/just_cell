@@ -53,7 +53,7 @@ import { defineComponent } from "vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import CheckboxField from "@/components/fields/CheckboxField/CheckboxField.vue";
 import FormField from "@/components/fields/FormField/FormField.vue";
-import VModal from "@/components/modal/VModal.vue";
+import VModal from "@/components/Modal/VModal.vue";
 import VAccordion from "@/components/accordion/VAccordion.vue";
 
 import PermissionsList from "./PermissionsList.vue";
