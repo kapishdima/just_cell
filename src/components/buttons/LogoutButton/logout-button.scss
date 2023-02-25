@@ -1,2 +1,16 @@
 .logout-button {
+  max-width: max-content;
+  min-width: max-content;
+  padding: 0;
+
+  margin-right: 6px;
+  @include mobile {
+    &__text {
+      display: none;
+    }
+
+    img {
+      width: 22px;
+    }
+  }
 }

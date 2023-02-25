@@ -6,7 +6,7 @@
     <div class="app-navbar__tools">
       <app-locales />
       <app-user />
-      <logout-button v-if="showLogoutButton" />
+      <logout-button />
       <app-hamburget-button
         v-if="showHamburgerButton"
         @mobile-button-click="(value: boolean) => $emit('mobileButtonClick', value)"
@@ -35,7 +35,6 @@ export default defineComponent({
 
   data() {
     return {
-      showLogoutButton: true,
       showHamburgerButton: false,
     };
   },
@@ -51,7 +50,6 @@ export default defineComponent({
 
   methods: {
     onResize() {
-      this.showLogoutButton = !window.matchMedia("(max-width: 768px)").matches;
       this.showHamburgerButton =
         window.matchMedia("(max-width: 768px)").matches;
     },

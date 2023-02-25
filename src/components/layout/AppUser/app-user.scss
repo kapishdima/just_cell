@@ -12,4 +12,12 @@
 
     color: $dark-primary;
   }
+
+  &__avatar {
+    @include mobile {
+      img {
+        width: 26px;
+      }
+    }
+  }
 }

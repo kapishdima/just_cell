@@ -1,4 +1,5 @@
 import { login } from "@/api/auth/login";
+import { logout } from "@/api/auth/logout";
 import router from "@/router";
 
 type AuthState = {
@@ -8,6 +9,7 @@ type AuthState = {
 export enum AuthActions {
   SET_LOADING = "set_loading",
   LOGIN = "login",
+  LOGOUT = "logout",
 }
 
 const state = (): AuthState => ({
@@ -35,6 +37,20 @@ const actions = {
     });
 
     commit(AuthActions.SET_LOADING, false);
+  },
+
+  async [AuthActions.LOGOUT]({ commit }: any, { toast }: any) {
+    try {
+      commit(AuthActions.SET_LOADING, true);
+
+      await logout();
+      router.push({ name: "signin" });
+
+      commit(AuthActions.SET_LOADING, false);
+    } catch (error) {
+      console.error(error);
+      toast.error("Щось пішло не так!");
+    }
   },
 };
 

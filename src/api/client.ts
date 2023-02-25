@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { sign } from "./crypto/DeffiHellman";
 import { getToken } from "./crypto/token";
 import { ApiRoutes } from "./routes";
@@ -36,9 +36,10 @@ http.interceptors.request.use(
 );
 
 http.interceptors.response.use(
-  function (response: any) {
+  function (response) {
     const { code, msg } = response.data;
-    if (code === undefined) {
+    const isLogout = response.config.url === ApiRoutes.LOGOUT;
+    if (code === undefined && !isLogout) {
       toast.error("Помилка відповіді сервера");
     }
     if (code !== 0 && msg) {
