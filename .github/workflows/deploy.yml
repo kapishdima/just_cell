@@ -36,4 +36,5 @@ jobs:
       - run: yarn install
       - run: yarn build
       # Deploy
-      - run: cd dist && rsync -avz -e "ssh -p $SSH_PORT" --archive --compress --delete --progress --verbose . $SSH_USER@$SSH_ADDRESS:$DEPLOY_FOLDER
+      - run: apt-get install sshpass
+      - run: cd dist && rsync -avz -e "sshpass -p 'PASSWORD' ssh -p $SSH_PORT" --archive --compress --delete --progress --verbose . $SSH_USER@$SSH_ADDRESS:$DEPLOY_FOLDER
