@@ -8,6 +8,7 @@ on:
 env:
   SSH_ADDRESS: justsell-front.maketest.it
   SSH_USER: js_test
+  SSH_PORT: 22
   DEPLOY_FOLDER: /var/www/maketest.it/justsell-front/
 
 jobs:
@@ -21,13 +22,14 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      #Get ls
-      - run: ls -la
       # Setup key
-      - run: set -eu
-      - run: mkdir "$HOME/.ssh"
-      - run: echo "${{ secrets.DEPLOY_SSH_KEY }}" > "$HOME/.ssh/key"
-      - run: chmod 600 "$HOME/.ssh/key"
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          known_hosts: unnecessary
+      - name: Adding Known Hosts
+        run: ssh-keyscan -p $SSH_PORT -H $SSH_HOST  >> ~/.ssh/known_hosts
       #Setup yarn
       - run: yarn -v
       # Build
@@ -35,4 +37,4 @@ jobs:
       - run: yarn build
       # Deploy
       - run: cat $HOME/.ssh/key
-      - run: cd dist && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete --progress --verbose . $SSH_USER@$SSH_ADDRESS:$DEPLOY_FOLDER
+      - run: cd dist && rsync -avz -e "ssh -p $SSH_PORT" --archive --compress --delete --progress --verbose . $SSH_USER@$SSH_ADDRESS:$DEPLOY_FOLDER
