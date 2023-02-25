@@ -38,6 +38,9 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   function (response: any) {
     const { code, msg } = response.data;
+    if (code === undefined) {
+      toast.error("Помилка відповіді сервера");
+    }
     if (code !== 0 && msg) {
       toast.error(msg);
     }
