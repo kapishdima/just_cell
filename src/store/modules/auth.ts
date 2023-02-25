@@ -21,12 +21,11 @@ const mutations = {
 };
 
 const actions = {
-  async [AuthActions.LOGIN]({ commit }: any, { loginData, toast, route }: any) {
+  async [AuthActions.LOGIN]({ commit }: any, { loginData, route }: any) {
     commit(AuthActions.SET_LOADING, true);
 
     await login(loginData, {
       onSuccess: () => {
-        toast.success("Авторизація пройшла успішно!");
         if (route.query.redirect) {
           router.push(route.query.redirect);
         } else {

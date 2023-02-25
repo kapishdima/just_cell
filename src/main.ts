@@ -16,6 +16,7 @@ const toastOptions = {
   transition: "Vue-Toastification__bounce",
   maxToasts: 20,
   newestOnTop: true,
+  timeout: 2032,
 };
 
 const app = createApp(App);

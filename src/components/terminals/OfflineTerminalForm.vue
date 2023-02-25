@@ -141,6 +141,7 @@ import { TerminalsActions } from "@/store/modules/terminals";
 import SettingsSelect from "./SettingsSelect.vue";
 import RequestTypeSelect from "./RequestTypeSelect.vue";
 import SynctypeSelect from "./SyncTypeSelect.vue";
+import { useToast } from "vue-toastification";
 
 const defaultConfigData = {
   name: "",
@@ -201,6 +202,12 @@ export default defineComponent({
     SynctypeSelect,
   },
 
+  setup() {
+    const toast = useToast();
+
+    return { toast };
+  },
+
   data() {
     return {
       canEdit: false,
@@ -226,7 +233,10 @@ export default defineComponent({
     },
     activeTerminal() {
       const id = this.$route.query.id as string;
-      this.$store.dispatch(TerminalsActions.ACTIVATE_TERMINAL, id);
+      this.$store.dispatch(TerminalsActions.ACTIVATE_TERMINAL, {
+        terminalId: id,
+        toast: this.toast,
+      });
     },
   },
 });

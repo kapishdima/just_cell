@@ -101,23 +101,30 @@ const actions = {
   },
   async [TerminalsActions.CREATE_OFFLINE_TERMINAL](
     { commit }: any,
-    terminalData: OfflineTerminalPayload
+    { terminalData, toast }: any
   ) {
-    commit(TerminalsActions.SET_LOADING, true);
-    const data: CreateOfflineTerminalResponse = await createOfflineTerminal(
-      terminalData
-    );
+    try {
+      commit(TerminalsActions.SET_LOADING, true);
+      const data: CreateOfflineTerminalResponse = await createOfflineTerminal(
+        terminalData
+      );
 
-    if (data.code === 0) {
-      const link = createKeyFile(data.public_key);
-      const key = {
-        link,
-        filename: TERMINAL_KEY_FILENAME,
-      };
-      commit(TerminalsActions.SET_KEY_LINK, key);
-      router.push({ name: "offlineTerminalSuccess" });
+      if (data.code === 0) {
+        const link = createKeyFile(data.public_key);
+        const key = {
+          link,
+          filename: TERMINAL_KEY_FILENAME,
+        };
+        commit(TerminalsActions.SET_KEY_LINK, key);
+        router.push({ name: "offlineTerminalSuccess" });
+      }
+      commit(TerminalsActions.SET_LOADING, false);
+    } catch (error) {
+      commit(TerminalsActions.SET_LOADING, false);
+      toast.error("Щось пішло не так!");
+    } finally {
+      commit(TerminalsActions.SET_LOADING, false);
     }
-    commit(TerminalsActions.SET_LOADING, false);
   },
   async [TerminalsActions.GET_TERMINAL_CONFIG]({ commit }: any) {
     commit(TerminalsActions.SET_LOADING, true);
@@ -130,14 +137,21 @@ const actions = {
     { commit }: any,
     { terminalId, toast }: any
   ) {
-    commit(TerminalsActions.SET_FORM_LOADING, true);
-    const code = await activateTeminal(terminalId);
+    try {
+      commit(TerminalsActions.SET_FORM_LOADING, true);
+      const code = await activateTeminal(terminalId);
 
-    if (code === 0) {
-      toast.success("Термінал успішно активовано!");
+      if (code === 0) {
+        toast.success("Термінал успішно активовано!");
+      }
+
+      commit(TerminalsActions.SET_FORM_LOADING, false);
+    } catch (error) {
+      commit(TerminalsActions.SET_FORM_LOADING, false);
+      toast.error("Щось пішло не так!");
+    } finally {
+      commit(TerminalsActions.SET_FORM_LOADING, false);
     }
-
-    commit(TerminalsActions.SET_FORM_LOADING, false);
   },
 };
 

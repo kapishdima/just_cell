@@ -37,7 +37,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useToast } from "vue-toastification";
 
 import FormField from "@/components/fields/FormField/FormField.vue";
 import TelField from "@/components/fields/TelField/TelField.vue";
@@ -52,12 +51,6 @@ export default defineComponent({
     PasswordField,
     SubmitButton,
     TelField,
-  },
-
-  setup() {
-    const toast = useToast();
-
-    return { toast };
   },
 
   data() {
@@ -84,7 +77,6 @@ export default defineComponent({
       };
       this.$store.dispatch(AuthActions.LOGIN, {
         loginData,
-        toast: this.toast,
         route: this.$route,
       });
     },
