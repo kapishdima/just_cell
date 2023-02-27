@@ -8,6 +8,7 @@
     type="tel"
     class="form-field__input"
     @accept="onAccept"
+    @blur="$emit('blur')"
   />
 </template>
 
@@ -16,7 +17,7 @@ import { defineComponent } from "vue";
 import { IMaskDirective } from "vue-imask";
 
 export default defineComponent({
-  emits: ["update:modelValue"],
+  emits: ["update:modelValue", "blur"],
   props: {
     name: String,
     placeholder: {

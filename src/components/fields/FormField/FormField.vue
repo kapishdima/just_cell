@@ -17,7 +17,7 @@
       <slot></slot>
     </div>
     <div class="form-field__error" v-if="hasError">
-      {{ error?.message }}
+      {{ error }}
     </div>
     <div class="form-field__hint" v-if="hasHint">
       <slot name="hint"></slot>
@@ -25,17 +25,13 @@
   </div>
 </template>
 <script setup lang="ts">
-type Error = {
-  message: string;
-};
-
 interface FormFieldProps {
   label?: string;
   helpText?: string;
   centered?: boolean;
   shadow?: boolean;
   small?: boolean;
-  error?: Error | null;
+  error?: string;
 }
 
 defineProps<FormFieldProps>();

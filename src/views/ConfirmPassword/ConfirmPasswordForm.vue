@@ -3,24 +3,55 @@
     <h3 class="auth-layout__title reset-password-content__title">
       Новий пароль
     </h3>
-    <form class="auth-layout__form">
-      <form-field label="Логін*:">
-        <tel-field v-model="phone" name="phone" placeholder="" required />
-      </form-field>
-      <form-field label="Поточний пароль*:">
-        <password-field
-          v-model="oldPassword"
-          name="oldPassword"
-          placeholder="Введіть поточний пароль"
-        />
-      </form-field>
-      <confirmation-password v-model="newPassword" @errors="onError" />
-      <div class="auth-layout__actions">
-        <v-button type="button" :disabled="hasError" @click="submitPassword">
-          <template #text>Надіслати</template>
-        </v-button>
-      </div>
-    </form>
+    <v-form
+      class-names="auth-layout__form"
+      :schema="confirmationSchema"
+      :initial-values="initialValues"
+      @submit="submitPassword"
+    >
+      <template #fields="{ errors, values, validateAt }">
+        <form-field label="Логін*:" :error="errors.phone">
+          <tel-field
+            v-model="values.phone"
+            name="phone"
+            placeholder=""
+            @blur="validateAt('phone')"
+          />
+        </form-field>
+        <form-field label="Поточний пароль*:" :error="errors.oldPassword">
+          <password-field
+            v-model="values.oldPassword"
+            name="oldPassword"
+            placeholder="Введіть поточний пароль"
+            @blur="validateAt('oldPassword')"
+          />
+        </form-field>
+        <form-field label="Введіть пароль*:" :error="errors.newPassword">
+          <password-field
+            v-model="values.newPassword"
+            name="password"
+            placeholder="Введіть новий пароль"
+            @blur="validateAt('newPassword')"
+          />
+        </form-field>
+        <form-field
+          label="Введіть пароль ще раз*:"
+          :error="errors.confirmationPassword"
+        >
+          <password-field
+            v-model="values.confirmationPassword"
+            name="confirmation_password"
+            placeholder="Підтвердіть новий пароль"
+            @blur="validateAt('confirmationPassword')"
+          />
+        </form-field>
+        <div class="auth-layout__actions">
+          <v-button type="submit">
+            <template #text>Надіслати</template>
+          </v-button>
+        </div>
+      </template>
+    </v-form>
   </div>
 </template>
 <script lang="ts">
@@ -30,7 +61,8 @@ import FormField from "@/components/fields/FormField/FormField.vue";
 import TelField from "@/components/fields/TelField/TelField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import PasswordField from "@/components/fields/PasswordField/PasswordField.vue";
-import ConfirmationPassword from "@/components/fields/ConfirmationPassword/ConfirmationPassword.vue";
+import VForm from "@/components/form/VForm.vue";
+import { confirmationSchema } from "./confiramtion-schema";
 
 import { AuthActions } from "@/store/modules/auth";
 import { useToast } from "vue-toastification";
@@ -39,39 +71,33 @@ export default defineComponent({
   components: {
     FormField,
     TelField,
-    ConfirmationPassword,
     PasswordField,
     VButton,
+    VForm,
   },
 
   setup() {
     const toast = useToast();
-
-    return { toast };
-  },
-
-  data() {
-    return {
+    const initialValues = {
       phone: "",
       oldPassword: "",
       newPassword: "",
-      hasError: false,
+      confirmationPassword: "",
     };
+
+    return { toast, confirmationSchema, initialValues };
   },
 
   methods: {
-    async submitPassword() {
+    async submitPassword(values: any) {
       this.$store.dispatch(AuthActions.RESET_PASSWORD, {
         resetPayload: {
-          phone: this.$data.phone,
-          old_pass: this.$data.oldPassword,
-          pass: this.$data.newPassword,
+          phone: values.phone,
+          old_pass: values.oldPassword,
+          pass: values.newPassword,
         },
         toast: this.toast,
       });
-    },
-    onError(value: any) {
-      this.hasError = Boolean(value);
     },
   },
 });

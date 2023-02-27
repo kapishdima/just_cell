@@ -7,6 +7,7 @@
     :value="modelValue"
     class="form-field__input"
     @input="input($event)"
+    @blur="$emit('blur')"
   />
   <password-visibility-button @change="changeType" />
 </template>
@@ -37,7 +38,7 @@ export default defineComponent({
     },
     modelValue: String,
   },
-  emits: ["update:modelValue"],
+  emits: ["update:modelValue", "blur"],
   components: {
     PasswordVisibilityButton,
   },
