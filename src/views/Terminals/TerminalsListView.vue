@@ -52,8 +52,12 @@ export default defineComponent({
     },
   },
 
-  async mounted() {
+  mounted() {
     this.$store.dispatch(TerminalsActions.GET_TERMINALS);
+  },
+
+  beforeUnmount() {
+    this.$store.dispatch(TerminalsActions.CLEAR_TERMINALS);
   },
 });
 </script>

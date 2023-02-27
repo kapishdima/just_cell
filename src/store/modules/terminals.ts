@@ -30,6 +30,7 @@ type TerminalState = {
 };
 
 export enum TerminalsActions {
+  CLEAR_TERMINALS = "clear_terminals",
   GET_TERMINALS = "get_terminals",
   SET_TERMINALS = "set_terminals",
   GET_TERMINALS_REF = "get_terminals_ref",
@@ -59,7 +60,7 @@ const mutations = {
     state: TerminalState,
     terminals: Terminal[]
   ) {
-    state.terminals.push(...terminals);
+    state.terminals = terminals;
   },
   [TerminalsActions.SET_TERMINALS_REF](
     state: TerminalState,
@@ -152,6 +153,9 @@ const actions = {
     } finally {
       commit(TerminalsActions.SET_FORM_LOADING, false);
     }
+  },
+  [TerminalsActions.CLEAR_TERMINALS]({ commit }: any) {
+    commit(TerminalsActions.SET_TERMINALS, []);
   },
 };
 
