@@ -3,9 +3,10 @@
     :type="type"
     :class="`v-button--${variant} ${rounded ? 'v-button--rounded' : ''} ${
       hasMaxWidth ? 'v-button--max-width' : ''
-    } ${fixed ? 'v-button--fixed' : ''} ${className}`"
+    } ${fixed ? 'v-button--fixed' : ''} ${className} `"
     @click="$emit('click')"
     class="v-button"
+    :disabled="disabled"
   >
     <template v-if="loading"> <v-spinner /> </template>
     <template v-else>
@@ -28,6 +29,7 @@ interface ButtonProps {
   loading?: boolean;
   fixed?: boolean;
   className?: string;
+  disabled?: boolean;
 }
 
 withDefaults(defineProps<ButtonProps>(), {

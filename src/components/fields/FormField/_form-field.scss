@@ -34,13 +34,22 @@
   cursor: not-allowed;
 }
 
+@mixin error {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+
+  color: red;
+}
+
 .form-field {
   display: flex;
   flex-direction: column;
+  row-gap: 8px;
 
   position: relative;
-
-  row-gap: 14px;
 
   @include mobile {
     row-gap: 8px;
@@ -59,6 +68,15 @@
       font-size: 14px;
       line-height: 150%;
     }
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    position: relative;
   }
 
   &__hint {
@@ -121,6 +139,7 @@
   }
 
   &__input {
+    width: 100%;
     color: $dark-primary;
 
     background: #fff;
@@ -172,11 +191,15 @@
   &__extra {
     position: absolute;
     right: 10px;
-    bottom: 9px;
+    bottom: 8px;
 
     @include mobile {
       bottom: 4px;
     }
+  }
+
+  &__error {
+    @include error;
   }
 
   &--centered {
@@ -195,6 +218,12 @@
     row-gap: 4px;
     .form-field__label {
       font-size: 14px;
+    }
+  }
+
+  &--error {
+    .form-field__input {
+      border-color: red;
     }
   }
 }

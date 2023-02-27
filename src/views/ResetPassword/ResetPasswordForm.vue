@@ -39,7 +39,7 @@ export default defineComponent({
 
   data() {
     return {
-      tel: this.$route.query.tel || "",
+      tel: this.$route.query.tel?.toString() || "",
     };
   },
 

@@ -1,6 +1,7 @@
 export enum ApiRoutes {
   LOGIN = "/UserAuth/index.php",
   LOGOUT = "/Exit/index.php",
+  RESET_PASSWORD = "/PassChange/index.php",
   GET_AUTH_STATUS = "/AuthCheck/index.php",
   ACTIVATE_TERMINAL = "/Terminals/Activate/index.php",
   TERMINALS_LIST = "Terminals/List/index.php",

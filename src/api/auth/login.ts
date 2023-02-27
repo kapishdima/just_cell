@@ -7,15 +7,10 @@ import md5 from "md5";
 
 import { LoginDTO, LoginRequest, LoginResponse } from "./login.model";
 
-import { RequestOptions } from "../response";
 import { saveUserRulesToSession, saveUserToSession } from "../user/user";
 
-export const login = async (
-  credentials: LoginDTO,
-  options: RequestOptions | undefined
-) => {
+export const login = async (credentials: LoginDTO) => {
   const { p_client, common_p } = generatePartClientKey();
-  const { onSuccess, onError } = options || {};
 
   const payload: LoginRequest = {
     phone: credentials.phone,
@@ -26,18 +21,14 @@ export const login = async (
 
   const { data } = await http.post(ApiRoutes.LOGIN, payload);
 
-  if (data.code !== 0) {
-    onError && onError();
-    return false;
+  if (data.code === 0) {
+    createAndSaveToken(data);
+    saveUserToSession(data.user_info);
+    saveUserRulesToSession(data.rules);
+    saveMenu(data.user_menu);
   }
 
-  createAndSaveToken(data);
-  saveUserToSession(data.user_info);
-  saveUserRulesToSession(data.rules);
-  saveMenu(data.user_menu);
-
-  onSuccess && onSuccess();
-  return true;
+  return data;
 };
 
 const createAndSaveToken = (response: LoginResponse) => {

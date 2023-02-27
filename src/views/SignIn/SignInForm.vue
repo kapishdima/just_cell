@@ -27,7 +27,7 @@
           <template #text>Увійти</template>
         </submit-button>
 
-        <router-link :to="{ name: 'reset' }" class="signin-link"
+        <router-link :to="{ name: 'confirmPassword' }" class="signin-link"
           >Забули <span>пароль</span>?</router-link
         >
       </div>

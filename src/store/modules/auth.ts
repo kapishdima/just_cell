@@ -1,5 +1,6 @@
 import { login } from "@/api/auth/login";
 import { logout } from "@/api/auth/logout";
+import { resetPassword } from "@/api/auth/reset-password";
 import router from "@/router";
 
 type AuthState = {
@@ -8,6 +9,7 @@ type AuthState = {
 
 export enum AuthActions {
   SET_LOADING = "set_loading",
+  RESET_PASSWORD = "reset_password",
   LOGIN = "login",
   LOGOUT = "logout",
 }
@@ -26,15 +28,19 @@ const actions = {
   async [AuthActions.LOGIN]({ commit }: any, { loginData, route }: any) {
     commit(AuthActions.SET_LOADING, true);
 
-    await login(loginData, {
-      onSuccess: () => {
-        if (route.query.redirect) {
-          router.push(route.query.redirect);
-        } else {
-          router.push({ name: "dashboard" });
-        }
-      },
-    });
+    const data = await login(loginData);
+
+    if (data.code === 0) {
+      if (route.query.redirect) {
+        router.push(route.query.redirect);
+      } else {
+        router.push({ name: "dashboard" });
+      }
+    }
+
+    if (data.code === 103) {
+      router.push({ name: "confirmPassword" });
+    }
 
     commit(AuthActions.SET_LOADING, false);
   },
@@ -48,7 +54,25 @@ const actions = {
 
       commit(AuthActions.SET_LOADING, false);
     } catch (error) {
-      console.error(error);
+      toast.error("Щось пішло не так!");
+    }
+  },
+
+  async [AuthActions.RESET_PASSWORD](
+    { commit }: any,
+    { resetPayload, toast }: any
+  ) {
+    try {
+      commit(AuthActions.SET_LOADING, true);
+
+      const data = await resetPassword(resetPayload);
+      if (data.code === 0) {
+        toast.success("Пароль успішно змінено!");
+        router.push({ name: "signin" });
+      }
+
+      commit(AuthActions.SET_LOADING, false);
+    } catch (error) {
       toast.error("Щось пішло не так!");
     }
   },

@@ -144,8 +144,10 @@ const router = createRouter({
   routes,
 });
 
+const authExcludedRoutes = ["signin", "signup", "reset", "confirmPassword"];
+
 router.beforeEach(async (to, from, next) => {
-  if (to.name !== "signin") {
+  if (!authExcludedRoutes.includes(to.name as string)) {
     const authorized = await isAuthorized();
 
     if (!authorized) {

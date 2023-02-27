@@ -6,25 +6,36 @@
       'form-field--shadow': shadow,
       'form-field--iconed': hasBeforeIcon,
       'form-field--small': small,
+      'form-field--error': hasError,
     }"
   >
     <label class="form-field__label">{{ label }}</label>
     <div class="form-field__before-icon" v-if="hasBeforeIcon">
       <slot name="beforeIcon"></slot>
     </div>
-    <slot></slot>
+    <div class="form-field__container">
+      <slot></slot>
+    </div>
+    <div class="form-field__error" v-if="hasError">
+      {{ error?.message }}
+    </div>
     <div class="form-field__hint" v-if="hasHint">
       <slot name="hint"></slot>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-export interface FormFieldProps {
+type Error = {
+  message: string;
+};
+
+interface FormFieldProps {
   label?: string;
   helpText?: string;
   centered?: boolean;
   shadow?: boolean;
   small?: boolean;
+  error?: Error | null;
 }
 
 defineProps<FormFieldProps>();
@@ -39,6 +50,9 @@ export default defineComponent({
     },
     hasHint(): boolean {
       return Boolean(this.$slots.hint);
+    },
+    hasError(): boolean {
+      return Boolean((this.$props as any).error);
     },
   },
 });
