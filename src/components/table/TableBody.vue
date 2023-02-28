@@ -12,8 +12,6 @@
           class="table-td table-cell"
           :style="{
             color: row.original.status_color || '#000',
-            // minWidth: `${cell.column.getSize()}px`,
-            // maxWidth: `${cell.column.getSize()}px`,
           }"
         >
           <FlexRender
@@ -32,12 +30,10 @@
           :key="label"
         >
           <div class="table-expanded__item-label">{{ label }}:</div>
-          <div class="table-expanded__item-value">{{ value }}</div>
+          <div class="table-expanded__item-value" v-html="value"></div>
         </div>
       </div>
     </div>
-
-    <!-- <div class="div" v-if=""></div> -->
   </div>
 </template>
 <script setup lang="ts">

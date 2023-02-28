@@ -20,7 +20,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
-import OfflineTerminalForm from "@/components/terminals/OfflineTerminalForm.vue";
+import OfflineTerminalForm from "@/components/terminals/ActivateTerminalForm.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 
 import { TerminalsActions } from "@/store/modules/terminals";
@@ -50,7 +50,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.canEdit = Boolean(this.rules);
+    this.canEdit = Boolean(this.rules !== null);
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
     this.$store.dispatch(TerminalsActions.GET_TERMINAL_CONFIG);
   },

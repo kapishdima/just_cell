@@ -3,21 +3,15 @@
     <template #appTitle> Додати термінал </template>
     <template #appContent>
       <app-loading :loading="loading" />
-      <terminal-form />
-    </template>
-    <template #appActions>
-      <v-button>
-        <template #text>Додати термінал</template>
-      </v-button>
+      <terminal-form v-if="!loading" />
     </template>
   </app-layout>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
-import TerminalForm from "@/components/terminals/TerminalForm.vue";
+import TerminalForm from "@/components/terminals/CreateTerminalForm.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
-import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 
 import { TerminalsActions } from "@/store/modules/terminals";
 
@@ -26,7 +20,6 @@ export default defineComponent({
     AppLayout,
     AppLoading,
     TerminalForm,
-    VButton,
   },
 
   computed: {

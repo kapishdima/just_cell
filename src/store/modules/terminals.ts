@@ -90,7 +90,7 @@ const actions = {
     commit(TerminalsActions.SET_LOADING, true);
     const terminals = await getTerminalsList();
 
-    commit(TerminalsActions.SET_TERMINALS, terminals);
+    commit(TerminalsActions.SET_TERMINALS, transformForTable(terminals || []));
     commit(TerminalsActions.SET_LOADING, false);
   },
   async [TerminalsActions.GET_TERMINALS_REF]({ commit }: any) {
@@ -165,6 +165,38 @@ const getters = {
       (model) => model.id === id
     );
   },
+};
+
+const transformForTable = (terminals: Terminal[]) => {
+  return terminals.map((terminal) => ({
+    ...terminal,
+    subRows: [
+      {
+        Налаштування: terminal.settings,
+        "Тип термінала": terminal.terminal_type,
+        Адреса: terminal.address,
+        "Тип інтерфейса": terminal.interface_type,
+        Система: terminal.system,
+        "Чи може користувач робити відміну": JSON.parse(
+          terminal.can_user_reversal
+        )
+          ? "Так"
+          : "Ні",
+        "URL-адреса зворотного виклику": terminal.callback_url,
+        "Тип зворотного виклику": terminal.callback_type,
+        "Заголовки зворотного виклику": terminal.callback_headers,
+        "Шаблон зворотного виклику": `<pre>${terminal.callback_req_tmpl}</pre>`,
+        "Тип запиту зворотного виклику": terminal.callback_req_type,
+        "Шаблон підпису": terminal.sign_stract,
+        "Час тайм-ауту": terminal.timeout,
+        "Час повторної відправки": terminal.resendPeriod,
+        "У зміні": JSON.parse(terminal.inShifts) ? "Так" : "Ні",
+        "Початок зміни": terminal.shift_start,
+        "Кінець зміни": terminal.shift_end,
+        Статус: terminal.status,
+      },
+    ],
+  }));
 };
 
 export default {

@@ -3,7 +3,7 @@
     :type="type"
     :class="`v-button--${variant} ${rounded ? 'v-button--rounded' : ''} ${
       hasMaxWidth ? 'v-button--max-width' : ''
-    } ${fixed ? 'v-button--fixed' : ''} ${className} `"
+    } ${fixed ? 'v-button--fixed' : ''} ${className || ''} `"
     @click="$emit('click')"
     class="v-button"
     :disabled="disabled"

@@ -6,16 +6,16 @@ export type Terminal = {
   ID: string;
   interface_type: string;
   system: string;
-  can_offline: boolean;
+  can_offline: string;
   max_offline_sum: number;
-  can_user_reversal: boolean;
+  can_user_reversal: string;
   callback_url: string;
   callback_type: string;
   callback_headers: string;
   callback_req_tmpl: string;
   sign_stract: string;
   callback_req_type: string;
-  inShifts: boolean;
+  inShifts: string;
   timeout: number;
   resendPeriod: number;
   shift_start: number;
@@ -23,6 +23,8 @@ export type Terminal = {
   status_code: number;
   status_color: string;
   status: string;
+  last_online: string;
+  last_start: string;
 };
 
 export type TerminalPoint = {

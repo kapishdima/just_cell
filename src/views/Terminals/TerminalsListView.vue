@@ -4,11 +4,21 @@
       <app-loading :loading="loading" />
     </template>
     <template #appExtra v-if="hasTerminals">
-      <router-link :to="{ name: 'createTerminal' }" class="terminal-create-btn">
-        <v-button :hasMaxWidth="false">
-          <template #text>Додати термінал</template>
-        </v-button>
-      </router-link>
+      <div class="terminals-extra-actions">
+        <div class="terminal-create-btn">
+          <v-button :hasMaxWidth="false" @click="openCamera">
+            <template #text>Додати термінал через QR-code</template>
+          </v-button>
+        </div>
+        <router-link
+          :to="{ name: 'createTerminal' }"
+          class="terminal-create-btn"
+        >
+          <v-button :hasMaxWidth="false">
+            <template #text>Додати термінал по номеру</template>
+          </v-button>
+        </router-link>
+      </div>
     </template>
     <template #appTitle>Перегляд терміналів</template>
     <template #appContent>
@@ -58,6 +68,12 @@ export default defineComponent({
 
   beforeUnmount() {
     this.$store.dispatch(TerminalsActions.CLEAR_TERMINALS);
+  },
+
+  methods: {
+    openCamera() {
+      navigator.mediaDevices.getUserMedia({ video: true });
+    },
   },
 });
 </script>

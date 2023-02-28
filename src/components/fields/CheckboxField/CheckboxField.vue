@@ -35,7 +35,7 @@ interface CheckboxFieldProps {
   defaultChecked?: boolean;
   variant?: "primary" | "secondary";
   modelValue?: boolean;
-  disabled?: boolean;
+  disabled?: any;
 }
 
 withDefaults(defineProps<CheckboxFieldProps>(), {
@@ -57,7 +57,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.canEdit = Boolean(this.rules);
+    this.canEdit = Boolean(this.rules !== null);
   },
 
   methods: {

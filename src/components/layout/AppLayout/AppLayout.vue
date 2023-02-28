@@ -6,7 +6,7 @@
       <div class="app-layout__content">
         <slot name="appLoading" />
         <div class="app-layout__header">
-          <div class="app-layout__link">
+          <div class="app-layout__link" v-if="hasAppLink">
             <slot name="appLink"></slot>
           </div>
           <div class="app-layout__text">
@@ -30,9 +30,10 @@
   </div>
 </template>
 <script lang="ts">
+import { defineComponent } from "vue";
 import AppNavbar from "../AppNavbar/AppNavbar.vue";
 import AppSidebar from "../AppSidebar/AppSidebar.vue";
-export default {
+export default defineComponent({
   components: {
     AppNavbar,
     AppSidebar,
@@ -43,6 +44,12 @@ export default {
       menuOpened: false,
     };
   },
-};
+
+  computed: {
+    hasAppLink(): boolean {
+      return Boolean(this.$slots.appLink);
+    },
+  },
+});
 </script>
 <style lang=""></style>

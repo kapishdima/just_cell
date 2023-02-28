@@ -1,19 +1,31 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template lang="">
-  <div class="terminal-form__container" v-if="Boolean(this.configData)">
-    <form action="#" class="terminal-form" @submit.prevent @submit.stop>
-      <form-field label="Назва терміналу" v-if="showTerminalName">
+  <v-form
+    class-names="terminal-form"
+    :initial-values="initialValues"
+    @submit="submitPassword"
+  >
+    <template #fields="{ values }">
+      <form-field label="ID терміналу">
         <input-field
-          v-model="this.configData.name"
+          v-model="values.id"
+          name="name"
+          type="text"
+          placeholder="Введіть id термінала"
+        />
+      </form-field>
+      <form-field label="Назва терміналу">
+        <input-field
+          v-model="values.name"
           name="name"
           type="text"
           placeholder="Введіть назву термінала"
         />
       </form-field>
-      <settings-select v-model="this.configData.settings" />
+      <settings-select v-model="values.settings" />
       <form-field label="Максимальна сума для оффлайн платежу">
         <input-field
-          v-model="this.configData.max_offline_sum"
+          v-model="values.max_offline_sum"
           name="max_offline_sum"
           type="number"
           placeholder="Введіть максимальну суму для оффлайн платежу"
@@ -22,73 +34,73 @@
       <div class="checkbox-container">
         <checkbox-field
           name="is_default_offline"
-          v-model="this.configData.is_default_offline"
+          v-model="values.is_default_offline"
           label="Оффлайн по замовченню"
         />
       </div>
       <div class="checkbox-container">
         <checkbox-field
-          v-model="this.configData.is_for_all_card"
+          v-model="values.is_for_all_card"
           name="is_for_all_card"
           label="Чи для всіх карт"
         />
       </div>
       <div class="checkbox-container">
         <checkbox-field
-          v-model="this.configData.can_user_add_card"
+          v-model="values.can_user_add_card"
           name="can_user_add_card"
           label="Чи може користувач додавати карту"
         />
       </div>
       <form-field label="Endpoint для повідомлень про результати транзакцій">
         <input-field
-          v-model="this.configData.endpoint_result"
+          v-model="values.endpoint_result"
           name="endpoint_result"
           placeholder="Наприклад, https://example.com/callback"
         />
       </form-field>
       <form-field label="GET параметри для передачі">
         <input-field
-          v-model="this.configData.add_get"
+          v-model="values.add_get"
           name="add_get"
           placeholder="Наприклад, ?param_name=param_value"
         />
       </form-field>
       <form-field label="headers запиту">
         <textarea-field
-          v-model="this.configData.headers"
+          v-model="values.headers"
           name="headers"
           placeholder="Наприклад, Content-type: application/json; Host:example.it"
         />
       </form-field>
-      <payload-field v-model="this.configData.payload" />
+      <payload-field v-model="values.payload" />
       <form-field label="Структура підпису">
         <textarea-field
-          v-model="this.configData.sign_stract"
+          v-model="values.sign_stract"
           name="sign_stract"
           placeholder="Наприклад, ${transaction_id}${pay_time}${get_time}${device_id}${pay_inst}${pan_mask}${end_pay_time}${code}${transaction_type}${msg}${amount}${ticket_num}"
         />
       </form-field>
-      <request-type-select v-model="this.configData.req_type" />
+      <request-type-select v-model="values.req_type" />
       <form-field label="Час очікування картки, в секундах">
         <input-field
-          v-model="this.configData.card_wait"
+          v-model="values.card_wait"
           name="card_wait"
           placeholder="Наприклад, 30"
           type="number"
         />
       </form-field>
-      <synctype-select v-model="this.configData.sync_type" />
+      <synctype-select v-model="values.sync_type" />
       <div class="checkbox-container">
         <checkbox-field
-          v-model="this.configData.need_shift"
+          v-model="values.need_shift"
           name="need_shift"
           label="Необхідне відкриття зміни"
         />
       </div>
       <form-field label="Час синхронізації, в секундах">
         <input-field
-          v-model="this.configData.sync_period"
+          v-model="values.sync_period"
           name="sync_period"
           placeholder="Наприклад, 30"
           type="number"
@@ -97,7 +109,7 @@
 
       <div class="checkbox-container">
         <checkbox-field
-          v-model="this.configData.update_all_term"
+          v-model="values.update_all_term"
           name="need_shift"
           label="Оновити всі термінали"
         />
@@ -121,15 +133,16 @@
           @click="activeTerminal"
           fixed
         >
-          <template #text>Активувати термінал</template>
+          <template #text>Додати термінал</template>
         </v-button>
       </div>
-    </form>
-  </div>
+    </template>
+  </v-form>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 
+import VForm from "@/components/form/VForm.vue";
 import FormField from "@/components/fields/FormField/FormField.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 import CheckboxField from "@/components/fields/CheckboxField/CheckboxField.vue";
@@ -143,8 +156,9 @@ import RequestTypeSelect from "./RequestTypeSelect.vue";
 import SynctypeSelect from "./SyncTypeSelect.vue";
 import { useToast } from "vue-toastification";
 
-const defaultConfigData = {
-  name: "",
+const createInitialData = (id: string) => ({
+  id,
+  name: "Name",
   settings: "",
   max_offline_sum: 0,
   is_default_offline: false,
@@ -161,29 +175,12 @@ const defaultConfigData = {
   sync_type: "",
   sync_period: 30,
   update_all_term: false,
-};
+});
 
 export default defineComponent({
   inject: ["rules"],
   props: {
     actionsFixed: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    showTerminalName: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    configData: {
-      type: Object,
-      required: false,
-      default() {
-        return defaultConfigData;
-      },
-    },
-    isActivateForm: {
       type: Boolean,
       required: false,
       default: false,
@@ -200,6 +197,7 @@ export default defineComponent({
     SettingsSelect,
     VButton,
     SynctypeSelect,
+    VForm,
   },
 
   setup() {
@@ -210,12 +208,13 @@ export default defineComponent({
 
   data() {
     return {
-      canEdit: false,
+      initialValues: createInitialData(""),
     };
   },
 
   mounted() {
-    this.canEdit = Boolean(this.rules);
+    const id = this.$route.query.id as string;
+    this.initialValues = createInitialData(id || "");
   },
 
   computed: {
@@ -230,13 +229,6 @@ export default defineComponent({
         TerminalsActions.CREATE_OFFLINE_TERMINAL,
         (this.$props as any).configData
       );
-    },
-    activeTerminal() {
-      const id = this.$route.query.id as string;
-      this.$store.dispatch(TerminalsActions.ACTIVATE_TERMINAL, {
-        terminalId: id,
-        toast: this.toast,
-      });
     },
   },
 });

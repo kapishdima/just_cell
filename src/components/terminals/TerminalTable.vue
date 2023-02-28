@@ -3,6 +3,7 @@
 </template>
 <script setup lang="ts">
 import { Terminal } from "@/api/terminals/terminal.model";
+import { expandedButton } from "@/components/table/ExpandedButton";
 import { createColumnHelper } from "@tanstack/vue-table";
 
 interface TerminalTableProps {
@@ -13,28 +14,38 @@ const columnHelper = createColumnHelper<Terminal>();
 
 const columns = [
   columnHelper.accessor("ID", {
-    cell: (info) => info.getValue(),
+    cell: (info) => {
+      const value = info.getValue();
+      const isExpanded = info.row.getIsExpanded();
+      const onClick = info.row.getToggleExpandedHandler();
+      return expandedButton(value, isExpanded, onClick);
+    },
     header: (props) => props.column.id,
   }),
   columnHelper.accessor("name", {
     cell: (info) => info.getValue(),
     header: "Назва",
   }),
-  columnHelper.accessor("terminal_type", {
-    cell: (info) => info.getValue(),
-    header: "Тип терміналу",
+
+  columnHelper.accessor("can_offline", {
+    header: "Чи працює оффлайн",
+    cell: (info) => (JSON.parse(info.getValue()) ? "Так" : "Ні"),
   }),
-  columnHelper.accessor("address", {
+  columnHelper.accessor("max_offline_sum", {
+    header: "Максимальна оффлайн сумма",
     cell: (info) => info.getValue(),
-    header: "Адреса",
   }),
-  columnHelper.accessor("interface_type", {
-    cell: (info) => info.getValue(),
-    header: "Тип інтерфейсу",
+  columnHelper.accessor("inShifts", {
+    cell: (info) => (JSON.parse(info.getValue()) ? "Так" : "Ні"),
+    header: "У змінах",
   }),
-  columnHelper.accessor("system", {
+  columnHelper.accessor("last_online", {
     cell: (info) => info.getValue(),
-    header: "Система",
+    header: "Востаннє онлайн",
+  }),
+  columnHelper.accessor("last_start", {
+    cell: (info) => info.getValue(),
+    header: "Останній старт",
   }),
 ];
 

@@ -2,8 +2,8 @@
   <form :class="classNames" @submit.prevent @submit.stop @submit="onSubmit">
     <slot
       name="fields"
-      :errors="errors"
       :values="values"
+      :errors="errors"
       :hasErrors="hasErrors"
       :validateAt="validateAt"
     ></slot>
@@ -35,8 +35,9 @@ export default defineComponent({
   },
 
   data(): { errors: Error; values: any } {
+    console.log(this.initialValues);
     return {
-      values: {},
+      values: this.initialValues,
       errors: {},
     };
   },
@@ -47,8 +48,10 @@ export default defineComponent({
     },
   },
 
-  mounted() {
-    this.values = this.initialValues;
+  watch: {
+    initialValues(newValues) {
+      this.values = newValues;
+    },
   },
 
   methods: {

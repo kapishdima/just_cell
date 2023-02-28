@@ -61,7 +61,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.canEdit = Boolean(this.rules);
+    this.canEdit = Boolean(this.rules !== null);
     if (this.modelValue) {
       this.payload = this.modelValue;
     }

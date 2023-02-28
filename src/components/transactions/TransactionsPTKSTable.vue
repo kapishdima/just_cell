@@ -15,19 +15,10 @@ const columnHelper = createColumnHelper<Transaction>();
 const columns = [
   columnHelper.accessor("term_name", {
     cell: (info) => {
-      return h("div", { class: "table-expanded__column" }, [
-        h(
-          "button",
-          {
-            class: `table-expanded__button ${
-              info.row.getIsExpanded() ? "expanded" : ""
-            }`,
-            onClick: info.row.getToggleExpandedHandler(),
-          },
-          [h("img", { src: require("@/assets/icons/chevron-right.svg") })]
-        ),
-        info.getValue(),
-      ]);
+      const value = info.getValue();
+      const isExpanded = info.row.getIsExpanded();
+      const onClick = info.row.getToggleExpandedHandler();
+      return expandedButton(value, isExpanded, onClick);
     },
     header: "Темінал",
   }),
@@ -66,6 +57,7 @@ defineProps<TerminalTableProps>();
 <script lang="ts">
 import VTable from "../table/VTable.vue";
 import { h } from "vue";
+import { expandedButton } from "../table/ExpandedButton";
 
 export default {
   components: {

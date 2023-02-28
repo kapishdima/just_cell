@@ -22,7 +22,7 @@ export interface InputFieldProps {
   size?: "lg" | "sm";
   variant?: "default" | "accent";
   modelValue?: string;
-  disabled?: boolean;
+  disabled?: any;
 }
 
 withDefaults(defineProps<InputFieldProps>(), {
@@ -44,7 +44,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.canEdit = Boolean(this.rules);
+    this.canEdit = Boolean(this.rules !== null);
   },
 
   methods: {

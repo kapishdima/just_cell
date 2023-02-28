@@ -21,12 +21,12 @@ export const saveUserRulesToSession = (rules: any[]) => {
   window.localStorage.setItem(USER_ROLES_KEY, JSON.stringify(rules));
 };
 
-export const getUserRulesFromSession = (): User | null => {
-  const userJson = window.localStorage.getItem(USER_ROLES_KEY);
+export const getUserRulesFromSession = (): any => {
+  const userRoles = window.localStorage.getItem(USER_ROLES_KEY);
 
-  if (!userJson) {
+  if (!userRoles) {
     return null;
   }
 
-  return JSON.parse(userJson);
+  return JSON.parse(userRoles);
 };

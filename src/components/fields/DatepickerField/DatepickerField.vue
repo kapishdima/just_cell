@@ -89,7 +89,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.canEdit = Boolean(this.rules);
+    this.canEdit = Boolean(this.rules !== null);
     this.initDatepicker();
   },
 

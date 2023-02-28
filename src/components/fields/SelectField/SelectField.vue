@@ -43,7 +43,7 @@ interface SelectFieldProps {
   searchPlaceholder?: string;
   hasSearch?: boolean;
   modelValue?: string;
-  disabled?: boolean;
+  disabled?: any;
   size?: "md" | "sm";
 }
 
@@ -86,7 +86,7 @@ export default defineComponent({
   mounted() {
     document.addEventListener("keydown", this.onEscapePressed);
 
-    this.canEdit = Boolean(this.rules);
+    this.canEdit = Boolean(this.rules !== null);
     this.selectedLabel =
       (this.$props.options as any).find(
         ({ value }: any) => value === this.$props.modelValue

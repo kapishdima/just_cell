@@ -1,6 +1,15 @@
 .terminal-create-btn {
   display: block;
-  width: 200px;
+  button {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.terminals-extra-actions {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
 }
 
 .success-offline-terminal {

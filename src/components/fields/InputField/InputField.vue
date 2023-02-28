@@ -4,8 +4,7 @@
     :placeholder="placeholder"
     :name="name"
     :required="required"
-    :class="`
-    form-field__input--${size} form-field__input--${variant}`"
+    :class="`form-field__input--${size} form-field__input--${variant}`"
     :value="modelValue"
     :disabled="disabled !== undefined ? disabled : !canEdit"
     @input="input($event)"
@@ -27,7 +26,7 @@ export interface InputFieldProps {
   size?: "lg" | "sm";
   variant?: "default" | "accent";
   modelValue?: string | number;
-  disabled?: boolean;
+  disabled?: any;
 }
 
 withDefaults(defineProps<InputFieldProps>(), {
@@ -48,7 +47,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.canEdit = Boolean(this.rules);
+    this.canEdit = Boolean(this.rules !== null);
   },
 
   methods: {

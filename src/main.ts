@@ -20,9 +20,7 @@ const toastOptions = {
 
 const app = createApp(App);
 
-if (rules) {
-  app.provide("rules", rules);
-}
+app.provide("rules", rules);
 
 app.use(router);
 app.use(store);
