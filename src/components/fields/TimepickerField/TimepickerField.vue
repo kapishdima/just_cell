@@ -6,6 +6,7 @@
         name="time"
         class="timepicker-field__input"
         v-model="time"
+        readonly
       />
     </div>
     <div class="timepicker-dropdown" :class="{ opened: opened }">
@@ -59,6 +60,8 @@ const prepareTime = (value: number) => {
 };
 
 export default defineComponent({
+  emits: ["update:modelValue"],
+  props: ["modelValue"],
   data() {
     return {
       opened: false,
@@ -80,9 +83,11 @@ export default defineComponent({
   watch: {
     hour() {
       this.time = this.formattedHour + ":" + this.formattedMinuts;
+      this.$emit("update:modelValue", this.time);
     },
     minuts() {
       this.time = this.formattedHour + ":" + this.formattedMinuts;
+      this.$emit("update:modelValue", this.time);
     },
   },
 

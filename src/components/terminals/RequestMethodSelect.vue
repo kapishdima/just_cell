@@ -28,9 +28,8 @@ export default defineComponent({
   data() {
     return {
       types: [
-        { value: "JSON", label: "json" },
-        { value: "XML", label: "xml" },
-        { value: "X-WWW-FORM", label: "x-www-form" },
+        { value: "POST", label: "POST" },
+        { value: "GET", label: "GET" },
       ],
     };
   },

@@ -11,7 +11,7 @@
           </v-button>
         </div>
         <router-link
-          :to="{ name: 'createTerminal' }"
+          :to="{ name: 'activateTerminal' }"
           class="terminal-create-btn"
         >
           <v-button :hasMaxWidth="false">

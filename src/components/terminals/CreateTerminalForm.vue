@@ -152,7 +152,7 @@ import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import { TerminalsActions } from "@/store/modules/terminals";
 
 import SettingsSelect from "./SettingsSelect.vue";
-import RequestTypeSelect from "./RequestTypeSelect.vue";
+import RequestTypeSelect from "./RequestMethodSelect.vue";
 import SynctypeSelect from "./SyncTypeSelect.vue";
 import { useToast } from "vue-toastification";
 

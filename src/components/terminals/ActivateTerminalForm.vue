@@ -148,7 +148,7 @@ import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import { TerminalsActions } from "@/store/modules/terminals";
 
 import SettingsSelect from "./SettingsSelect.vue";
-import RequestTypeSelect from "./RequestTypeSelect.vue";
+import RequestTypeSelect from "./RequestMethodSelect.vue";
 import SynctypeSelect from "./SyncTypeSelect.vue";
 import { useToast } from "vue-toastification";
 
@@ -218,7 +218,7 @@ export default defineComponent({
     return { toast };
   },
 
-  data() {
+  data(): { canEdit: boolean; canEditId: boolean; values: any } {
     return {
       canEdit: false,
       canEditId: false,
@@ -250,9 +250,8 @@ export default defineComponent({
       );
     },
     activeTerminal() {
-      const id = this.$route.query.id as string;
       this.$store.dispatch(TerminalsActions.ACTIVATE_TERMINAL, {
-        terminalId: id,
+        terminalId: this.values.id,
         toast: this.toast,
       });
     },

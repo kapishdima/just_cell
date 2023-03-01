@@ -1,5 +1,5 @@
 <template>
-  <form-field label="Шаблон тіла запиту">
+  <form-field :label="label || 'Шаблон тіла запиту'">
     <textarea-field
       :model-value="modelValue"
       @update:model-value="input"
@@ -37,6 +37,7 @@ export default defineComponent({
   inject: ["rules"],
   props: {
     modelValue: String,
+    label: String,
   },
   emits: ["update:modelValue"],
   data() {
