@@ -101,6 +101,12 @@ export default defineComponent({
     selected() {
       this.value = this.selected?.label || "";
     },
+    options() {
+      this.selectedLabel =
+        (this.$props.options as any).find(
+          ({ value }: any) => value === this.$props.modelValue
+        )?.label || "";
+    },
   },
 
   methods: {

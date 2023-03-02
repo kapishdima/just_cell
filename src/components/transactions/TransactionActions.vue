@@ -2,9 +2,7 @@
   <v-popover>
     <template #actions>
       <transaction-reverse />
-      <router-link :to="{ name: 'editTerminal' }" class="popover-action"
-        >Оновити статус</router-link
-      >
+      <div class="popover-action">Оновити статус</div>
     </template>
   </v-popover>
 </template>

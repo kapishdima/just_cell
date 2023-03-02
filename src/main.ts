@@ -16,6 +16,15 @@ const toastOptions = {
   transition: "Vue-Toastification__bounce",
   maxToasts: 20,
   newestOnTop: true,
+  filterBeforeCreate: (toast: any, toasts: any[]) => {
+    const existingToast = toasts.find((t) =>
+      t.content.match(`^${toast.content}?`)
+    );
+    if (existingToast) {
+      return false;
+    }
+    return toast;
+  },
 };
 
 const app = createApp(App);

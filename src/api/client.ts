@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { sign } from "./crypto/DeffiHellman";
 import { getToken } from "./crypto/token";
 import { ApiRoutes } from "./routes";

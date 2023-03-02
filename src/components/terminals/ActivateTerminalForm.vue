@@ -236,6 +236,12 @@ export default defineComponent({
     this.canEditId = Boolean(id?.length);
   },
 
+  watch: {
+    configData(value) {
+      this.values = { ...this.values, ...value };
+    },
+  },
+
   computed: {
     loading(): boolean {
       return this.$store.state.terminals.formLoading;
