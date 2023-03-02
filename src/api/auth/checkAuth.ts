@@ -6,9 +6,9 @@ import { getUserFromSession } from "../user/user";
 export const isAuthorized = async () => {
   const user = getUserFromSession();
   const token = getToken();
-  const status = await getAuthStatus();
+  const code = await getAuthStatus();
 
-  return Boolean(user && token) && status === 0;
+  return Boolean(user && token) && code === 0;
 };
 
 export const getAuthStatus = async () => {

@@ -1,12 +1,13 @@
 <template>
   <div
     class="modal"
-    :class="{ 'modal--opened': opened, [`${classNames}`]: Boolean(classNames) }"
     tabindex="-1"
     role="dialog"
+    :class="{ 'modal--opened': opened, [`${classNames}`]: Boolean(classNames) }"
     @click="close"
+    ref="modal"
   >
-    <div class="modal-content" @click.stop>
+    <div class="modal-content" :style="{ minWidth }" @click.stop>
       <div class="modal-header">
         <h4 class="modal-title">
           <slot name="title"></slot>
@@ -17,7 +18,7 @@
       </div>
       <slot name="content" :close="close"></slot>
       <div class="modal-footer">
-        <slot name="footer"></slot>
+        <slot name="footer" :close="close"></slot>
       </div>
     </div>
   </div>
@@ -34,6 +35,7 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    minWidth: String,
   },
   data() {
     return {
@@ -42,6 +44,8 @@ export default defineComponent({
   },
 
   mounted() {
+    const modal = this.$refs.modal as HTMLDivElement;
+    document.body.prepend(modal);
     document.addEventListener("keydown", this.onKeydown);
   },
 

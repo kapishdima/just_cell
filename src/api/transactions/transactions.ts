@@ -11,6 +11,7 @@ export const getTransactionsList = async (
     ...item,
     subRows: [
       {
+        "ID термінала": item.terminal_id,
         RRN: item.rrn,
         tax_num: item.tax_num,
         "Чи повернення": JSON.parse(item.is_revers) ? "Так" : "Ні",

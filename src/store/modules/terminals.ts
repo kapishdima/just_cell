@@ -144,6 +144,7 @@ const actions = {
 
       if (code === 0) {
         toast.success("Термінал успішно активовано!");
+        router.push({ name: "terminals" });
       }
 
       commit(TerminalsActions.SET_FORM_LOADING, false);

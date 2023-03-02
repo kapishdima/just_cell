@@ -22,10 +22,6 @@ const columns = [
     },
     header: "Темінал",
   }),
-  columnHelper.accessor("terminal_id", {
-    cell: (info) => info.getValue(),
-    header: "ID терміналу",
-  }),
   columnHelper.accessor("order_id", {
     cell: (info) => info.getValue(),
     header: "ID замовлення",
@@ -50,6 +46,10 @@ const columns = [
     cell: (info) => info.getValue(),
     header: "Статус",
   }),
+  columnHelper.display({
+    cell: (info) => h(TransactionActions),
+    header: "Дії",
+  }),
 ];
 
 defineProps<TerminalTableProps>();
@@ -58,6 +58,7 @@ defineProps<TerminalTableProps>();
 import VTable from "../table/VTable.vue";
 import { h } from "vue";
 import { expandedButton } from "../table/ExpandedButton";
+import TransactionActions from "./TransactionActions.vue";
 
 export default {
   components: {

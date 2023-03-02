@@ -9,6 +9,7 @@
       :model-value="modelValue"
       @update:model-value="select"
       :size="small ? 'sm' : 'md'"
+      :disabled="false"
     />
   </form-field>
 </template>
@@ -41,10 +42,14 @@ export default defineComponent({
         return [];
       }
 
-      return ref.status_list.map((type) => ({
+      const statuses = ref.status_list.map((type) => ({
         value: type.id.toString(),
         label: type.name || "",
       }));
+
+      statuses.unshift({ value: "", label: "Усі" });
+
+      return statuses;
     },
   },
 

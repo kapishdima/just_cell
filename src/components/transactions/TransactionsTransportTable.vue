@@ -14,12 +14,13 @@ const columnHelper = createColumnHelper<Transaction>();
 
 const columns = [
   columnHelper.accessor("term_name", {
-    cell: (info) => info.getValue(),
+    cell: (info) => {
+      const value = info.getValue();
+      const isExpanded = info.row.getIsExpanded();
+      const onClick = info.row.getToggleExpandedHandler();
+      return expandedButton(value, isExpanded, onClick);
+    },
     header: "Темінал",
-  }),
-  columnHelper.accessor("terminal_id", {
-    cell: (info) => info.getValue(),
-    header: "ID терміналу",
   }),
   columnHelper.accessor("order_id", {
     cell: (info) => info.getValue(),
@@ -29,14 +30,9 @@ const columns = [
     cell: (info) => info.getValue(),
     header: "ID квитка",
   }),
-  columnHelper.accessor("pay_type", {
-    cell: (info) => info.getValue(),
-    header: "Тип оплати",
-  }),
   columnHelper.accessor("amount", {
     cell: (info) => info.getValue(),
     header: "Сума",
-    size: 120,
   }),
   columnHelper.accessor("bank_name", {
     cell: (info) => info.getValue(),
@@ -44,53 +40,15 @@ const columns = [
   }),
   columnHelper.accessor("pan_mask", {
     cell: (info) => info.getValue(),
-    header: "Маска",
-  }),
-  columnHelper.accessor("rrn", {
-    cell: (info) => info.getValue(),
-    header: "RRN",
-  }),
-  columnHelper.accessor("tax_num", {
-    cell: (info) => info.getValue(),
-    header: "Tax",
-    size: 100,
-  }),
-  columnHelper.accessor("is_revers", {
-    cell: (info) => (JSON.parse(info.getValue()) === true ? "Так" : "Ні"),
-    header: "Чи повернення?",
-    size: 50,
-  }),
-  columnHelper.accessor("revers_amount", {
-    cell: (info) => info.getValue(),
-    header: "Сумма повернення",
-    size: 100,
-  }),
-  columnHelper.accessor("revers_time", {
-    cell: (info) => info.getValue(),
-    header: "Час повернення",
-    size: 100,
-  }),
-  columnHelper.accessor("FISCAL_TRANSACTION_ID", {
-    cell: (info) => info.getValue(),
-    header: "FISCAL_TRANSACTION_ID",
-  }),
-  columnHelper.accessor("answ_code", {
-    cell: (info) => info.getValue(),
-    header: "Код відповіді",
-    size: 100,
-  }),
-  columnHelper.accessor("answ_description", {
-    cell: (info) => info.getValue(),
-    header: "Відповідь",
-    size: 180,
+    header: "Карта/Токен",
   }),
   columnHelper.accessor("status_name", {
     cell: (info) => info.getValue(),
     header: "Статус",
   }),
-  columnHelper.accessor("add_time", {
-    cell: (info) => info.getValue(),
-    header: "Час створення",
+  columnHelper.display({
+    cell: (info) => h(TransactionActions),
+    header: "Дії",
   }),
 ];
 
@@ -98,6 +56,9 @@ defineProps<TerminalTableProps>();
 </script>
 <script lang="ts">
 import VTable from "../table/VTable.vue";
+import { expandedButton } from "../table/ExpandedButton";
+import TransactionActions from "./TransactionActions.vue";
+import { h } from "vue";
 
 export default {
   components: {

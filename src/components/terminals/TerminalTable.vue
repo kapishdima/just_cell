@@ -47,12 +47,21 @@ const columns = [
     cell: (info) => info.getValue(),
     header: "Останній старт",
   }),
+  columnHelper.display({
+    cell: (info) => {
+      return h(TerminalActions);
+    },
+
+    header: "Дії",
+  }),
 ];
 
 defineProps<TerminalTableProps>();
 </script>
 <script lang="ts">
 import VTable from "../table/VTable.vue";
+import { h } from "vue";
+import TerminalActions from "@/components/terminals/TerminalActions.vue";
 
 export default {
   components: {

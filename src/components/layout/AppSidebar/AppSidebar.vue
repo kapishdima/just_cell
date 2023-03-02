@@ -40,7 +40,6 @@ export default defineComponent({
       immediate: true,
       deep: true,
       handler(opened) {
-        console.log("opened", opened);
         if (opened) {
           document.body.style.overflow = "hidden";
         } else {

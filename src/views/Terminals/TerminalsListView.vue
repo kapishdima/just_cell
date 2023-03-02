@@ -3,13 +3,9 @@
     <template #appLoading>
       <app-loading :loading="loading" />
     </template>
-    <template #appExtra v-if="hasTerminals">
-      <div class="terminals-extra-actions">
-        <div class="terminal-create-btn">
-          <v-button :hasMaxWidth="false" @click="openCamera">
-            <template #text>Додати термінал через QR-code</template>
-          </v-button>
-        </div>
+    <template #appExtra>
+      <div class="terminals-extra-actions" v-if="hasTerminals">
+        <qr-scanner />
         <router-link
           :to="{ name: 'activateTerminal' }"
           class="terminal-create-btn"
@@ -34,6 +30,7 @@ import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 import TerminalTable from "@/components/terminals/TerminalTable.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 
+import QrScanner from "@/components/terminals/QR/QRScanner.vue";
 import TerminalsEmptyView from "./TerminalsEmptyView.vue";
 
 import { TerminalsActions } from "@/store/modules/terminals";
@@ -45,6 +42,7 @@ export default defineComponent({
     AppLoading,
     VButton,
     TerminalsEmptyView,
+    QrScanner,
   },
 
   computed: {
@@ -68,12 +66,6 @@ export default defineComponent({
 
   beforeUnmount() {
     this.$store.dispatch(TerminalsActions.CLEAR_TERMINALS);
-  },
-
-  methods: {
-    openCamera() {
-      navigator.mediaDevices.getUserMedia({ video: true });
-    },
   },
 });
 </script>

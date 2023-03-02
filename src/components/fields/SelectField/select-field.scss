@@ -5,6 +5,8 @@
 .select-field {
   position: relative;
 
+  min-width: 100%;
+
   &--disabled {
     pointer-events: none;
     .select-field__container.form-field__input {

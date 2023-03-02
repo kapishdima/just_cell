@@ -34,7 +34,7 @@ const actions = {
       if (route.query.redirect) {
         router.push(route.query.redirect);
       } else {
-        router.push({ name: "dashboard" });
+        router.push({ name: "root" });
       }
     }
 

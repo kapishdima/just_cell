@@ -5,7 +5,6 @@
       v-for="headerGroup in table.getHeaderGroups()"
       :key="headerGroup.id"
     >
-      <!-- :style="{ minWidth: `${header.column.getSize()}px` }" -->
       <div
         v-for="header in headerGroup.headers"
         :key="header.id"

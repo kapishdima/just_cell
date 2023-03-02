@@ -34,7 +34,7 @@ export default defineComponent({
     OfflineTerminalForm,
   },
 
-  data() {
+  data(): any {
     return {
       canEdit: false,
     };
@@ -49,7 +49,7 @@ export default defineComponent({
     },
   },
 
-  mounted() {
+  async mounted() {
     this.canEdit = Boolean(this.rules !== null);
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
     this.$store.dispatch(TerminalsActions.GET_TERMINAL_CONFIG);
