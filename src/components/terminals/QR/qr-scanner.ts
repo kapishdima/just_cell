@@ -7,8 +7,10 @@ const scannerOptions = {
   qrbox: 250,
 };
 
+let html5QrCode: Html5Qrcode;
+
 export const createScanner = async (selector: string, onSuccess: OnSuccess) => {
-  const html5QrCode = new Html5Qrcode(selector);
+  html5QrCode = new Html5Qrcode(selector);
   html5QrCode.start(
     { facingMode: "environment" },
     scannerOptions,
@@ -20,4 +22,8 @@ export const createScanner = async (selector: string, onSuccess: OnSuccess) => {
       return errorMessage;
     }
   );
+};
+
+export const stop = async () => {
+  html5QrCode.stop();
 };

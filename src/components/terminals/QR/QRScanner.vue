@@ -6,12 +6,17 @@
   </div>
   <div class="qr-scanner" :class="{ 'qr-scanner--opened': isScanning }">
     <div id="reader"></div>
+    <div class="qr-scanner__actions">
+      <v-button @click="stopScan">
+        <template #text>Відмінити</template>
+      </v-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { createScanner } from "./qr-scanner";
+import { createScanner, stop } from "./qr-scanner";
 
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 
@@ -33,6 +38,11 @@ export default defineComponent({
         const path = url.pathname + url.search;
         this.$router.push(path);
       });
+    },
+
+    async stopScan() {
+      await stop();
+      this.isScanning = false;
     },
   },
 });
