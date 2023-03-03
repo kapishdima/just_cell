@@ -1,5 +1,6 @@
 <template>
   <textarea
+    ref="textarea"
     :placeholder="placeholder"
     :name="name"
     :required="required"
@@ -8,6 +9,7 @@
     :value="modelValue"
     :disabled="disabled !== undefined ? disabled : !canEdit"
     @input="input($event)"
+    @keydown="onTabPressed"
   />
 </template>
 
@@ -51,6 +53,21 @@ export default defineComponent({
     input(event: Event) {
       const value = (event.target as HTMLInputElement)?.value;
       this.$emit("update:modelValue", value);
+    },
+    onTabPressed(event: any) {
+      const textarea = this.$refs.textarea as HTMLTextAreaElement;
+      let value = event.target.value;
+      if (event.key == "Tab") {
+        event.preventDefault();
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+
+        event.target.value =
+          value.substring(0, start) + "\t" + value.substring(end);
+
+        // put caret at right position again
+        textarea.selectionStart = textarea.selectionEnd = start + 1;
+      }
     },
   },
 });

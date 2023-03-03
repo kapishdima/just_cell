@@ -10,4 +10,5 @@ export enum ApiRoutes {
   CREATE_OFFLINE_TERMINAL = "Terminals/Config/Set/index.php",
   TRANSACTIONS_LIST = "Payments/Transactions/index.php",
   PAYMENTS_REFUND = "Payments/Refund/index.php",
+  EDIT_TERMINAL = "Terminals/Edit/index.php",
 }

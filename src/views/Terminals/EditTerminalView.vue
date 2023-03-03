@@ -8,7 +8,11 @@
       <app-loading :loading="loading" />
     </template>
     <template #appContent>
-      <terminal-form :configData="configData" :actions-fixed="true" />
+      <terminal-form
+        :configData="configData"
+        :actions-fixed="true"
+        :terminal="terminal"
+      />
     </template>
   </app-layout>
 </template>
@@ -24,6 +28,7 @@ import { OfflineTerminalPayload } from "@/api/terminals/terminal.model";
 
 export default defineComponent({
   inject: ["rules"],
+  props: ["terminal"],
   components: {
     AppLayout,
     AppLoading,

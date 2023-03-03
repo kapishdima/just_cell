@@ -106,3 +106,24 @@ export type CreateOfflineTerminalResponse = {
   code: number;
   public_key: string;
 };
+
+export type EditTerminalData = {
+  ID: string;
+  status_code: string;
+  name: string;
+  address: string;
+  can_offline: string;
+  max_offline_sum: string;
+  can_user_reversal: string;
+  callback_url: string;
+  callback_type: string;
+  callback_headers: string;
+  callback_req_tmpl: string;
+  sign_stract: string;
+  callback_req_type: string;
+  inShifts: string;
+  timeout: string;
+  resendPeriod: string;
+  shift_start: string;
+  shift_end: string;
+};

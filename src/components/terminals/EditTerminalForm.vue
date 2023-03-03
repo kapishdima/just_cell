@@ -2,10 +2,19 @@
 <template lang="">
   <v-form
     class-names="terminal-form"
-    :initial-values="initialValues"
+    :initial-values="values"
+    :schema="editTerminalSchema"
     @submit="editConfig"
   >
-    <template #fields="{ values }">
+    <template #fields="{ values, errors }">
+      <form-field label="ID терміналу" :error="errors.terminal_id">
+        <input-field
+          v-model="values.terminal_id"
+          name="name"
+          type="text"
+          placeholder="Введіть id термінала"
+        />
+      </form-field>
       <form-field label="Назва терміналу">
         <input-field
           v-model="values.name"
@@ -22,11 +31,13 @@
           placeholder="Введіть адресу"
         />
       </form-field>
+      <status-select v-model="values.status" />
       <div class="checkbox-container">
         <checkbox-field
           name="can_offline"
           v-model="values.can_offline"
           label="Чи працює термінал оффлайн"
+          :error="errors.can_offline"
         />
       </div>
       <form-field label="Максимальна сума для оффлайн платежу">
@@ -42,6 +53,7 @@
           name="can_user_reversal"
           v-model="values.can_user_reversal"
           label="Чи може користувач робити відміну"
+          :error="errors.can_user_reversal"
         />
       </div>
       <form-field label="URL-адреса зворотного виклику">
@@ -54,6 +66,7 @@
       <request-method-select
         label="Тип запиту зворотного виклику"
         v-model="values.callback_type"
+        :error="errors.callback_type"
       />
       <payload-field
         v-model="values.callback_req_tmpl"
@@ -62,6 +75,7 @@
       <request-type-select
         label="Тип зворотного виклику"
         v-model="values.callback_req_type"
+        :error="errors.callback_req_type"
       />
       <form-field label="Заголовки зворотного виклику">
         <textarea-field
@@ -98,6 +112,7 @@
           v-model="values.inShifts"
           name="inShifts"
           label="Необхідне відкриття зміни"
+          :error="errors.inShifts"
         />
       </div>
       <form-field label="Час відкриття зміни">
@@ -131,27 +146,34 @@ import TextareaField from "@/components/fields/TextareaField/TextareaField.vue";
 import PayloadField from "@/components/terminals/PayloadTemplateField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import TimepickerField from "@/components/fields/TimepickerField/TimepickerField.vue";
+import StatusSelect from "../transactions/StatusSelect.vue";
 
 import RequestTypeSelect from "./RequestTypeSelect.vue";
 import RequestMethodSelect from "./RequestMethodSelect.vue";
+import { EditTerminalData } from "@/api/terminals/terminal.model";
+import { TerminalsActions } from "@/store/modules/terminals";
 
-const createInitialData = (id: string) => ({
-  name: "",
-  address: "",
-  can_offline: false,
-  max_offline_sum: "",
-  can_user_reversal: false,
-  callback_url: "",
-  callback_type: "",
-  callback_headers: "",
-  callback_req_tmpl: "",
-  sign_stract: "",
-  callback_req_type: "",
-  inShifts: false,
-  timeout: "",
-  resendPeriod: "",
-  shift_start: "",
-  shift_end: "",
+import { editTerminalSchema } from "./validation/edit-terminal.schema";
+
+const createInitialData = (terminal: EditTerminalData) => ({
+  terminal_id: terminal.ID || "",
+  status: terminal.status_code || "",
+  name: terminal.name || "",
+  address: terminal.address || "",
+  can_offline: terminal.can_offline || false,
+  max_offline_sum: terminal.max_offline_sum || "",
+  can_user_reversal: terminal.can_user_reversal || false,
+  callback_url: terminal.callback_url || "",
+  callback_type: terminal.callback_type || "",
+  callback_headers: terminal.callback_headers || "",
+  callback_req_tmpl: terminal.callback_req_tmpl || "",
+  sign_stract: terminal.sign_stract || "",
+  callback_req_type: terminal.callback_req_type || "",
+  inShifts: terminal.inShifts || false,
+  timeout: terminal.timeout || "",
+  resendPeriod: terminal.resendPeriod || "",
+  shift_start: terminal.shift_start || "00:00",
+  shift_end: terminal.shift_end || "00:00",
 });
 
 export default defineComponent({
@@ -161,6 +183,9 @@ export default defineComponent({
       type: Boolean,
       required: false,
       default: false,
+    },
+    terminal: {
+      type: Object,
     },
   },
 
@@ -175,23 +200,26 @@ export default defineComponent({
     VButton,
     VForm,
     TimepickerField,
+    StatusSelect,
   },
 
   setup() {
     const toast = useToast();
 
-    return { toast };
+    return { toast, editTerminalSchema };
   },
 
   data() {
+    console.log(this.terminal);
     return {
-      initialValues: createInitialData(""),
+      values: createInitialData(this.terminal as EditTerminalData),
     };
   },
 
-  mounted() {
-    const id = this.$route.query.id as string;
-    this.initialValues = createInitialData(id || "");
+  watch: {
+    terminal(value: EditTerminalData) {
+      this.values = createInitialData(value);
+    },
   },
 
   computed: {
@@ -203,6 +231,10 @@ export default defineComponent({
   methods: {
     editConfig(values: any) {
       console.log(values);
+      this.$store.dispatch(TerminalsActions.EDIT_TERMINAL, {
+        terminal: this.values,
+        toast: this.toast,
+      });
     },
   },
 });

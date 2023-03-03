@@ -1,5 +1,5 @@
 <template>
-  <form-field :label="label || 'Тип запиту'">
+  <form-field :label="label || 'Тип запиту'" :error="error">
     <select-field
       :options="types"
       name="req_type"
@@ -18,6 +18,7 @@ export default defineComponent({
   props: {
     modelValue: String,
     label: String,
+    error: String,
   },
   emits: ["update:modelValue"],
   components: {
@@ -28,9 +29,9 @@ export default defineComponent({
   data() {
     return {
       types: [
-        { value: "JSON", label: "json" },
-        { value: "XML", label: "xml" },
-        { value: "X-WWW-FORM", label: "x-www-form" },
+        { value: "json", label: "JSON" },
+        { value: "xml", label: "XML" },
+        { value: "x-www-form", label: "X-WWW-FORM" },
       ],
     };
   },

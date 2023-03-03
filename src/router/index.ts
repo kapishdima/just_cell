@@ -104,8 +104,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/Terminals/CreateTerminalView.vue"),
       },
       {
-        path: "edit",
+        path: "edit/:terminal",
         name: "editTerminal",
+        props: (route) => ({
+          terminal: JSON.parse(route.params.terminal as string),
+        }),
         component: () => import("@/views/Terminals/EditTerminalView.vue"),
       },
 

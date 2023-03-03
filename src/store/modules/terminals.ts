@@ -11,6 +11,7 @@ import {
   createKeyFile,
   getTerminalConfig,
   activateTeminal,
+  editTerminal,
 } from "@/api/terminals/terminals";
 
 import router from "@/router";
@@ -42,6 +43,7 @@ export enum TerminalsActions {
   CREATE_OFFLINE_TERMINAL = "create_offline_terminal",
   SET_KEY_LINK = "set_key_link",
   ACTIVATE_TERMINAL = "activate_terminal",
+  EDIT_TERMINAL = "edit_terminal",
 }
 
 const TERMINAL_KEY_FILENAME = "JustSell_publicKey.pem";
@@ -144,6 +146,27 @@ const actions = {
 
       if (code === 0) {
         toast.success("Термінал успішно активовано!");
+        router.push({ name: "terminals" });
+      }
+
+      commit(TerminalsActions.SET_FORM_LOADING, false);
+    } catch (error) {
+      commit(TerminalsActions.SET_FORM_LOADING, false);
+      toast.error("Щось пішло не так!");
+    } finally {
+      commit(TerminalsActions.SET_FORM_LOADING, false);
+    }
+  },
+  async [TerminalsActions.EDIT_TERMINAL](
+    { commit }: any,
+    { terminal, toast }: any
+  ) {
+    try {
+      commit(TerminalsActions.SET_FORM_LOADING, true);
+      const data = await editTerminal(terminal);
+
+      if (data.code === 0) {
+        toast.success("Термінал успішно змінено!");
         router.push({ name: "terminals" });
       }
 

@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="timepicker" ref="timepicker">
+  <div class="timepicker" ref="timepicker" v-click-outside="close">
     <div class="timepicker-field" @click="toggle">
       <input
         type="text"

@@ -68,3 +68,10 @@ export const activateTeminal = async (id: string) => {
 export const createKeyFile = (publicKey: string) => {
   return "data:text/plain;charset=utf-8," + encodeURIComponent(publicKey);
 };
+
+export const editTerminal = async (terminalData: any) => {
+  const { data } = await http.post(ApiRoutes.EDIT_TERMINAL, terminalData);
+  console.log(data);
+
+  return data;
+};

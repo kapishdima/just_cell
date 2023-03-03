@@ -49,7 +49,8 @@ const columns = [
   }),
   columnHelper.display({
     cell: (info) => {
-      return h(TerminalActions);
+      console.log(info.row.original);
+      return h(TerminalActions, { terminal: info.row.original });
     },
 
     header: "Дії",

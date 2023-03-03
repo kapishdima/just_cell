@@ -1,7 +1,12 @@
 <template>
   <v-popover>
     <template #actions>
-      <router-link :to="{ name: 'editTerminal' }" class="popover-action"
+      <router-link
+        :to="{
+          name: 'editTerminal',
+          params: { terminal: JSON.stringify(terminal) },
+        }"
+        class="popover-action"
         >Редагувати</router-link
       >
     </template>
@@ -13,6 +18,7 @@ import { defineComponent } from "vue";
 import VPopover from "@/components/popover/VPopover.vue";
 
 export default defineComponent({
+  props: ["terminal"],
   components: {
     VPopover,
   },

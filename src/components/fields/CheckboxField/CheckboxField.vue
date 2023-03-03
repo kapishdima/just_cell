@@ -25,6 +25,9 @@
       <img v-if="checked" src="@/assets/icons/check-icon.svg" alt="Checked" />
     </div>
   </div>
+  <div class="form-field__error" v-if="hasError">
+    {{ error }}
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -36,6 +39,7 @@ interface CheckboxFieldProps {
   variant?: "primary" | "secondary";
   modelValue?: boolean;
   disabled?: any;
+  error?: string;
 }
 
 withDefaults(defineProps<CheckboxFieldProps>(), {
@@ -58,6 +62,12 @@ export default defineComponent({
 
   mounted() {
     this.canEdit = Boolean(this.rules !== null);
+  },
+
+  computed: {
+    hasError(): boolean {
+      return Boolean((this.$props as any).error);
+    },
   },
 
   methods: {
