@@ -8,5 +8,6 @@ export enum ApiRoutes {
   TERMINALS_REFS = "Terminals/Ref/index.php",
   GET_TERMINAL_CONFIG = "Terminals/Config/Get/index.php",
   CREATE_OFFLINE_TERMINAL = "Terminals/Config/Set/index.php",
-  TRANSACTIONS_LIST = "Terminals/Transactions/index.php",
+  TRANSACTIONS_LIST = "Payments/Transactions/index.php",
+  PAYMENTS_REFUND = "Payments/Refund/index.php",
 }

@@ -16,6 +16,8 @@ const toastOptions = {
   transition: "Vue-Toastification__bounce",
   maxToasts: 20,
   newestOnTop: true,
+  pauseOnFocusLoss: false,
+  pauseOnHover: false,
   filterBeforeCreate: (toast: any, toasts: any[]) => {
     const existingToast = toasts.find((t) =>
       t.content.match(`^${toast.content}?`)

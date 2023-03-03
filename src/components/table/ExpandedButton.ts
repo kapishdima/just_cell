@@ -10,7 +10,7 @@ export const expandedButton = (
       "button",
       {
         class: `table-expanded__button ${isExpanded ? "expanded" : ""}`,
-        onClick,
+        // onClick,
       },
       [h("img", { src: require("@/assets/icons/chevron-right.svg") })]
     ),

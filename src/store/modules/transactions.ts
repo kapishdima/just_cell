@@ -37,12 +37,17 @@ const actions = {
     { commit }: any,
     filters: TransactionFilters
   ) {
-    commit(TransactionsActions.SET_LOADING, true);
+    try {
+      commit(TransactionsActions.SET_LOADING, true);
 
-    const transactions = await getTransactionsList(filters);
+      const transactions = await getTransactionsList(filters);
 
-    commit(TransactionsActions.SET_TRANSACTIONS, transactions || []);
-    commit(TransactionsActions.SET_LOADING, false);
+      commit(TransactionsActions.SET_TRANSACTIONS, transactions || []);
+      commit(TransactionsActions.SET_LOADING, false);
+    } catch (error) {
+      commit(TransactionsActions.SET_TRANSACTIONS, []);
+      commit(TransactionsActions.SET_LOADING, false);
+    }
   },
 };
 

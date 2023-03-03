@@ -7,7 +7,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "root",
-    component: import("@/views/Dashboard/DashboardView.vue"),
+    component: () => import("@/views/Dashboard/DashboardView.vue"),
   },
   {
     path: "/signin",
@@ -108,18 +108,18 @@ const routes: Array<RouteRecordRaw> = [
         name: "editTerminal",
         component: () => import("@/views/Terminals/EditTerminalView.vue"),
       },
-      {
-        path: "offlineTerminal",
-        name: "offlineTerminal",
-        component: () =>
-          import("@/views/Terminals/CreateOfflineTerminalView.vue"),
-      },
+
       {
         path: "success",
         name: "offlineTerminalSuccess",
         component: () => import("@/views/Terminals/SuccessOfflineView.vue"),
       },
     ],
+  },
+  {
+    path: "/offline",
+    name: "offlineTerminal",
+    component: () => import("@/views/Terminals/CreateOfflineTerminalView.vue"),
   },
   {
     path: "/transac_ptks",

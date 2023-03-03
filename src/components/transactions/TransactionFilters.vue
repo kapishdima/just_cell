@@ -129,8 +129,21 @@ export default defineComponent({
     };
   },
 
+  mounted() {
+    this.filters = { ...this.filters, ...this.$route.query };
+  },
+
   methods: {
     applyFilter() {
+      const filters = Object.fromEntries(
+        Object.entries(this.$data.filters).filter(([_, value]) =>
+          Boolean(value)
+        )
+      );
+      this.$router.replace({
+        path: this.$route.path,
+        query: filters,
+      });
       this.$emit("change", this.$data.filters);
     },
   },

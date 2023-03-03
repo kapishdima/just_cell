@@ -5,7 +5,7 @@
       v-for="row in table.getCoreRowModel().rows"
       :key="row.id"
     >
-      <div class="table-tr">
+      <div class="table-tr" @click="toggleExpanded(row)">
         <div
           v-for="cell in row.getVisibleCells()"
           :key="cell.id"
@@ -38,6 +38,7 @@
 </template>
 <script setup lang="ts">
 import { Table, FlexRender } from "@tanstack/vue-table";
+
 interface TableHeaderProps {
   table: Table<any>;
 }
@@ -45,6 +46,15 @@ interface TableHeaderProps {
 defineProps<TableHeaderProps>();
 </script>
 <script lang="ts">
-export default {};
+import { Row } from "@tanstack/vue-table";
+import { defineComponent } from "vue";
+export default defineComponent({
+  methods: {
+    toggleExpanded(row: Row<any>) {
+      console.log("click");
+      row.getToggleExpandedHandler()();
+    },
+  },
+});
 </script>
 <style lang=""></style>

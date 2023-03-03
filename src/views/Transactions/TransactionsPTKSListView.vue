@@ -45,10 +45,17 @@ export default defineComponent({
   },
 
   mounted() {
+    const DateFrom = this.$route.query.DateFrom || format(new Date());
+    const DateTo = this.$route.query.DateTo || format(new Date());
+    const filters = {
+      ...this.$route.query,
+      DateFrom,
+      DateTo,
+    };
+
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
     this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
-      DateFrom: format(new Date()),
-      DateTo: format(new Date()),
+      ...filters,
       type: "PTKS",
     });
   },

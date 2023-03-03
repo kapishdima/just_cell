@@ -47,7 +47,7 @@ const columns = [
     header: "Статус",
   }),
   columnHelper.display({
-    cell: (info) => h(TransactionActions),
+    cell: (info) => h(TransactionActions, { transaction: info.row.original }),
     header: "Дії",
   }),
 ];

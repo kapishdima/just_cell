@@ -4,6 +4,7 @@ import { getToken } from "./crypto/token";
 import { ApiRoutes } from "./routes";
 
 import { useToast } from "vue-toastification";
+import router from "@/router";
 
 const toast = useToast();
 
@@ -39,10 +40,17 @@ http.interceptors.response.use(
   function (response) {
     const { code, msg } = response.data;
     const isLogout = response.config.url === ApiRoutes.LOGOUT;
+    const isRoot = router.currentRoute.value.path === "/";
+
     if (code === undefined && !isLogout) {
       toast.error("Помилка відповіді сервера");
     }
-    if (code !== 0 && msg) {
+
+    if (code === -3 && !isRoot) {
+      toast.error(msg);
+    }
+
+    if (code !== 0 && code !== -3 && msg) {
       toast.error(msg);
     }
     return response;
