@@ -22,13 +22,11 @@ export const validateOne = async (
   values: any,
   schema: Schema
 ) => {
-  console.log(field, values);
   let error = "";
   try {
     await schema.validateAt(field, values);
     error = "";
   } catch (_error: any) {
-    console.log(_error);
     error = _error.message;
   }
   return error;

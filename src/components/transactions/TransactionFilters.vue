@@ -84,7 +84,7 @@
         </form-field>
       </div>
       <div class="filters-item filter-select__container">
-        <status-select small v-model="filters.status" />
+        <status-select small v-model="filters.status" :disabled="false" />
       </div>
       <div class="filters-item filters-actions">
         <v-button :has-max-width="false" type="button" @click="applyFilter">

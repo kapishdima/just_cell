@@ -71,7 +71,6 @@ export const createKeyFile = (publicKey: string) => {
 
 export const editTerminal = async (terminalData: any) => {
   const { data } = await http.post(ApiRoutes.EDIT_TERMINAL, terminalData);
-  console.log(data);
 
   return data;
 };

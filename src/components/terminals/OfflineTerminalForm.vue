@@ -2,15 +2,7 @@
 <template lang="">
   <div class="terminal-form__container" v-if="Boolean(this.configData)">
     <form action="#" class="terminal-form" @submit.prevent @submit.stop>
-      <form-field label="ID терміналу">
-        <input-field
-          v-model="values.id"
-          name="name"
-          type="text"
-          placeholder="Введіть id термінала"
-        />
-      </form-field>
-      <form-field label="Назва терміналу" v-if="showTerminalName">
+      <form-field label="Назва терміналу">
         <input-field
           v-model="values.name"
           name="name"
@@ -119,18 +111,9 @@
           type="button"
           :loading="loading"
           @click="sendConfig"
-          v-if="canEdit"
+          :disabled="!canEdit"
         >
           <template #text>Додати налаштування термінала</template>
-        </v-button>
-        <v-button
-          type="button"
-          :loading="loading"
-          @click="activeTerminal"
-          :disabled="!canEdit"
-          fixed
-        >
-          <template #text>Активувати термінал</template>
         </v-button>
       </div>
     </form>
@@ -153,7 +136,6 @@ import SynctypeSelect from "./SyncTypeSelect.vue";
 import { useToast } from "vue-toastification";
 
 const defaultConfigData = {
-  id: "",
   name: "",
   settings: "",
   max_offline_sum: 0,
@@ -181,22 +163,12 @@ export default defineComponent({
       required: false,
       default: false,
     },
-    showTerminalName: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
     configData: {
       type: Object,
       required: false,
       default() {
         return defaultConfigData;
       },
-    },
-    isActivateForm: {
-      type: Boolean,
-      required: false,
-      default: false,
     },
   },
 
@@ -218,22 +190,15 @@ export default defineComponent({
     return { toast };
   },
 
-  data(): { canEdit: boolean; canEditId: boolean; values: any } {
+  data(): { canEdit: boolean; values: any } {
     return {
       canEdit: false,
-      canEditId: false,
       values: this.configData,
     };
   },
 
   mounted() {
-    const id = this.$route.query.id;
-    this.values = {
-      ...(this.$props as any).configData,
-      id,
-    };
     this.canEdit = Boolean(this.rules !== null);
-    this.canEditId = Boolean(id?.length);
   },
 
   watch: {
@@ -252,12 +217,6 @@ export default defineComponent({
     sendConfig() {
       this.$store.dispatch(TerminalsActions.CREATE_OFFLINE_TERMINAL, {
         terminalData: this.values,
-        toast: this.toast,
-      });
-    },
-    activeTerminal() {
-      this.$store.dispatch(TerminalsActions.ACTIVATE_TERMINAL, {
-        terminalId: this.values.id,
         toast: this.toast,
       });
     },

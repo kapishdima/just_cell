@@ -35,7 +35,6 @@ export default defineComponent({
   },
 
   data(): { errors: Error; values: any } {
-    console.log(this.initialValues);
     return {
       values: this.initialValues,
       errors: {},

@@ -210,7 +210,6 @@ export default defineComponent({
   },
 
   data() {
-    console.log(this.terminal);
     return {
       values: createInitialData(this.terminal as EditTerminalData),
     };
@@ -230,7 +229,6 @@ export default defineComponent({
 
   methods: {
     editConfig(values: any) {
-      console.log(values);
       this.$store.dispatch(TerminalsActions.EDIT_TERMINAL, {
         terminal: this.values,
         toast: this.toast,

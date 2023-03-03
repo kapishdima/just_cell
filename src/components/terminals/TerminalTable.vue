@@ -48,11 +48,7 @@ const columns = [
     header: "Останній старт",
   }),
   columnHelper.display({
-    cell: (info) => {
-      console.log(info.row.original);
-      return h(TerminalActions, { terminal: info.row.original });
-    },
-
+    cell: (info) => h(TerminalActions, { terminal: info.row.original }),
     header: "Дії",
   }),
 ];

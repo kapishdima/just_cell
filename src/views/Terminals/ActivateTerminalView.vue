@@ -45,7 +45,6 @@ export default defineComponent({
       return this.$store.state.terminals.loading;
     },
     configData(): OfflineTerminalPayload {
-      console.log(this.$store.state.terminals.terminalConfig);
       return this.$store.state.terminals.terminalConfig;
     },
   },

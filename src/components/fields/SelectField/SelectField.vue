@@ -89,8 +89,6 @@ export default defineComponent({
     this.canEdit = Boolean(this.rules !== null);
     this.selectedLabel =
       (this.$props.options as any).find(({ value }: any) => {
-        console.log("value", value);
-        console.log("this.$props.modelValue", this.$props.modelValue);
         return value === this.$props.modelValue;
       })?.label || "";
   },

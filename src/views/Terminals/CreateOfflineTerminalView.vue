@@ -1,16 +1,16 @@
 <template>
   <app-layout>
-    <template #appTitle> Додати термінал </template>
+    <template #appTitle> Налаштування оффлайн </template>
     <template #appContent>
       <app-loading :loading="loading" />
-      <terminal-form />
+      <terminal-form :actions-fixed="true" />
     </template>
   </app-layout>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
-import TerminalForm from "@/components/terminals/ActivateTerminalForm.vue";
+import TerminalForm from "@/components/terminals/OfflineTerminalForm.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 
 import { TerminalsActions } from "@/store/modules/terminals";

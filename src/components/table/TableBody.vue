@@ -51,7 +51,6 @@ import { defineComponent } from "vue";
 export default defineComponent({
   methods: {
     toggleExpanded(row: Row<any>) {
-      console.log("click");
       row.getToggleExpandedHandler()();
     },
   },

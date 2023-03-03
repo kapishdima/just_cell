@@ -9,7 +9,7 @@
       :model-value="modelValue"
       @update:model-value="select"
       :size="small ? 'sm' : 'md'"
-      :disabled="false"
+      :disabled="disabled"
     />
   </form-field>
 </template>
@@ -26,7 +26,9 @@ export default defineComponent({
       type: Boolean,
       required: false,
     },
-    disabled: { type: Boolean, required: false },
+    disabled: {
+      required: false,
+    },
   },
   emits: ["update:modelValue", "blur"],
   components: {
