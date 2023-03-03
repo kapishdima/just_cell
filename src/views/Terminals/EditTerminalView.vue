@@ -9,6 +9,7 @@
     </template>
     <template #appContent>
       <terminal-form
+        v-if="Boolean(terminal)"
         :configData="configData"
         :actions-fixed="true"
         :terminal="terminal"
@@ -25,10 +26,10 @@ import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 
 import { TerminalsActions } from "@/store/modules/terminals";
 import { OfflineTerminalPayload } from "@/api/terminals/terminal.model";
+import { TERMINAL_STORAGE_KEY } from "@/contants/storage";
 
 export default defineComponent({
   inject: ["rules"],
-  props: ["terminal"],
   components: {
     AppLayout,
     AppLoading,
@@ -38,6 +39,7 @@ export default defineComponent({
   data() {
     return {
       canEdit: false,
+      terminal: undefined,
     };
   },
 
@@ -54,6 +56,14 @@ export default defineComponent({
     this.canEdit = Boolean(this.rules !== null);
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
     this.$store.dispatch(TerminalsActions.GET_TERMINAL_CONFIG);
+
+    this.terminal = JSON.parse(
+      window.localStorage.getItem(TERMINAL_STORAGE_KEY) || "{}"
+    );
+  },
+
+  beforeUnmount() {
+    window.localStorage.removeItem(TERMINAL_STORAGE_KEY);
   },
 });
 </script>

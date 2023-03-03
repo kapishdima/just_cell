@@ -7,7 +7,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "root",
-    component: () => import("@/views/Dashboard/DashboardView.vue"),
+    // component: () => import("@/views/Dashboard/DashboardView.vue"),
+    component: () => import("@/views/Terminals/TerminalsListView.vue"),
   },
   {
     path: "/signin",
@@ -104,11 +105,8 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/Terminals/CreateTerminalView.vue"),
       },
       {
-        path: "edit/:terminal",
+        path: "edit",
         name: "editTerminal",
-        props: (route) => ({
-          terminal: JSON.parse(route.params.terminal as string),
-        }),
         component: () => import("@/views/Terminals/EditTerminalView.vue"),
       },
 

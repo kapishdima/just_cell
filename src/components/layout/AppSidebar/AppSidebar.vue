@@ -1,7 +1,7 @@
 <template>
   <aside class="app-sidebar" :class="{ opened: menuOpened }">
     <app-menu />
-    <div class="app-sidebar__footer">
+    <!-- <div class="app-sidebar__footer">
       <div class="app-sidebar__footer">
         <div class="app-sidebar__footer-item">
           <router-link :to="{ name: 'departmentCreate' }">
@@ -17,7 +17,7 @@
           </router-link>
         </div>
       </div>
-    </div>
+    </div> -->
   </aside>
 </template>
 <script lang="ts">

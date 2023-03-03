@@ -74,7 +74,7 @@
         <textarea-field
           v-model="values.sign_stract"
           name="sign_stract"
-          placeholder="Наприклад, ${transaction_id}${pay_time}${get_time}${device_id}${pay_inst}${pan_mask}${end_pay_time}${code}${transaction_type}${msg}${amount}${ticket_num}"
+          placeholder="Наприклад, ${transaction_id}${pay_time}${get_time}"
         />
       </form-field>
       <request-type-select v-model="values.req_type" />

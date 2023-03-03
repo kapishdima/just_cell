@@ -4,7 +4,11 @@
       :model-value="modelValue"
       @update:model-value="input"
       name="payload"
-      placeholder="Наприклад, {\r\n\'status\':${status_code},\r\n\'error_msg\':\'${error_msg}\',\r\n\'terminal_id\':\'${terminal_id}\',\r\n\'transaction_id\':\'${transaction_id}\',\r\n\'amount\':\'${amount}\',\r\n\'transaction_time\':\'${transaction_time}\',\r\n\'tax_num\':\'${tax_num}\',\r\n\'fiscal_transaction_id\':\'${fiscal_transaction_id}\'\r\n}"
+      placeholder="Наприклад, 
+  {
+    'status': ${status_code},
+    'error_msg':'${error_msg}',
+  }"
     />
     <template #hint v-if="canEdit">
       <div class="hint-more">
