@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { ButtonHTMLAttributes } from "vue";
 
-type ButtonVariants = "primary" | "secondary" | "danger" | "ghost";
+type ButtonVariants = "primary" | "secondary" | "success" | "ghost" | "error";
 
 interface ButtonProps {
   type?: ButtonHTMLAttributes["type"];

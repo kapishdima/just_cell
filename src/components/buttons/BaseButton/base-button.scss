@@ -55,8 +55,13 @@
     background-color: $accent-primary;
     color: $white-primary;
   }
-  &--danger {
+  &--error {
     background-color: $error-primary;
+    color: $white-primary;
+  }
+
+  &--success {
+    background-color: $success-primary;
     color: $white-primary;
   }
 

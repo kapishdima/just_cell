@@ -26,10 +26,18 @@
         </template>
         <template #content="{ close }">
           <div class="modal-actions">
-            <v-button :has-max-width="false" @click="onOk(close)">
+            <v-button
+              :has-max-width="false"
+              @click="onOk(close)"
+              variant="success"
+            >
               <template #text>Так</template>
             </v-button>
-            <v-button :has-max-width="false" @click="onCancel(close)">
+            <v-button
+              :has-max-width="false"
+              @click="onCancel(close)"
+              variant="error"
+            >
               <template #text>Ні</template>
             </v-button>
           </div>
