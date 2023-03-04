@@ -3,7 +3,7 @@
     class="select-field"
     :class="{
       'select-field--active': opened,
-      'select-field--disabled': disabled !== undefined ? disabled : !canEdit,
+      'select-field--disabled': disabled,
     }"
     ref="selectField"
   >
@@ -66,7 +66,6 @@ interface Option {
 }
 
 export default defineComponent({
-  inject: ["rules"],
   emits: ["update:modelValue"],
   components: {
     SearchInput,
@@ -79,14 +78,12 @@ export default defineComponent({
       value: this.modelValue || "",
       selectedLabel: "",
       selected: null,
-      canEdit: false,
     };
   },
 
   mounted() {
     document.addEventListener("keydown", this.onEscapePressed);
 
-    this.canEdit = Boolean(this.rules !== null);
     this.selectedLabel =
       (this.$props.options as any).find(({ value }: any) => {
         return value === this.$props.modelValue;

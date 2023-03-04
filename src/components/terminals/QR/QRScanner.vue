@@ -1,8 +1,6 @@
 <template>
   <div class="terminal-create-btn">
-    <v-button :hasMaxWidth="false" @click="openScanner">
-      <template #text>Додати термінал через QR-code</template>
-    </v-button>
+    <add-by-qr @click="openScanner" />
   </div>
   <div class="qr-scanner" :class="{ 'qr-scanner--opened': isScanning }">
     <div id="reader"></div>
@@ -17,15 +15,21 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { createScanner, stop } from "./qr-scanner";
+import { Rules } from "@/contants/rules";
 
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
+import AddByQr from "../buttons/AddByQr.vue";
 
 export default defineComponent({
-  components: { VButton },
+  components: { VButton, AddByQr },
   data() {
     return {
       isScanning: false,
     };
+  },
+
+  setup() {
+    return { Rules };
   },
 
   methods: {

@@ -3,6 +3,7 @@
     :initial-values="initialValues"
     @submit="sendReversal"
     class-names="reverse-form"
+    ref="form"
   >
     <template #fields="{ values }">
       <input-field
@@ -11,20 +12,39 @@
         :disabled="false"
         v-model="values.amount"
       />
-      <v-button type="submit" :loading="loading">
+      <v-button :loading="loading" @click="confirm">
         <template #text>Сторнувати</template>
       </v-button>
+      <v-modal ref="modal" max-width="30vw">
+        <template #title
+          >Впевнені, що хочете провести скасування операції на суму
+          {{ values.amount }}?
+        </template>
+        <template #content="{ close }">
+          <div class="modal-actions">
+            <v-button :has-max-width="false" @click="onOk(close)">
+              <template #text>Так</template>
+            </v-button>
+            <v-button :has-max-width="false" @click="onCancel(close)">
+              <template #text>Ні</template>
+            </v-button>
+          </div>
+        </template>
+      </v-modal>
     </template>
   </v-form>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useToast } from "vue-toastification";
+
 import VForm from "@/components/form/VForm.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
+import VModal from "@/components/Modal/VModal.vue";
+
 import { refundPayment } from "@/api/payments/payments";
-import { useToast } from "vue-toastification";
 
 export default defineComponent({
   emits: ["success", "error"],
@@ -32,16 +52,17 @@ export default defineComponent({
     transaction: Object,
   },
 
-  setup() {
-    const toast = useToast();
-
-    return { toast };
-  },
-
   components: {
     VForm,
     VButton,
     InputField,
+    VModal,
+  },
+
+  setup() {
+    const toast = useToast();
+
+    return { toast };
   },
 
   data() {
@@ -78,6 +99,19 @@ export default defineComponent({
       } finally {
         this.loading = false;
       }
+    },
+    confirm() {
+      const modal = this.$refs.modal as typeof VModal;
+      modal.open();
+    },
+    onOk(close: any) {
+      const form = this.$refs.form as typeof VForm;
+      close();
+      form.onSubmit();
+    },
+    onCancel(close: any) {
+      close();
+      this.$emit("error");
     },
   },
 });

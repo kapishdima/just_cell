@@ -6,14 +6,7 @@
     <template #appExtra>
       <div class="terminals-extra-actions" v-if="hasTerminals">
         <qr-scanner />
-        <router-link
-          :to="{ name: 'activateTerminal' }"
-          class="terminal-create-btn"
-        >
-          <v-button :hasMaxWidth="false">
-            <template #text>Додати термінал по номеру</template>
-          </v-button>
-        </router-link>
+        <add-by-id />
       </div>
     </template>
     <template #appTitle>Перегляд терміналів</template>
@@ -28,21 +21,20 @@ import { defineComponent } from "vue";
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 import TerminalTable from "@/components/terminals/TerminalTable.vue";
-import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
-
 import QrScanner from "@/components/terminals/QR/QRScanner.vue";
-import TerminalsEmptyView from "./TerminalsEmptyView.vue";
+import AddById from "@/components/terminals/buttons/AddById.vue";
 
 import { TerminalsActions } from "@/store/modules/terminals";
+import TerminalsEmptyView from "./TerminalsEmptyView.vue";
 
 export default defineComponent({
   components: {
     AppLayout,
     TerminalTable,
     AppLoading,
-    VButton,
     TerminalsEmptyView,
     QrScanner,
+    AddById,
   },
 
   computed: {

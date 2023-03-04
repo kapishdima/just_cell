@@ -7,7 +7,10 @@
   cursor: pointer;
 
   &--disabled {
+    pointer-events: none;
+    user-select: none;
     .checkbox-field__label {
+      color: $dark-secondary !important;
       cursor: not-allowed;
     }
     .checkbox-field__box {

@@ -6,7 +6,7 @@
     :required="required"
     :class="`form-field__input--${size} form-field__input--${variant}`"
     :value="modelValue"
-    :disabled="disabled !== undefined ? disabled : !canEdit"
+    :disabled="disabled"
     @input="input($event)"
     @blur="$emit('blur')"
     class="form-field__input"
@@ -37,18 +37,7 @@ withDefaults(defineProps<InputFieldProps>(), {
 <script lang="ts">
 import { defineComponent } from "vue";
 export default defineComponent({
-  inject: ["rules"],
   emits: ["update:modelValue", "blur"],
-
-  data() {
-    return {
-      canEdit: false,
-    };
-  },
-
-  mounted() {
-    this.canEdit = Boolean(this.rules !== null);
-  },
 
   methods: {
     input(event: Event) {

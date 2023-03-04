@@ -1,5 +1,5 @@
 <template>
-  <div class="popover-action" @click="open">Сторнувати</div>
+  <reverse-action @click="open" />
   <v-modal ref="modal" min-width="30vw">
     <template #title>Сумма для сторнування</template>
     <template #content="{ close }">
@@ -15,10 +15,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import VModal from "@/components/Modal/VModal.vue";
-
-import ReverseForm from "./ReverseForm.vue";
 import { format } from "@/components/fields/DatepickerField/format";
 import { TransactionsActions } from "@/store/modules/transactions";
+
+import ReverseAction from "../buttons/ReverseAction.vue";
+import ReverseForm from "./ReverseForm.vue";
 
 export default defineComponent({
   props: {
@@ -27,6 +28,7 @@ export default defineComponent({
   components: {
     VModal,
     ReverseForm,
+    ReverseAction,
   },
 
   methods: {

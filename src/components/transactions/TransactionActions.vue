@@ -1,8 +1,8 @@
 <template>
   <v-popover>
     <template #actions>
+      <update-status-action />
       <transaction-reverse :transaction="transaction" />
-      <div class="popover-action">Оновити статус</div>
     </template>
   </v-popover>
 </template>
@@ -11,6 +11,7 @@
 import { defineComponent } from "vue";
 import VPopover from "@/components/popover/VPopover.vue";
 import TransactionReverse from "./Reverse/TransactionReverse.vue";
+import UpdateStatusAction from "./buttons/UpdateStatusAction.vue";
 
 export default defineComponent({
   props: {
@@ -19,6 +20,7 @@ export default defineComponent({
   components: {
     VPopover,
     TransactionReverse,
+    UpdateStatusAction,
   },
 });
 </script>

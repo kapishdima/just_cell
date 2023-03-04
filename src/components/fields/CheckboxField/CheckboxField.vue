@@ -4,12 +4,13 @@
     class="checkbox-field__input"
     :checked="modelValue || checked"
     :name="name"
+    :disabled="disabled"
   />
   <div
     class="checkbox-field"
     :class="{
       'checkbox-field--checked': checked,
-      'checkbox-field--disabled': disabled !== undefined ? disabled : !canEdit,
+      'checkbox-field--disabled': disabled,
       [`checkbox-field--${direction}`]: true,
       [`checkbox-field--${variant}`]: true,
     }"
@@ -51,17 +52,11 @@ withDefaults(defineProps<CheckboxFieldProps>(), {
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  inject: ["rules"],
   emits: ["change", "update:modelValue"],
   data() {
     return {
-      canEdit: false,
       checked: (this.$props as any).modelValue || false,
     };
-  },
-
-  mounted() {
-    this.canEdit = Boolean(this.rules !== null);
   },
 
   computed: {

@@ -39,6 +39,12 @@
     transition: background-color 0.25s ease;
     cursor: pointer;
 
+    &--disabled {
+      background-color: lighten($dark-secondary, 70);
+      color: $dark-secondary;
+      cursor: not-allowed;
+    }
+
     @include mobile {
       font-size: 14px;
     }
