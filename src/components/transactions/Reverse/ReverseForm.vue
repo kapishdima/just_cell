@@ -6,12 +6,16 @@
     ref="form"
   >
     <template #fields="{ values }">
-      <input-field
-        name="amount"
-        placeholder="Введіть сумму"
-        :disabled="false"
-        v-model="values.amount"
-      />
+      <v-protected :rule="Rules.REVERSE_TRANSACTION_SUM">
+        <template #content="{ canRender }">
+          <input-field
+            name="amount"
+            placeholder="Введіть сумму"
+            :disabled="!canRender"
+            v-model="values.amount"
+          />
+        </template>
+      </v-protected>
       <v-button :loading="loading" @click="confirm">
         <template #text>Сторнувати</template>
       </v-button>
@@ -43,6 +47,9 @@ import VForm from "@/components/form/VForm.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import VModal from "@/components/Modal/VModal.vue";
+import VProtected from "@/components/protected/VProtected.vue";
+
+import { Rules } from "@/contants/rules";
 
 import { refundPayment } from "@/api/payments/payments";
 
@@ -57,12 +64,13 @@ export default defineComponent({
     VButton,
     InputField,
     VModal,
+    VProtected,
   },
 
   setup() {
     const toast = useToast();
 
-    return { toast };
+    return { toast, Rules };
   },
 
   data() {

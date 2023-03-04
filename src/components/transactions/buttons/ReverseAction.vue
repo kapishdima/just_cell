@@ -6,7 +6,7 @@
         :class="{ 'popover-action--disabled': !canRender }"
         @click="$emit('click')"
       >
-        Сторнувати з зміною сумми
+        Сторнувати
       </div>
     </template>
   </v-protected>

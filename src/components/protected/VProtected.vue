@@ -26,7 +26,8 @@ export default defineComponent({
 
   methods: {
     canMakeAction() {
-      return (this.rules as string[])?.includes(this.rule) || false;
+      const rules = (this.rules as any).map((rule: any) => rule.tag);
+      return rules.includes(this.rule) || false;
     },
   },
 });
