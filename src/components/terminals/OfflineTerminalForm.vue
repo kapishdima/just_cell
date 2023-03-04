@@ -2,14 +2,6 @@
 <template lang="">
   <div class="terminal-form__container" v-if="Boolean(this.configData)">
     <form action="#" class="terminal-form" @submit.prevent @submit.stop>
-      <form-field label="Назва терміналу">
-        <input-field
-          v-model="values.name"
-          name="name"
-          type="text"
-          placeholder="Введіть назву термінала"
-        />
-      </form-field>
       <settings-select v-model="values.settings" />
       <form-field label="Максимальна сума для оффлайн платежу">
         <input-field

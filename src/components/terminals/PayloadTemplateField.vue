@@ -10,7 +10,7 @@
     'error_msg':'${error_msg}',
   }"
     />
-    <template #hint v-if="canEdit">
+    <template #hint>
       <div class="hint-more">
         <div class="hint-more__title">
           Натисніть на потрібний елемент, щоб додати до шаблону
@@ -38,7 +38,6 @@ import FormField from "../fields/FormField/FormField.vue";
 import TextareaField from "../fields/TextareaField/TextareaField.vue";
 
 export default defineComponent({
-  inject: ["rules"],
   props: {
     modelValue: String,
     label: String,
@@ -66,7 +65,6 @@ export default defineComponent({
   },
 
   mounted() {
-    this.canEdit = Boolean(this.rules !== null);
     if (this.modelValue) {
       this.payload = this.modelValue;
     }

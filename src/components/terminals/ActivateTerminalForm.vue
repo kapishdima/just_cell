@@ -104,11 +104,15 @@
       </form-field>
 
       <div class="checkbox-container">
-        <checkbox-field
-          v-model="values.update_all_term"
-          name="need_shift"
-          label="Оновити всі термінали"
-        />
+        <v-protected :rule="Rules.ALL_OFFLINE_TERMINAL_UPDATE">
+          <template #content="{ canRender }">
+            <checkbox-field
+              v-model="values.update_all_term"
+              name="need_shift"
+              label="Оновити всі термінали"
+              :disabled="!canRender"
+          /></template>
+        </v-protected>
       </div>
 
       <div
@@ -145,12 +149,15 @@ import CheckboxField from "@/components/fields/CheckboxField/CheckboxField.vue";
 import TextareaField from "@/components/fields/TextareaField/TextareaField.vue";
 import PayloadField from "@/components/terminals/PayloadTemplateField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
+import VProtected from "../protected/VProtected.vue";
 import { TerminalsActions } from "@/store/modules/terminals";
 
 import SettingsSelect from "./SettingsSelect.vue";
 import RequestTypeSelect from "./RequestMethodSelect.vue";
 import SynctypeSelect from "./SyncTypeSelect.vue";
 import { useToast } from "vue-toastification";
+
+import { Rules } from "@/contants/rules";
 
 const defaultConfigData = {
   id: "",
@@ -209,13 +216,14 @@ export default defineComponent({
     PayloadField,
     SettingsSelect,
     VButton,
+    VProtected,
     SynctypeSelect,
   },
 
   setup() {
     const toast = useToast();
 
-    return { toast };
+    return { toast, Rules };
   },
 
   data(): { canEdit: boolean; canEditId: boolean; values: any } {
