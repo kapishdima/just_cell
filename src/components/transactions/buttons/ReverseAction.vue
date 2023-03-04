@@ -1,5 +1,5 @@
 <template>
-  <v-protected :rule="Rules.REVERSE_TRANSACTION_SUM">
+  <v-protected :rule="Rules.REVERSE_TRANSACTION">
     <template #content="{ canRender }">
       <div
         class="popover-action"

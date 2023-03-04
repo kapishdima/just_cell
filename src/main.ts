@@ -5,12 +5,8 @@ import App from "./App.vue";
 import router from "./router";
 import { store } from "./store";
 
-import { getUserRulesFromSession } from "./api/user/user";
-
 import "vue-toastification/dist/index.css";
 import "@/styles/index.scss";
-
-const rules = getUserRulesFromSession();
 
 const toastOptions = {
   transition: "Vue-Toastification__bounce",
@@ -30,8 +26,6 @@ const toastOptions = {
 };
 
 const app = createApp(App);
-
-app.provide("rules", rules);
 
 app.use(router);
 app.use(store);

@@ -3,10 +3,11 @@
 </template>
 
 <script lang="ts">
+import { getUserRulesFromSession } from "@/api/user/user";
+import { RULES_STORAGE_KEY } from "@/contants/storage";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  inject: ["rules"],
   props: {
     rule: {
       type: String,
@@ -21,13 +22,14 @@ export default defineComponent({
   },
 
   mounted() {
-    this.canRender = this.canMakeAction();
+    this.canRender = this.init();
   },
 
   methods: {
-    canMakeAction() {
-      const rules = (this.rules as any).map((rule: any) => rule.tag);
-      return rules.includes(this.rule) || false;
+    init() {
+      const rulesList = getUserRulesFromSession();
+      const rules = rulesList.map((rule: any) => rule.tag);
+      return rules?.includes(this.rule) || false;
     },
   },
 });
