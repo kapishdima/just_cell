@@ -4,6 +4,11 @@
 
   &-trigger {
     cursor: pointer;
+
+    img {
+      width: 16px;
+      object-fit: cover;
+    }
   }
 
   &-tooltip {

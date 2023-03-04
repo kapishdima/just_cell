@@ -9,6 +9,9 @@
         v-for="header in headerGroup.headers"
         :key="header.id"
         class="table-th table-cell"
+        :style="{
+          ...setActionColumnSize(header.column.columnDef.header as string),
+        }"
       >
         <FlexRender
           v-if="!header.isPlaceholder"
@@ -29,6 +32,32 @@ interface TableHeaderProps {
 defineProps<TableHeaderProps>();
 </script>
 <script lang="ts">
-export default {};
+import { defineComponent } from "vue";
+export default defineComponent({
+  methods: {
+    setActionColumnSize(header: string) {
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+      if (header !== "Дії") {
+        return {
+          minWidth: "",
+          maxWidth: "",
+        };
+      }
+
+      if (!isMobile && header === "Дії") {
+        return {
+          minWidth: "3%",
+          maxWidth: "3%",
+        };
+      }
+
+      return {
+        minWidth: "15%",
+        maxWidth: "15%",
+      };
+    },
+  },
+});
 </script>
 <style lang=""></style>

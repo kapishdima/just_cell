@@ -1,5 +1,5 @@
 <template>
-  <div class="popover" v-click-outside="close" @click.stop>
+  <div class="popover" v-click-outside="close" @click.stop ref="popover">
     <div class="popover-trigger" ref="trigger" @click="toggle">
       <img src="@/assets/icons/kebab-icon.svg" alt="Actions" />
     </div>

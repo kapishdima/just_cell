@@ -12,6 +12,7 @@
           class="table-td table-cell"
           :style="{
             color: row.original.status_color || '#000',
+            ...setActionColumnSize(cell.column.columnDef.header as string),
           }"
         >
           <FlexRender
@@ -52,6 +53,29 @@ export default defineComponent({
   methods: {
     toggleExpanded(row: Row<any>) {
       row.getToggleExpandedHandler()();
+    },
+
+    setActionColumnSize(header: string) {
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+
+      if (header !== "Дії") {
+        return {
+          minWidth: "",
+          maxWidth: "",
+        };
+      }
+
+      if (!isMobile && header === "Дії") {
+        return {
+          minWidth: "3%",
+          maxWidth: "3%",
+        };
+      }
+
+      return {
+        minWidth: "15%",
+        maxWidth: "15%",
+      };
     },
   },
 });
