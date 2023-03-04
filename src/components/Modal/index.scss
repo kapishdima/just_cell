@@ -28,6 +28,11 @@
     align-items: center;
     justify-content: center;
     column-gap: 8px;
+
+    @include mobile {
+      flex-direction: column;
+      row-gap: 8px;
+    }
   }
 
   &-content {
@@ -42,7 +47,10 @@
     padding: 18px;
 
     @include mobile {
-      margin: 0 10px;
+      margin: 0 20px;
+
+      max-width: 95% !important;
+      min-width: 95% !important;
     }
   }
 
@@ -66,9 +74,12 @@
     font-style: normal;
     font-weight: 500;
     font-size: 24px;
-    line-height: 150%;
 
     color: $accent-primary;
+
+    @include mobile {
+      font-size: 18px;
+    }
   }
 
   &-close-button {
