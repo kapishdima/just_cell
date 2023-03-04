@@ -84,13 +84,7 @@
           placeholder="Наприклад, Content-type: application/json; Host:example.it"
         />
       </form-field>
-      <form-field label="Структура підпису">
-        <textarea-field
-          v-model="values.sign_stract"
-          name="sign_stract"
-          placeholder="Наприклад, ${transaction_id}${pay_time}${get_time}${device_id}${pay_inst}${pan_mask}${end_pay_time}${code}${transaction_type}${msg}${amount}${ticket_num}"
-        />
-      </form-field>
+      <sign-stract-field v-model="sign_stract" />
       <form-field label="Час тайм-ауту, в секундах">
         <input-field
           v-model="values.timeout"
@@ -153,6 +147,8 @@ import RequestMethodSelect from "./RequestMethodSelect.vue";
 import { EditTerminalData } from "@/api/terminals/terminal.model";
 import { TerminalsActions } from "@/store/modules/terminals";
 
+import SignStractField from "./SignStractField.vue";
+
 import { editTerminalSchema } from "./validation/edit-terminal.schema";
 
 const createInitialData = (terminal: EditTerminalData) => ({
@@ -201,6 +197,7 @@ export default defineComponent({
     VForm,
     TimepickerField,
     StatusSelect,
+    SignStractField,
   },
 
   setup() {

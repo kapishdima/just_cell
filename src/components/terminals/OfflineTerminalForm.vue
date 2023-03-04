@@ -54,13 +54,8 @@
         />
       </form-field>
       <payload-field v-model="values.payload" />
-      <form-field label="Структура підпису">
-        <textarea-field
-          v-model="values.sign_stract"
-          name="sign_stract"
-          placeholder="Наприклад, ${transaction_id}${pay_time}${get_time}${device_id}"
-        />
-      </form-field>
+
+      <sign-stract-field v-model="values.sign_stract" />
       <request-type-select v-model="values.req_type" />
       <form-field label="Час очікування картки, в секундах">
         <input-field
@@ -130,6 +125,7 @@ import { TerminalsActions } from "@/store/modules/terminals";
 
 import { Rules } from "@/contants/rules";
 
+import SignStractField from "./SignStractField.vue";
 import SettingsSelect from "./SettingsSelect.vue";
 import RequestTypeSelect from "./RequestMethodSelect.vue";
 import SynctypeSelect from "./SyncTypeSelect.vue";
@@ -182,6 +178,7 @@ export default defineComponent({
     VButton,
     SynctypeSelect,
     VProtected,
+    SignStractField,
   },
 
   setup() {
