@@ -13,7 +13,7 @@
         </form-field>
       </div>
       <div class="filters-item">
-        <form-field :shadow="true" small label="ID замовлення">
+        <form-field :shadow="true" small label="Order ID">
           <input-field
             name="order_id"
             v-model="filters.order_id"

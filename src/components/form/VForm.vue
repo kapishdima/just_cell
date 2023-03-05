@@ -61,6 +61,11 @@ export default defineComponent({
         return;
       }
 
+      const offset = 20;
+      const top = field.getBoundingClientRect().top - offset;
+
+      window.scrollTo({ top });
+
       field.focus();
     },
   },

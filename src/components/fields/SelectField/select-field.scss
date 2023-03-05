@@ -81,10 +81,6 @@
 
     cursor: pointer;
 
-    @include mobile {
-      font-size: 14px;
-    }
-
     &-content {
       display: flex;
       flex-direction: column;
