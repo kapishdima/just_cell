@@ -10,7 +10,7 @@
       <form-field label="ID терміналу" :error="errors.terminal_id">
         <input-field
           v-model="values.terminal_id"
-          name="name"
+          name="terminal_id"
           type="text"
           placeholder="Введіть id термінала"
         />

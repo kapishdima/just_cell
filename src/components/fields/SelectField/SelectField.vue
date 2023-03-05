@@ -6,7 +6,9 @@
       'select-field--disabled': disabled,
     }"
     ref="selectField"
+    v-click-outside="close"
   >
+    <input type="text" :name="name" class="select-input-hidden" />
     <div
       class="select-field__container form-field__input"
       :class="`form-field__input--${size}`"
@@ -19,9 +21,9 @@
       />
       <search-input
         v-if="opened && hasSearch"
-        :name="name"
         :placeholder="searchPlaceholder"
         @clear="clear"
+        :name="name"
       />
     </div>
     <div class="select-field__dropdown">

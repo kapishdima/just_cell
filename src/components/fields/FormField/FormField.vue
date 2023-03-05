@@ -1,5 +1,6 @@
 <template>
   <div
+    :id="name"
     class="form-field"
     :class="{
       'form-field--centered': centered,
@@ -32,6 +33,7 @@ interface FormFieldProps {
   shadow?: boolean;
   small?: boolean;
   error?: string;
+  name?: string;
 }
 
 defineProps<FormFieldProps>();

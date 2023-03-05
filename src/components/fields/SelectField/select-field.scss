@@ -4,8 +4,15 @@
 
 .select-field {
   position: relative;
-
   min-width: 100%;
+
+  margin-top: -10px;
+
+  .select-input-hidden {
+    opacity: 0;
+    height: 0;
+    border: none;
+  }
 
   &--disabled {
     pointer-events: none;

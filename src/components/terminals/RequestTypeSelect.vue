@@ -2,11 +2,12 @@
   <form-field :label="label || 'Тип запиту'" :error="error">
     <select-field
       :options="types"
-      name="req_type"
+      name="callback_req_type"
       input-placeholder="Оберіть тип запиту"
       search-placeholder="Введіть тип запиту"
       :model-value="modelValue"
       @update:model-value="select"
+      :has-search="false"
     />
   </form-field>
 </template>

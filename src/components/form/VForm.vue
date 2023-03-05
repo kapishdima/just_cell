@@ -6,6 +6,7 @@
       :errors="errors"
       :hasErrors="hasErrors"
       :validateAt="validateAt"
+      ref="slot"
     ></slot>
   </form>
 </template>
@@ -50,6 +51,14 @@ export default defineComponent({
   watch: {
     initialValues(newValues) {
       this.values = newValues;
+    },
+    errors(values: any) {
+      const firstField = Object.keys(values)[0];
+      const field = document.querySelector(
+        `[name="${firstField}"]`
+      ) as HTMLInputElement;
+
+      field.focus();
     },
   },
 
