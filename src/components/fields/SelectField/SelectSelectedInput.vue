@@ -4,20 +4,35 @@
       <span v-if="!label && placeholder" class="selected-input__placeholder">{{
         placeholder
       }}</span>
-      {{ label }}
+      {{ isMobile ? truncateLabel : label }}
     </div>
     <img src="@/assets/icons/chevron-down-accent.svg" />
   </div>
 </template>
-<script setup lang="ts">
-interface SelectedInputProps {
-  placeholder?: string;
-  label?: string;
-}
 
-defineProps<SelectedInputProps>();
-</script>
 <script lang="ts">
-export default {};
+import { ellipsis } from "@/utils/ellipsis";
+import { defineComponent } from "vue";
+export default defineComponent({
+  props: ["placeholder", "label"],
+
+  data() {
+    return {
+      truncateLabel: ellipsis(this.label),
+    };
+  },
+
+  computed: {
+    isMobile(): boolean {
+      return window.matchMedia("(max-width: 768px)").matches;
+    },
+  },
+
+  watch: {
+    label(value) {
+      this.truncateLabel = ellipsis(value);
+    },
+  },
+});
 </script>
 <style lang=""></style>

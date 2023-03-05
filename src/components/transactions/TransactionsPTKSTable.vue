@@ -24,7 +24,7 @@ const columns = [
   }),
   columnHelper.accessor("order_id", {
     cell: (info) => info.getValue(),
-    header: "ID замовлення",
+    header: "Order ID",
   }),
   columnHelper.accessor("ptks_num", {
     cell: (info) => info.getValue(),

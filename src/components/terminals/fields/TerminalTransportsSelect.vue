@@ -10,7 +10,7 @@
 </template>
 <script lang="ts">
 import { TerminalRef } from "@/api/terminals/terminal.model";
-import FormField from "../fields/FormField/FormField.vue";
+import FormField from "../../fields/FormField/FormField.vue";
 import SelectField from "@/components/fields/SelectField/SelectField.vue";
 import { defineComponent } from "vue";
 export default defineComponent({

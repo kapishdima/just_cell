@@ -141,13 +141,13 @@ import FormField from "@/components/fields/FormField/FormField.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 import CheckboxField from "@/components/fields/CheckboxField/CheckboxField.vue";
 import TextareaField from "@/components/fields/TextareaField/TextareaField.vue";
-import PayloadField from "@/components/terminals/PayloadTemplateField.vue";
+import PayloadField from "@/components/terminals/fields/PayloadTemplateField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import { TerminalsActions } from "@/store/modules/terminals";
 
-import SettingsSelect from "./SettingsSelect.vue";
-import RequestTypeSelect from "./RequestMethodSelect.vue";
-import SynctypeSelect from "./SyncTypeSelect.vue";
+import SettingsSelect from "./fields/SettingsSelect.vue";
+import RequestTypeSelect from "./fields/RequestMethodSelect.vue";
+import SynctypeSelect from "./fields/SyncTypeSelect.vue";
 import { useToast } from "vue-toastification";
 
 const createInitialData = (id: string) => ({

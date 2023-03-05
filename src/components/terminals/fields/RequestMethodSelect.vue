@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import FormField from "../fields/FormField/FormField.vue";
+import FormField from "../../fields/FormField/FormField.vue";
 import SelectField from "@/components/fields/SelectField/SelectField.vue";
 export default defineComponent({
   props: {

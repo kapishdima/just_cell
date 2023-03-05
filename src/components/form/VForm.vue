@@ -57,6 +57,9 @@ export default defineComponent({
       const field = document.querySelector(
         `[name="${firstField}"]`
       ) as HTMLInputElement;
+      if (!field) {
+        return;
+      }
 
       field.focus();
     },

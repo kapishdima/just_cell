@@ -59,8 +59,8 @@ export const getTerminalConfig = async () => {
   };
 };
 
-export const activateTeminal = async (id: string) => {
-  const { data } = await http.post(ApiRoutes.ACTIVATE_TERMINAL, { id });
+export const activateTeminal = async (terminal: any) => {
+  const { data } = await http.post(ApiRoutes.ACTIVATE_TERMINAL, terminal);
 
   return data.code;
 };

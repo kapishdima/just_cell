@@ -48,12 +48,23 @@
         </form-field>
       </div>
 
-      <div class="filters-item">
-        <form-field :shadow="true" small label="Номер ПТКС">
+      <div class="filters-item" v-if="isPTKS">
+        <form-field :shadow="true" small label="№ ПТКС">
           <input-field
             name="ptks_num"
             v-model="filters.ptks_num"
-            placeholder="Номер ПТКС"
+            placeholder="№ ПТКС"
+            :disabled="false"
+            size="sm"
+          />
+        </form-field>
+      </div>
+      <div class="filters-item" v-else>
+        <form-field :shadow="true" small label="№ квитка">
+          <input-field
+            name="ptks_num"
+            v-model="filters.ticket_num"
+            placeholder="№ квитка"
             :disabled="false"
             size="sm"
           />
@@ -121,7 +132,8 @@ export default defineComponent({
         amount: "",
         terminal_id: "",
         terminal_name: "",
-        ptks_num: "",
+        ptks_num: undefined,
+        ticket_num: "",
         status: "",
         DateFrom: format(new Date()),
         DateTo: format(new Date()),
@@ -131,6 +143,13 @@ export default defineComponent({
 
   mounted() {
     this.filters = { ...this.filters, ...this.$route.query };
+  },
+
+  computed: {
+    isPTKS(): boolean {
+      console.log(this.$route.path);
+      return this.$route.path === "/transac_ptks";
+    },
   },
 
   methods: {
@@ -144,7 +163,7 @@ export default defineComponent({
         path: this.$route.path,
         query: filters,
       });
-      this.$emit("change", this.$data.filters);
+      this.$emit("change", filters);
     },
   },
 });

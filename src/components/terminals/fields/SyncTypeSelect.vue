@@ -1,18 +1,22 @@
 <template>
-  <form-field label="Тип налаштування">
+  <form-field label="Тип синхронізації">
     <select-field
-      :options="settings"
-      name="settings"
-      input-placeholder="Оберіть тип налаштування"
-      search-placeholder="Введіть тип налаштування"
+      :options="syncTypes"
+      name="syncTypes"
+      input-placeholder="Оберіть тип синхронізації"
+      search-placeholder="Введіть тип синхронізації"
       :has-search="false"
       :model-value="modelValue"
       @update:model-value="select"
     />
+    <template #hint>
+      Дає змогу налаштувати синхронізацію чорних списків (банківські карти по
+      яким не пройшла оплата) між учасниками системи JustSel
+    </template>
   </form-field>
 </template>
 <script lang="ts">
-import FormField from "../fields/FormField/FormField.vue";
+import FormField from "../../fields/FormField/FormField.vue";
 import SelectField from "@/components/fields/SelectField/SelectField.vue";
 import { TerminalRef } from "@/api/terminals/terminal.model";
 import { defineComponent } from "vue";
@@ -28,14 +32,14 @@ export default defineComponent({
   },
 
   computed: {
-    settings(): { value: string; label: string }[] {
+    syncTypes(): { value: string; label: string }[] {
       const ref: TerminalRef = this.$store.state.terminals.terminalsRef;
 
       if (!ref) {
         return [];
       }
 
-      return ref.offline_settings.map((type) => ({
+      return ref.sync_type.map((type) => ({
         value: type.id.toString(),
         label: type.name || "",
       }));

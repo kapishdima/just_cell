@@ -8,10 +8,14 @@
 
   margin-top: -10px;
 
+  @include mobile {
+    margin-top: -20px;
+  }
+
   .select-input-hidden {
     opacity: 0;
-    height: 0;
-    border: none;
+    filter: alpha(opacity=0);
+    z-index: -2;
   }
 
   &--disabled {
@@ -76,6 +80,10 @@
     border-bottom: 1px solid $accent-primary;
 
     cursor: pointer;
+
+    @include mobile {
+      font-size: 14px;
+    }
 
     &-content {
       display: flex;

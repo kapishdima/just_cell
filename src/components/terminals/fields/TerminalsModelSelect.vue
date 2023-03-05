@@ -12,9 +12,9 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import FormField from "../fields/FormField/FormField.vue";
+import FormField from "../../fields/FormField/FormField.vue";
 import SelectField from "@/components/fields/SelectField/SelectField.vue";
-import OsSelect from "../fields/OSSelect/OSSelect.vue";
+import OsSelect from "../../fields/OSSelect/OSSelect.vue";
 import { TerminalRef, TerminalModel } from "@/api/terminals/terminal.model";
 export default defineComponent({
   components: {

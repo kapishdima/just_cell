@@ -34,8 +34,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
-import FormField from "../fields/FormField/FormField.vue";
-import TextareaField from "../fields/TextareaField/TextareaField.vue";
+import FormField from "../../fields/FormField/FormField.vue";
+import TextareaField from "../../fields/TextareaField/TextareaField.vue";
 
 export default defineComponent({
   props: {

@@ -5,8 +5,8 @@
   <textarea-field v-if="canPrint" placeholder="Шаблон чека" />
 </template>
 <script>
-import CheckboxField from "../fields/CheckboxField/CheckboxField.vue";
-import TextareaField from "../fields/TextareaField/TextareaField.vue";
+import CheckboxField from "../../fields/CheckboxField/CheckboxField.vue";
+import TextareaField from "../../fields/TextareaField/TextareaField.vue";
 export default {
   data() {
     return {

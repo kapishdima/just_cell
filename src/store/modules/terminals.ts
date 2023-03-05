@@ -138,11 +138,11 @@ const actions = {
   },
   async [TerminalsActions.ACTIVATE_TERMINAL](
     { commit }: any,
-    { terminalId, toast }: any
+    { terminalConfig, toast }: any
   ) {
     try {
       commit(TerminalsActions.SET_FORM_LOADING, true);
-      const code = await activateTeminal(terminalId);
+      const code = await activateTeminal(terminalConfig);
 
       if (code === 0) {
         toast.success("Термінал успішно активовано!");

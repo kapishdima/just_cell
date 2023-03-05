@@ -17,9 +17,9 @@
   </template>
 </template>
 <script>
-import CheckboxField from "../fields/CheckboxField/CheckboxField.vue";
-import FormField from "../fields/FormField/FormField.vue";
-import InputField from "../fields/InputField/InputField.vue";
+import CheckboxField from "../../fields/CheckboxField/CheckboxField.vue";
+import FormField from "../../fields/FormField/FormField.vue";
+import InputField from "../../fields/InputField/InputField.vue";
 import TerminalTransportsSelect from "./TerminalTransportsSelect.vue";
 
 export default {

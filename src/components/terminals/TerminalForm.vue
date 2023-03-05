@@ -90,11 +90,11 @@ import CitySelect from "@/components/fields/CitySelect/CitySelect.vue";
 import TextareaField from "@/components/fields/TextareaField/TextareaField.vue";
 import TimepickerRange from "@/components/fields/TimepickerField/TimepickerRange.vue";
 
-import TypeSelect from "./TerminalTypeSelect.vue";
-import TerminalsModelSelect from "./TerminalsModelSelect.vue";
-import RequestTypeSelect from "./RequestMethodSelect.vue";
-import TerminalCheck from "./TerminalCheck.vue";
-import TerminalTransport from "./TerminalTransport.vue";
+import TypeSelect from "./fields/TerminalTypeSelect.vue";
+import TerminalsModelSelect from "./fields/TerminalsModelSelect.vue";
+import RequestTypeSelect from "./fields/RequestMethodSelect.vue";
+import TerminalCheck from "./fields/TerminalCheck.vue";
+import TerminalTransport from "./fields/TerminalTransport.vue";
 
 export default {
   components: {

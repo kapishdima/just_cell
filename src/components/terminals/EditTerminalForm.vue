@@ -137,19 +137,19 @@ import FormField from "@/components/fields/FormField/FormField.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 import CheckboxField from "@/components/fields/CheckboxField/CheckboxField.vue";
 import TextareaField from "@/components/fields/TextareaField/TextareaField.vue";
-import PayloadField from "@/components/terminals/PayloadTemplateField.vue";
+import PayloadField from "@/components/terminals/fields/PayloadTemplateField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import TimepickerField from "@/components/fields/TimepickerField/TimepickerField.vue";
 import StatusSelect from "../transactions/StatusSelect.vue";
 
-import RequestTypeSelect from "./RequestTypeSelect.vue";
-import RequestMethodSelect from "./RequestMethodSelect.vue";
+import RequestTypeSelect from "./fields/RequestTypeSelect.vue";
+import RequestMethodSelect from "./fields/RequestMethodSelect.vue";
 import { EditTerminalData } from "@/api/terminals/terminal.model";
 import { TerminalsActions } from "@/store/modules/terminals";
 
-import SignStractField from "./SignStractField.vue";
+import SignStractField from "./fields/SignStractField.vue";
 
-import { editTerminalSchema } from "./validation/edit-terminal.schema";
+import { editTerminalSchema } from "./validation/terminal.schema";
 
 const createInitialData = (terminal: EditTerminalData) => ({
   terminal_id: terminal.ID || "",

@@ -6,7 +6,7 @@
           <img src="@/assets/icons/check-icon.svg" />
         </div>
         <h2 class="success-offline-terminal__title">
-          Термінал успішно створено!
+          Налаштування збережено успішно
         </h2>
 
         <p class="success-offline-terminal__description">

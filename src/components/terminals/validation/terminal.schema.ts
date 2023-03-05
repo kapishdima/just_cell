@@ -9,3 +9,7 @@ export const editTerminalSchema = object({
   callback_type: string().required(ValidationMessages.REQUIRED_FIELD),
   inShifts: boolean().required(ValidationMessages.REQUIRED_FIELD),
 });
+
+export const activateTerminalSchema = object({
+  id: string().required(ValidationMessages.REQUIRED_FIELD),
+});
