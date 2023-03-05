@@ -17,7 +17,7 @@
           <input-field
             name="order_id"
             v-model="filters.order_id"
-            placeholder="ID замовлення"
+            placeholder="Order ID"
             :disabled="false"
             size="sm"
           />
