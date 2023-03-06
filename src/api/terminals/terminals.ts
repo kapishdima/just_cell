@@ -40,6 +40,10 @@ export const getTerminalConfig = async () => {
   const { data } = await http.get(ApiRoutes.GET_TERMINAL_CONFIG);
   const terminalConfig = data.terminal_config.at(0);
 
+  if (!terminalConfig) {
+    return {};
+  }
+
   return {
     settings: terminalConfig.settings,
     max_offline_sum: terminalConfig.max_offline_sum,

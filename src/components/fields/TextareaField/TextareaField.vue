@@ -14,11 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import { InputHTMLAttributes } from "vue";
-
 export interface InputFieldProps {
   name: string;
-  type?: InputHTMLAttributes["type"];
   placeholder?: string;
   required?: boolean;
   size?: "lg" | "sm";
@@ -36,7 +33,7 @@ withDefaults(defineProps<InputFieldProps>(), {
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  emits: ["update:modelValue"],
+  emits: ["update:modelValue", "update:selection"],
   inject: ["rules"],
 
   data() {
@@ -47,6 +44,8 @@ export default defineComponent({
 
   mounted() {
     this.canEdit = Boolean(this.rules !== null);
+
+    document.addEventListener("selectionchange", this.onSelectionChange);
   },
 
   methods: {
@@ -65,8 +64,22 @@ export default defineComponent({
         event.target.value =
           value.substring(0, start) + "\t" + value.substring(end);
 
-        // put caret at right position again
         textarea.selectionStart = textarea.selectionEnd = start + 1;
+
+        this.$emit("update:modelValue", value);
+      }
+    },
+
+    onSelectionChange() {
+      const activeElement = document.activeElement as HTMLTextAreaElement;
+      const textarea = this.$refs.textarea as HTMLTextAreaElement;
+
+      if (activeElement && activeElement === textarea) {
+        const selection = {
+          start: activeElement.selectionStart,
+          end: activeElement.selectionEnd,
+        };
+        this.$emit("update:selection", selection);
       }
     },
   },

@@ -12,7 +12,7 @@
             <checkbox-field
               name="is_default_offline"
               v-model="values.is_default_offline"
-              label="Оффлайн по замовченню"
+              label="Оффлайн за замовчуванням"
             />
             <template #hint>
               У всіх нових терміналах буде дозволена робота в режимі offline
@@ -27,20 +27,6 @@
             placeholder="Введіть максимальну суму для оффлайн платежу"
           />
         </form-field>
-        <!-- <div class="checkbox-container">
-        <checkbox-field
-          v-model="values.is_for_all_card"
-          name="is_for_all_card"
-          label="Чи може користувач додавати карту"
-        />
-      </div> -->
-        <div class="checkbox-container">
-          <checkbox-field
-            v-model="values.can_user_add_card"
-            name="can_user_add_card"
-            label="Чи може користувач додавати карту"
-          />
-        </div>
         <form-title>
           <template #title
             >Ви можете отримувати результати транзакцій на свій backend. <br />
@@ -79,8 +65,7 @@
             type="number"
           />
           <template #hint>
-            Як часто термінал буде виходити на зв’язок з сервером для передачі
-            та отримання даних
+            Час, який термінал очікує, що клієнт прикладе платіжний пристрій
           </template>
         </form-field>
         <synctype-select v-model="values.sync_type" />
@@ -104,6 +89,10 @@
             placeholder="Наприклад, 30"
             type="number"
           />
+          <template #hint>
+            Як часто термінал буде виходити на зв’язок з сервером для передачі
+            та отримання даних
+          </template>
         </form-field>
         <update-all-terminals v-model="values.update_all_term" />
 
@@ -146,7 +135,7 @@ const defaultConfigData = {
   settings: "",
   max_offline_sum: 0,
   is_default_offline: false,
-  is_for_all_card: false,
+  is_for_all_card: true,
   can_user_add_card: false,
   endpoint_result: "",
   add_get: "",

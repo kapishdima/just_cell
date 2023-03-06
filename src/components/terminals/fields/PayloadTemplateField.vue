@@ -1,8 +1,10 @@
 <template>
   <form-field :label="label || 'Шаблон тіла запиту'">
     <textarea-field
+      ref="textarea"
       :model-value="modelValue"
       @update:model-value="input"
+      @update:selection="changeSelection"
       name="payload"
       placeholder="Наприклад, 
   {
@@ -48,6 +50,8 @@ export default defineComponent({
       payload: "",
       hintOpened: false,
       canEdit: false,
+      selectionStart: 0,
+      selectionEnd: 0,
       hintMessages: [
         { name: "${transaction_id}", message: " - ідентифікатор платежу" },
         { name: "${pay_time}", message: " – час платежу" },
@@ -78,17 +82,31 @@ export default defineComponent({
     },
   },
 
+  watch: {
+    payload(value) {
+      this.$emit("update:modelValue", value);
+    },
+  },
+
   methods: {
     input(value: string) {
-      this.$emit("update:modelValue", value);
+      this.payload = value;
     },
     addTemplateElement(value: string) {
       if (this.payload.includes(value)) {
         this.payload = this.payload.replace(value, "");
       } else {
-        this.payload = this.payload + value;
+        this.payload.substring(this.selectionEnd, this.payload.length);
+        this.payload =
+          this.payload.substring(0, this.selectionStart) +
+          value +
+          this.payload.substring(this.selectionEnd, this.payload.length);
       }
       this.$emit("update:modelValue", this.payload);
+    },
+    changeSelection(selection: any) {
+      this.selectionStart = selection.start;
+      this.selectionEnd = selection.end;
     },
   },
 

@@ -35,23 +35,10 @@
         <checkbox-field
           name="is_default_offline"
           v-model="values.is_default_offline"
-          label="Оффлайн по замовченню"
+          label="Оффлайн"
         />
       </div>
-      <div class="checkbox-container">
-        <checkbox-field
-          v-model="values.is_for_all_card"
-          name="is_for_all_card"
-          label="Чи для всіх карт"
-        />
-      </div>
-      <div class="checkbox-container">
-        <checkbox-field
-          v-model="values.can_user_add_card"
-          name="can_user_add_card"
-          label="Чи може користувач додавати карту"
-        />
-      </div>
+
       <form-field label="Endpoint для повідомлень про результати транзакцій">
         <input-field
           v-model="values.endpoint_result"
@@ -156,7 +143,7 @@ const createInitialData = (id: string) => ({
   settings: "",
   max_offline_sum: 0,
   is_default_offline: false,
-  is_for_all_card: false,
+  is_for_all_card: true,
   can_user_add_card: false,
   endpoint_result: "",
   add_get: "",

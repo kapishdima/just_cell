@@ -24,6 +24,18 @@
             placeholder="Введіть назву термінала"
           />
         </form-field>
+        <div class="checkbox-container">
+          <form-field>
+            <checkbox-field
+              name="is_default_offline"
+              v-model="values.is_default_offline"
+              label="Оффлайн"
+            />
+            <template #hint>
+              У всіх нових терміналах буде дозволена робота в режимі offline
+            </template>
+          </form-field>
+        </div>
         <form-field label="Максимальна сума для оффлайн платежу">
           <input-field
             v-model="values.max_offline_sum"
@@ -32,27 +44,13 @@
             placeholder="Введіть максимальну суму для оффлайн платежу"
           />
         </form-field>
-        <div class="checkbox-container">
-          <checkbox-field
-            name="is_default_offline"
-            v-model="values.is_default_offline"
-            label="Оффлайн по замовченню"
-          />
-        </div>
-        <div class="checkbox-container">
-          <checkbox-field
-            v-model="values.is_for_all_card"
-            name="is_for_all_card"
-            label="Чи для всіх карт"
-          />
-        </div>
-        <div class="checkbox-container">
-          <checkbox-field
-            v-model="values.can_user_add_card"
-            name="can_user_add_card"
-            label="Чи може користувач додавати карту"
-          />
-        </div>
+        <form-title>
+          <template #title
+            >Ви можете отримувати результати транзакцій на свій backend. <br />
+            Для цього заповніть поля нижче</template
+          >
+        </form-title>
+
         <form-field label="Endpoint для повідомлень про результати транзакцій">
           <input-field
             v-model="values.endpoint_result"
@@ -67,7 +65,7 @@
             placeholder="Наприклад, ?param_name=param_value"
           />
         </form-field>
-        <form-field label="headers запиту">
+        <form-field label="Headers запиту">
           <textarea-field
             v-model="values.headers"
             name="headers"
@@ -84,13 +82,22 @@
             placeholder="Наприклад, 30"
             type="number"
           />
+          <template #hint>
+            Час, який термінал очікує, що клієнт прикладе платіжний пристрій
+          </template>
         </form-field>
         <div class="checkbox-container">
-          <checkbox-field
-            v-model="values.need_shift"
-            name="need_shift"
-            label="Необхідне відкриття зміни"
-          />
+          <form-field>
+            <checkbox-field
+              v-model="values.need_shift"
+              name="need_shift"
+              label="Необхідне відкриття зміни"
+            />
+            <template #hint>
+              Робота на терміналі не почнеться, якщо не буде користувач не
+              проведе авторизацію по відкриттю зміни
+            </template>
+          </form-field>
         </div>
         <form-field label="Час синхронізації, в секундах">
           <input-field
@@ -99,6 +106,10 @@
             placeholder="Наприклад, 30"
             type="number"
           />
+          <template #hint>
+            Як часто термінал буде виходити на зв’язок з сервером для передачі
+            та отримання даних
+          </template>
         </form-field>
 
         <div
@@ -125,6 +136,7 @@ import PayloadField from "@/components/terminals/fields/PayloadTemplateField.vue
 import SignStractField from "@/components/terminals/fields/SignStractField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import VForm from "@/components/form/VForm.vue";
+import FormTitle from "@/components/form/FormTitle.vue";
 
 import { activateTerminalSchema } from "./validation/terminal.schema";
 import { TerminalsActions } from "@/store/modules/terminals";
@@ -138,7 +150,7 @@ const defaultConfigData = {
   name: "",
   max_offline_sum: 0,
   is_default_offline: false,
-  is_for_all_card: false,
+  is_for_all_card: true,
   can_user_add_card: false,
   endpoint_result: "",
   add_get: "",
@@ -188,6 +200,7 @@ export default defineComponent({
     VButton,
     SignStractField,
     VForm,
+    FormTitle,
   },
 
   setup() {

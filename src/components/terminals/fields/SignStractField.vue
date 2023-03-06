@@ -1,5 +1,5 @@
 <template>
-  <form-field :label="label || 'Структура підпису'">
+  <form-field :label="label || 'Структура підпису (SHA256WithRSA)'">
     <textarea-field
       :model-value="modelValue"
       @update:model-value="input"
