@@ -4,6 +4,7 @@ import users from "./modules/user";
 import terminals from "./modules/terminals";
 import auth from "./modules/auth";
 import transactions from "./modules/transactions";
+import router from "./modules/router";
 
 export const store = createStore({
   modules: {
@@ -11,5 +12,6 @@ export const store = createStore({
     terminals,
     auth,
     transactions,
+    router,
   },
 });

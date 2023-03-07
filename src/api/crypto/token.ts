@@ -1,6 +1,5 @@
+import { TOKEN_STORE_KEY } from "@/contants/storage";
 import bigInt from "@/lib/bigint.js";
-
-const TOKEN_STORE_KEY = "token";
 
 export const generateToken = (p_server: string) => {
   return bigInt(p_server)

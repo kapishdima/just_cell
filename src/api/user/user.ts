@@ -1,7 +1,10 @@
-import { RULES_STORAGE_KEY } from "@/contants/storage";
+import {
+  MENU_STORE_KEY,
+  RULES_STORAGE_KEY,
+  TOKEN_STORE_KEY,
+  USER_STATE_KEY,
+} from "@/contants/storage";
 import { User } from "./user.model";
-
-const USER_STATE_KEY = "user";
 
 export const saveUserToSession = (user: User) => {
   window.localStorage.setItem(USER_STATE_KEY, JSON.stringify(user));
@@ -29,4 +32,11 @@ export const getUserRulesFromSession = (): any => {
   }
 
   return JSON.parse(userRoles);
+};
+
+export const clearUserSession = () => {
+  window.localStorage.removeItem(USER_STATE_KEY);
+  window.localStorage.removeItem(RULES_STORAGE_KEY);
+  window.localStorage.removeItem(TOKEN_STORE_KEY);
+  window.localStorage.removeItem(MENU_STORE_KEY);
 };

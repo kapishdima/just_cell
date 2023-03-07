@@ -1,3 +1,5 @@
+import { MENU_STORE_KEY } from "@/contants/storage";
+
 export type Menu = {
   NAME: string;
   LINK: string | null;
@@ -10,8 +12,6 @@ export type MenuView = {
   children: Menu[];
 };
 
-const MENU_STORE_KEY = "user_menu";
-
 export const saveMenu = (menu: MenuList) => {
   window.localStorage.setItem(MENU_STORE_KEY, JSON.stringify(menu));
 };
@@ -23,11 +23,6 @@ export const getMenu = () => {
 
   const menu: MenuView[] = Object.entries(menuList).map((menuItem, index) => {
     const children = menuItem[1] as Menu[];
-
-    // children.unshift({
-    //   NAME: "Оффлайн",
-    //   LINK: "terminals/offlineTerminal",
-    // });
 
     return {
       index,

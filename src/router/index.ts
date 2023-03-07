@@ -1,5 +1,6 @@
 import { isAuthorized } from "@/api/auth/checkAuth";
 import { store } from "@/store";
+import { RouterActions } from "@/store/modules/router";
 import { UserActions } from "@/store/modules/user";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 
@@ -7,7 +8,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "root",
-    // component: () => import("@/views/Dashboard/DashboardView.vue"),
     component: () => import("@/views/Terminals/TerminalsListView.vue"),
   },
   {
@@ -146,8 +146,15 @@ const router = createRouter({
 
 const authExcludedRoutes = ["signin", "signup", "reset", "confirmPassword"];
 
+router.beforeResolve((to, from, next) => {
+  store.commit(RouterActions.SET_LOADING, false);
+  next();
+});
+
 router.beforeEach(async (to, from, next) => {
   if (!authExcludedRoutes.includes(to.name as string)) {
+    store.commit(RouterActions.SET_LOADING, true);
+
     const authorized = await isAuthorized();
 
     if (!authorized) {

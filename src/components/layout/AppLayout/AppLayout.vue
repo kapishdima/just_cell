@@ -4,6 +4,9 @@
     <div class="app-layout__row">
       <app-sidebar :menuOpened="menuOpened" />
       <div class="app-layout__content">
+        <transition>
+          <app-loading :loading="routeLoading" />
+        </transition>
         <slot name="appLoading" />
         <div class="app-layout__header">
           <div class="app-layout__link" v-if="hasAppLink">
@@ -31,12 +34,16 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
+
+import AppLoading from "../AppLoading/AppLoading.vue";
 import AppNavbar from "../AppNavbar/AppNavbar.vue";
 import AppSidebar from "../AppSidebar/AppSidebar.vue";
+
 export default defineComponent({
   components: {
     AppNavbar,
     AppSidebar,
+    AppLoading,
   },
 
   data() {
@@ -48,6 +55,10 @@ export default defineComponent({
   computed: {
     hasAppLink(): boolean {
       return Boolean(this.$slots.appLink);
+    },
+
+    routeLoading(): boolean {
+      return this.$store.state.router.loading;
     },
   },
 });
