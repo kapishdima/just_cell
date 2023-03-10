@@ -1,5 +1,5 @@
 <template>
-  <form-field :label="label || 'Шаблон тіла запиту'">
+  <form-field :label="label || 'Шаблон тіла запиту'" :error="error">
     <textarea-field
       ref="textarea"
       :model-value="modelValue"
@@ -38,18 +38,19 @@
 import { defineComponent } from "vue";
 import FormField from "../../fields/FormField/FormField.vue";
 import TextareaField from "../../fields/TextareaField/TextareaField.vue";
+import { decodeHtml } from "@/utils/htmlParser";
 
 export default defineComponent({
   props: {
     modelValue: String,
     label: String,
+    error: String,
   },
   emits: ["update:modelValue"],
   data() {
     return {
       payload: "",
       hintOpened: false,
-      canEdit: false,
       selectionStart: 0,
       selectionEnd: 0,
       hintMessages: [
@@ -64,6 +65,14 @@ export default defineComponent({
         { name: "${amount}", message: " – кількість" },
         { name: "${ticket_num}", message: " – номер квитка" },
         { name: "${sign}", message: " – підпис" },
+        { name: "${pan_mask}", message: "- маскований номер карти" },
+        { name: "${code}", message: " - код результату транзакції" },
+        { name: "${msg}", message: " - повідомлення коду помилки" },
+        { name: "${rrn}", message: " - інтифікатор в системах МПС" },
+        {
+          name: "${is_test}",
+          message: " - тип транзакції, тестова чи продова",
+        },
       ],
     };
   },
@@ -84,7 +93,9 @@ export default defineComponent({
 
   watch: {
     payload(value) {
-      this.$emit("update:modelValue", value);
+      const decoded = decodeHtml(value);
+      this.payload = decodeHtml(value);
+      this.$emit("update:modelValue", decoded);
     },
   },
 

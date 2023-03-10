@@ -78,14 +78,23 @@ export default defineComponent({
 
   setup() {
     const toast = useToast();
-    const initialValues = {
-      phone: "",
-      oldPassword: "",
-      newPassword: "",
-      confirmationPassword: "",
-    };
 
-    return { toast, confirmationSchema, initialValues };
+    return { toast, confirmationSchema };
+  },
+
+  data() {
+    return {
+      initialValues: {
+        phone: "",
+        oldPassword: "",
+        newPassword: "",
+        confirmationPassword: "",
+      },
+    };
+  },
+
+  mounted() {
+    this.initialValues.phone = this.$route.query.tel?.toString() || "";
   },
 
   methods: {

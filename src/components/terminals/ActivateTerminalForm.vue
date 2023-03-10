@@ -51,6 +51,22 @@
           >
         </form-title>
 
+        <form-field
+          label="Secret Key (підпис HmacSHA256)"
+          :error="errors.secret_key"
+        >
+          <password-field
+            name="secrey_key"
+            v-model="values.secret_key"
+            :hasGenerateButton="true"
+            placeholder="Введіть або згенеруйте"
+          />
+          <template #hint>
+            Потрібне для підпису запитів зі сторони клієнтів (наприклад запит
+            статусу транзакції)
+          </template>
+        </form-field>
+
         <form-field label="Endpoint для повідомлень про результати транзакцій">
           <input-field
             v-model="values.endpoint_result"
@@ -112,13 +128,35 @@
           </template>
         </form-field>
 
+        <form-field label="Додаткова інформація">
+          <textarea-field
+            v-model="values.add_data"
+            :maxLength="1500"
+            placeholder="Введіть додадкову інформацію"
+          />
+          <template #hint>
+            Будь-які додаткові дані, які необхідні для роботи або інтеграції з
+            іншими додатками, наприклад, токен для авторизації на сторонньому
+            сервері. Їх можна отримувати на самому терміналі запитом /Config/get
+          </template>
+        </form-field>
+
         <div
           class="form-actions"
           :class="{ 'form-actions--fixed': actionsFixed }"
         >
-          <v-button type="submit" :loading="loading" fixed>
-            <template #text>Активувати термінал</template>
-          </v-button>
+          <v-protected :rule="Rules.ADD_TERMINAL">
+            <template #content="{ canRender }">
+              <v-button
+                type="submit"
+                :loading="loading"
+                fixed
+                :disabled="!canRender"
+              >
+                <template #text>Активувати термінал</template>
+              </v-button>
+            </template>
+          </v-protected>
         </div></template
       >
     </v-form>
@@ -136,7 +174,9 @@ import PayloadField from "@/components/terminals/fields/PayloadTemplateField.vue
 import SignStractField from "@/components/terminals/fields/SignStractField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import VForm from "@/components/form/VForm.vue";
+import VProtected from "../protected/VProtected.vue";
 import FormTitle from "@/components/form/FormTitle.vue";
+import PasswordField from "@/components/fields/PasswordField/PasswordField.vue";
 
 import { activateTerminalSchema } from "./validation/terminal.schema";
 import { TerminalsActions } from "@/store/modules/terminals";
@@ -148,6 +188,7 @@ import { Rules } from "@/contants/rules";
 const defaultConfigData = {
   id: "",
   name: "",
+  secret_key: "",
   max_offline_sum: 0,
   is_default_offline: false,
   is_for_all_card: true,
@@ -161,6 +202,7 @@ const defaultConfigData = {
   req_type: "",
   need_shift: false,
   sync_period: 30,
+  add_data: "",
 };
 
 export default defineComponent({
@@ -201,6 +243,8 @@ export default defineComponent({
     SignStractField,
     VForm,
     FormTitle,
+    PasswordField,
+    VProtected,
   },
 
   setup() {

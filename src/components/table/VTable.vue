@@ -1,4 +1,7 @@
 <template lang="">
+  <div class="table-actions" v-if="!empty && hasExport">
+    <export-button :export-data="data" :table="table" />
+  </div>
   <table-empty v-if="empty" />
   <table
     v-else
@@ -10,6 +13,8 @@
     <table-header :table="table" />
     <table-body :table="table" v-if="!empty" />
   </table>
+
+  <v-pagination v-if="hasPagination" :total="total" />
 </template>
 <script setup lang="ts">
 import {
@@ -23,6 +28,9 @@ interface TableProps {
   columns: ColumnDef<any>[];
   data: any;
   empty: boolean;
+  hasExport: boolean;
+  hasPagination: boolean;
+  total?: number;
 }
 
 const props = defineProps<TableProps>();
@@ -42,12 +50,16 @@ import { defineComponent } from "vue";
 import TableBody from "./TableBody.vue";
 import TableHeader from "./TableHeader.vue";
 import TableEmpty from "./EmptyTable.vue";
+import ExportButton from "./ExportButton.vue";
+import VPagination from "../panigation/VPagination.vue";
 
 export default defineComponent({
   components: {
     TableBody,
     TableHeader,
     TableEmpty,
+    ExportButton,
+    VPagination,
   },
 });
 </script>

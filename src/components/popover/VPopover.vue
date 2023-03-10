@@ -5,7 +5,7 @@
     </div>
     <div class="popover-tooltip" ref="tooltip" :data-show="opened">
       <div class="popover-tooltip__actions">
-        <slot name="actions"></slot>
+        <slot name="actions" :close="close"></slot>
       </div>
     </div>
   </div>

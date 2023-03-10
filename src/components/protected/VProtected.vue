@@ -4,7 +4,6 @@
 
 <script lang="ts">
 import { getUserRulesFromSession } from "@/api/user/user";
-import { RULES_STORAGE_KEY } from "@/contants/storage";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -28,6 +27,10 @@ export default defineComponent({
   methods: {
     init() {
       const rulesList = getUserRulesFromSession();
+      if (!rulesList) {
+        return false;
+      }
+
       const rules = rulesList.map((rule: any) => rule.tag);
       return rules?.includes(this.rule) || false;
     },

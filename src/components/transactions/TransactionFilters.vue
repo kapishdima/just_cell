@@ -73,6 +73,17 @@
     </div>
     <div class="filters-row">
       <div class="filters-item">
+        <form-field :shadow="true" label="RRN" small>
+          <input-field
+            name="rrn"
+            v-model="filters.rrn"
+            placeholder="RRN"
+            :disabled="false"
+            size="sm"
+          />
+        </form-field>
+      </div>
+      <div class="filters-item">
         <form-field :shadow="true" label="Дата початку" small>
           <datepicker-field
             name="dateFrom"
@@ -116,7 +127,6 @@ import StatusSelect from "./StatusSelect.vue";
 import { format } from "@/components/fields/DatepickerField/format";
 
 export default defineComponent({
-  emits: ["change"],
   components: {
     FormField,
     InputField,
@@ -135,6 +145,7 @@ export default defineComponent({
         ptks_num: undefined,
         ticket_num: "",
         status: "",
+        rrn: "",
         DateFrom: format(new Date()),
         DateTo: format(new Date()),
       },
@@ -145,9 +156,18 @@ export default defineComponent({
     this.filters = { ...this.filters, ...this.$route.query };
   },
 
+  watch: {
+    "$route.query": {
+      handler(value) {
+        this.filters = { ...this.filters, ...value };
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
+
   computed: {
     isPTKS(): boolean {
-      console.log(this.$route.path);
       return this.$route.path === "/transac_ptks";
     },
   },
@@ -159,11 +179,15 @@ export default defineComponent({
           Boolean(value)
         )
       );
+      console.log(filters);
       this.$router.replace({
         path: this.$route.path,
-        query: filters,
+        query: {
+          ...filters,
+          perPage: filters.perPage,
+          page: "0",
+        },
       });
-      this.$emit("change", filters);
     },
   },
 });

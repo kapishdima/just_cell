@@ -10,6 +10,7 @@
     :disabled="disabled !== undefined ? disabled : !canEdit"
     @input="input($event)"
     @keydown="onTabPressed"
+    :maxlength="maxLength"
   />
 </template>
 
@@ -22,6 +23,7 @@ export interface InputFieldProps {
   variant?: "default" | "accent";
   modelValue?: string;
   disabled?: any;
+  maxLength?: number;
 }
 
 withDefaults(defineProps<InputFieldProps>(), {

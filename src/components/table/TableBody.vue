@@ -67,8 +67,8 @@ export default defineComponent({
 
       if (!isMobile && header === "Дії") {
         return {
-          minWidth: "3%",
-          maxWidth: "3%",
+          minWidth: "4%",
+          maxWidth: "4%",
         };
       }
 

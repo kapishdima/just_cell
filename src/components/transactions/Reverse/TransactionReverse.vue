@@ -22,6 +22,7 @@ import ReverseAction from "../buttons/ReverseAction.vue";
 import ReverseForm from "./ReverseForm.vue";
 
 export default defineComponent({
+  emits: ["opened"],
   props: {
     transaction: Object,
   },
@@ -57,6 +58,7 @@ export default defineComponent({
     open() {
       const modal = this.$refs.modal as typeof VModal;
       modal.open();
+      this.$emit("opened");
     },
   },
 });

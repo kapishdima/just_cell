@@ -143,6 +143,9 @@
   }
 
   &__before-icon {
+    display: flex;
+    align-items: center;
+    column-gap: 4px;
     position: absolute;
     left: 8px;
     top: 42%;
@@ -198,7 +201,10 @@
     min-height: 140px;
   }
 
-  &__extra {
+  &__extra-container {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
     position: absolute;
     right: 10px;
     bottom: 8px;

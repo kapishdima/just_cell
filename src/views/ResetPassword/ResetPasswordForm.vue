@@ -43,6 +43,10 @@ export default defineComponent({
     };
   },
 
+  mounted() {
+    this.tel = this.$route.query.tel?.toString() || "";
+  },
+
   methods: {
     sendCode() {
       this.$router.push({ name: "confirm", query: { tel: this.tel } });

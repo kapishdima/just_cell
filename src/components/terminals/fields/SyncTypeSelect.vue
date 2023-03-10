@@ -1,5 +1,5 @@
 <template>
-  <form-field label="Тип синхронізації">
+  <form-field label="Тип синхронізації" :error="error">
     <select-field
       :options="syncTypes"
       name="syncTypes"
@@ -24,6 +24,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     modelValue: String,
+    error: String,
   },
   emits: ["update:modelValue"],
   components: {

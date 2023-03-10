@@ -1,8 +1,12 @@
 <template>
   <v-popover>
-    <template #actions>
+    <template #actions="{ close }">
       <update-status-action />
-      <transaction-reverse :transaction="transaction" />
+      <transaction-reverse
+        :transaction="transaction"
+        @opened="close"
+        v-if="hasReverse"
+      />
     </template>
   </v-popover>
 </template>
@@ -16,6 +20,7 @@ import UpdateStatusAction from "./buttons/UpdateStatusAction.vue";
 export default defineComponent({
   props: {
     transaction: Object,
+    hasReverse: Boolean,
   },
   components: {
     VPopover,

@@ -3,10 +3,11 @@
     <v-form
       class="terminal-form"
       @submit="sendConfig"
+      :schema="offlineTerminal"
       :initial-values="initialValues"
     >
-      <template #fields="{ values }">
-        <settings-select v-model="values.settings" />
+      <template #fields="{ values, errors }">
+        <settings-select v-model="values.settings" :error="errors.settings" />
         <div class="checkbox-container">
           <form-field>
             <checkbox-field
@@ -19,7 +20,10 @@
             </template>
           </form-field>
         </div>
-        <form-field label="Максимальна сума для оффлайн платежу">
+        <form-field
+          label="Максимальна сума для оффлайн платежу"
+          :error="errors.max_offline_sum"
+        >
           <input-field
             v-model="values.max_offline_sum"
             name="max_offline_sum"
@@ -33,7 +37,25 @@
             Для цього заповніть поля нижче</template
           >
         </form-title>
-        <form-field label="Endpoint для повідомлень про результати транзакцій">
+        <form-field
+          label="Secret Key (підпис HmacSHA256)"
+          :error="errors.secret_key"
+        >
+          <password-field
+            name="secrey_key"
+            v-model="values.secret_key"
+            :hasGenerateButton="true"
+            placeholder="Введіть або згенеруйте"
+          />
+          <template #hint>
+            Потрібне для підпису запитів зі сторони клієнтів (наприклад запит
+            статусу транзакції)
+          </template>
+        </form-field>
+        <form-field
+          label="Endpoint для повідомлень про результати транзакцій"
+          :error="errors.endpoint_result"
+        >
           <input-field
             v-model="values.endpoint_result"
             name="endpoint_result"
@@ -54,10 +76,19 @@
             placeholder="Наприклад, Content-type: application/json; Host:example.it"
           />
         </form-field>
-        <payload-field v-model="values.payload" />
-        <sign-stract-field v-model="values.sign_stract" />
-        <request-type-select v-model="values.req_type" />
-        <form-field label="Час очікування картки, в секундах">
+        <payload-field v-model="values.payload" :error="errors.payload" />
+        <sign-stract-field
+          v-model="values.sign_stract"
+          :error="errors.sign_stract"
+        />
+        <request-type-select
+          v-model="values.req_type"
+          :error="errors.req_type"
+        />
+        <form-field
+          label="Час очікування картки, в секундах"
+          :error="errors.card_wait"
+        >
           <input-field
             v-model="values.card_wait"
             name="card_wait"
@@ -68,7 +99,7 @@
             Час, який термінал очікує, що клієнт прикладе платіжний пристрій
           </template>
         </form-field>
-        <synctype-select v-model="values.sync_type" />
+        <synctype-select v-model="values.sync_type" :error="errors.sync_type" />
         <div class="checkbox-container">
           <form-field>
             <checkbox-field
@@ -82,7 +113,10 @@
             </template>
           </form-field>
         </div>
-        <form-field label="Час синхронізації, в секундах">
+        <form-field
+          label="Час синхронізації, в секундах"
+          :error="errors.sync_period"
+        >
           <input-field
             v-model="values.sync_period"
             name="sync_period"
@@ -92,6 +126,18 @@
           <template #hint>
             Як часто термінал буде виходити на зв’язок з сервером для передачі
             та отримання даних
+          </template>
+        </form-field>
+        <form-field label="Додаткова інформація">
+          <textarea-field
+            v-model="values.add_data"
+            :maxLength="1500"
+            placeholder="Введіть додадкову інформацію"
+          />
+          <template #hint>
+            Будь-які додаткові дані, які необхідні для роботи або інтеграції з
+            іншими додатками, наприклад, токен для авторизації на сторонньому
+            сервері. Їх можна отримувати на самому терміналі запитом /Config/get
           </template>
         </form-field>
         <update-all-terminals v-model="values.update_all_term" />
@@ -119,10 +165,12 @@ import TextareaField from "@/components/fields/TextareaField/TextareaField.vue";
 import PayloadField from "@/components/terminals/fields/PayloadTemplateField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import FormTitle from "@/components/form/FormTitle.vue";
-import VForm from "../form/VForm.vue";
-import { TerminalsActions } from "@/store/modules/terminals";
+import VForm from "@/components/form/VForm.vue";
+import PasswordField from "../fields/PasswordField/PasswordField.vue";
 
+import { TerminalsActions } from "@/store/modules/terminals";
 import { Rules } from "@/contants/rules";
+import { offlineTerminal } from "./validation/terminal.schema";
 
 import UpdateAllTerminals from "./fields/UpdateAllTerminals.vue";
 import SignStractField from "./fields/SignStractField.vue";
@@ -133,6 +181,7 @@ import SynctypeSelect from "./fields/SyncTypeSelect.vue";
 const defaultConfigData = {
   name: "",
   settings: "",
+  secret_key: "",
   max_offline_sum: 0,
   is_default_offline: false,
   is_for_all_card: true,
@@ -148,6 +197,7 @@ const defaultConfigData = {
   sync_type: "",
   sync_period: 30,
   update_all_term: false,
+  add_data: "",
 };
 
 export default defineComponent({
@@ -180,12 +230,13 @@ export default defineComponent({
     SignStractField,
     FormTitle,
     UpdateAllTerminals,
+    PasswordField,
   },
 
   setup() {
     const toast = useToast();
 
-    return { toast, Rules };
+    return { toast, Rules, offlineTerminal };
   },
 
   data(): { initialValues: any } {

@@ -1,5 +1,5 @@
 <template>
-  <form-field label="Тип налаштування">
+  <form-field label="Тип налаштування" :error="error">
     <select-field
       :options="settings"
       name="settings"
@@ -31,6 +31,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: {
     modelValue: String,
+    error: String,
   },
   emits: ["update:modelValue"],
   components: {

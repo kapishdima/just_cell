@@ -1,9 +1,13 @@
 <template>
-  <form-field :label="label || 'Структура підпису (SHA256WithRSA)'">
+  <form-field
+    :label="label || 'Структура підпису (SHA256WithRSA)'"
+    :error="error"
+  >
     <textarea-field
       :model-value="modelValue"
       @update:model-value="input"
-      name="payload"
+      @update:selection="changeSelection"
+      name="sign_stract"
       placeholder="Наприклад, ${transaction_id}${pay_time}${get_time}"
     />
     <template #hint>
@@ -32,18 +36,21 @@
 import { defineComponent } from "vue";
 import FormField from "../../fields/FormField/FormField.vue";
 import TextareaField from "../../fields/TextareaField/TextareaField.vue";
+import { decodeHtml } from "@/utils/htmlParser";
 
 export default defineComponent({
   props: {
     modelValue: String,
     label: String,
+    error: String,
   },
   emits: ["update:modelValue"],
   data() {
     return {
       payload: "",
       hintOpened: false,
-      canEdit: false,
+      selectionStart: 0,
+      selectionEnd: 0,
       hintMessages: [
         { name: "${transaction_id}", message: " - ідентифікатор платежу" },
         { name: "${pay_time}", message: " – час платежу" },
@@ -55,7 +62,14 @@ export default defineComponent({
         { name: "${transaction_type}", message: " – тип транзакції" },
         { name: "${amount}", message: " – кількість" },
         { name: "${ticket_num}", message: " – номер квитка" },
-        { name: "${sign}", message: " – підпис" },
+        { name: "${pan_mask}", message: "- маскований номер карти" },
+        { name: "${code}", message: " - код результату транзакції" },
+        { name: "${msg}", message: " - повідомлення коду помилки" },
+        { name: "${rrn}", message: " - інтифікатор в системах МПС" },
+        {
+          name: "${is_test}",
+          message: " - тип транзакції, тестова чи продова",
+        },
       ],
     };
   },
@@ -74,17 +88,33 @@ export default defineComponent({
     },
   },
 
+  watch: {
+    payload(value) {
+      const decoded = decodeHtml(value);
+      this.payload = decodeHtml(value);
+      this.$emit("update:modelValue", decoded);
+    },
+  },
+
   methods: {
     input(value: string) {
-      this.$emit("update:modelValue", value);
+      this.payload = value;
     },
     addTemplateElement(value: string) {
       if (this.payload.includes(value)) {
         this.payload = this.payload.replace(value, "");
       } else {
-        this.payload = this.payload + value;
+        this.payload.substring(this.selectionEnd, this.payload.length);
+        this.payload =
+          this.payload.substring(0, this.selectionStart) +
+          value +
+          this.payload.substring(this.selectionEnd, this.payload.length);
       }
       this.$emit("update:modelValue", this.payload);
+    },
+    changeSelection(selection: any) {
+      this.selectionStart = selection.start;
+      this.selectionEnd = selection.end;
     },
   },
 

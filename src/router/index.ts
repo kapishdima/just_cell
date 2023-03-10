@@ -1,8 +1,11 @@
 import { isAuthorized } from "@/api/auth/checkAuth";
+import { getUserRulesFromSession } from "@/api/user/user";
+import { Rules } from "@/contants/rules";
 import { store } from "@/store";
 import { RouterActions } from "@/store/modules/router";
 import { UserActions } from "@/store/modules/user";
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { useToast } from "vue-toastification";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -46,15 +49,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/AuthWelcome/AuthWelcomeView.vue"),
   },
   {
-    path: "/department",
-    name: "department",
-    children: [
-      {
-        path: "create",
-        name: "departmentCreate",
-        component: () => import("@/views/Department/CreateDepartmentView.vue"),
-      },
-    ],
+    path: "/point_create",
+    name: "departmentCreate",
+    component: () => import("@/views/Department/CreateDepartmentView.vue"),
   },
   {
     path: "/users",
@@ -135,6 +132,18 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/Terminal/Activate",
     name: "activateTerminal",
+    beforeEnter: (to, from, next) => {
+      const rulesList = getUserRulesFromSession();
+      const rules = rulesList.map((rule: any) => rule.tag);
+      const canEnter = rules?.includes(Rules.ADD_TERMINAL) || false;
+      const toast = useToast();
+      if (!canEnter) {
+        toast.error("У вас немає доступу до цієї сторінки!");
+        return next(from.path);
+      }
+
+      return next();
+    },
     component: () => import("@/views/Terminals/ActivateTerminalView.vue"),
   },
 ];

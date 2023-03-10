@@ -1,5 +1,11 @@
 <template lang="">
-  <v-table :data="data" :columns="columns" :empty="empty" />
+  <v-table
+    :data="data"
+    :columns="columns"
+    :empty="empty"
+    :has-export="true"
+    :total="total"
+  />
 </template>
 <script setup lang="ts">
 import { Transaction } from "@/api/transactions/transactions.model";
@@ -8,6 +14,7 @@ import { createColumnHelper } from "@tanstack/vue-table";
 interface TerminalTableProps {
   data: Transaction[];
   empty?: boolean;
+  total: number;
 }
 
 const columnHelper = createColumnHelper<Transaction>();
@@ -47,7 +54,12 @@ const columns = [
     header: "Статус",
   }),
   columnHelper.display({
-    cell: (info) => h(TransactionActions, { transaction: info.row.original }),
+    cell: (info) =>
+      h(TransactionActions, {
+        transaction: info.row.original,
+        hasReverse:
+          info.row.original.status_name === TransactionStatuses.SUCCESS,
+      }),
     header: "Дії",
   }),
 ];
@@ -55,10 +67,11 @@ const columns = [
 defineProps<TerminalTableProps>();
 </script>
 <script lang="ts">
+import { h } from "vue";
 import VTable from "../table/VTable.vue";
 import { expandedButton } from "../table/ExpandedButton";
 import TransactionActions from "./TransactionActions.vue";
-import { h } from "vue";
+import { TransactionStatuses } from "@/contants/statuses";
 
 export default {
   components: {

@@ -5,8 +5,13 @@
     </template>
     <template #appTitle>Перегляд ПТКС транзакцій</template>
     <template #appContent>
-      <transaction-filters @change="onFilterChange" />
-      <transactions-table :data="transactions" :empty="!hasTransactions" />
+      <transaction-filters />
+      <transactions-table
+        :data="transactions"
+        :empty="!hasTransactions"
+        :total="total"
+        :has-pagination="true"
+      />
     </template>
   </app-layout>
 </template>
@@ -18,7 +23,6 @@ import TransactionsTable from "@/components/transactions/TransactionsPTKSTable.v
 
 import TransactionFilters from "@/components/transactions/TransactionFilters.vue";
 import { TransactionsActions } from "@/store/modules/transactions";
-import { format } from "@/components/fields/DatepickerField/format";
 import { TerminalsActions } from "@/store/modules/terminals";
 
 export default defineComponent({
@@ -30,34 +34,35 @@ export default defineComponent({
   },
 
   computed: {
-    loading() {
+    loading(): boolean {
       return this.$store.state.transactions.loading;
     },
-    transactions() {
+    transactions(): any {
       return this.$store.state.transactions.transactions;
     },
-    hasTransactions() {
+    hasTransactions(): boolean {
       return (
         this.$store.state.transactions.transactions &&
         this.$store.state.transactions.transactions.length > 0
       );
     },
+    total(): number {
+      return this.$store.state.transactions.total;
+    },
+  },
+
+  watch: {
+    "$route.query": {
+      handler(value) {
+        this.filter(value);
+      },
+      deep: true,
+      immediate: true,
+    },
   },
 
   mounted() {
-    const DateFrom = this.$route.query.DateFrom || format(new Date());
-    const DateTo = this.$route.query.DateTo || format(new Date());
-    const filters = {
-      ...this.$route.query,
-      DateFrom,
-      DateTo,
-    };
-
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
-    this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
-      ...filters,
-      type: "PTKS",
-    });
   },
 
   methods: {
@@ -65,6 +70,12 @@ export default defineComponent({
       this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
         type: "PTKS",
         ...data,
+      });
+    },
+    filter(filterData: any) {
+      this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
+        ...filterData,
+        type: "PTKS",
       });
     },
   },
