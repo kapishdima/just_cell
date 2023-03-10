@@ -18,15 +18,17 @@
         />
       </svg>
     </div>
-    <div
-      class="pagination-button page"
-      :class="{ active: page === index }"
-      v-for="index in pages"
-      :key="index"
-      @click="setPage(index)"
-    >
-      {{ index }}
-    </div>
+    <template v-if="!isMobile">
+      <div
+        class="pagination-button page"
+        :class="{ active: page === index }"
+        v-for="index in pages"
+        :key="index"
+        @click="setPage(index)"
+      >
+        {{ index }}
+      </div>
+    </template>
     <div
       class="pagination-button pagination-next"
       :class="{ disabled: !canNext }"
@@ -106,6 +108,9 @@ export default defineComponent({
     },
     canPrev(): boolean {
       return this.page > 1;
+    },
+    isMobile(): boolean {
+      return window.matchMedia("(max-width: 768px)").matches;
     },
   },
 
