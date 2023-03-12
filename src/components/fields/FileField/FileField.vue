@@ -23,28 +23,22 @@
         type="button"
         @click="openFileSelector"
       >
-        Змінити файл
+        Завантажити файл
       </button>
     </div>
   </div>
 </template>
-<script setup lang="ts">
-interface FileFieldProps {
-  name: string;
-  label?: string;
-  accept?: string;
-}
-
-defineProps<FileFieldProps>();
-</script>
 <script lang="ts">
 import { defineComponent } from "vue";
 import { isImage } from "./file.service";
 
 export default defineComponent({
+  emits: ["update:modelValue"],
+  props: ["modelValue", "name", "label", "accept"],
+
   data(): { file: File | null } {
     return {
-      file: null,
+      file: this.modelValue || null,
     };
   },
 
@@ -66,6 +60,12 @@ export default defineComponent({
 
       const name = this.file?.name;
       return name?.length <= 25 ? name : `${name?.slice(0, 15)}...`;
+    },
+  },
+
+  watch: {
+    file(value: File) {
+      this.$emit("update:modelValue", value);
     },
   },
 

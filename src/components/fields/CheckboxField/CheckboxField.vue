@@ -6,6 +6,7 @@
     :name="name"
     :disabled="disabled"
   />
+
   <div
     class="checkbox-field"
     :class="{
@@ -55,13 +56,26 @@ export default defineComponent({
   emits: ["change", "update:modelValue"],
   data() {
     return {
-      checked: (this.$props as any).modelValue || false,
+      checked: (this.$props as any).modelValue,
     };
   },
 
   computed: {
     hasError(): boolean {
       return Boolean((this.$props as any).error);
+    },
+  },
+
+  watch: {
+    modelValue: {
+      handler(value: any) {
+        if (typeof value === "string") {
+          this.checked = JSON.parse(value);
+        } else {
+          this.checked = value;
+        }
+      },
+      immediate: true,
     },
   },
 
