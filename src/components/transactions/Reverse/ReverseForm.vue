@@ -88,17 +88,22 @@ export default defineComponent({
     };
   },
 
-  mounted() {
-    if (!this.initialValues) {
-      return;
-    }
+  watch: {
+    transaction: {
+      handler(values) {
+        if (!values) {
+          return;
+        }
 
-    this.initialValues = {
-      order_id: this.transaction?.order_id,
-      amount: this.transaction?.amount,
-      data: this.transaction?.add_time.split(" ")[0],
-      term: this.transaction?.bank_name.split("/")[1],
-    };
+        this.initialValues = {
+          order_id: values?.order_id,
+          amount: values?.amount,
+          data: values?.add_time.split(" ")[0],
+          term: values?.bank_name.split("/")[1],
+        };
+      },
+      immediate: true,
+    },
   },
 
   methods: {
@@ -114,6 +119,10 @@ export default defineComponent({
         }
       } finally {
         this.loading = false;
+        this.initialValues = {
+          ...this.initialValues,
+          amount: this.transaction?.amount,
+        };
       }
     },
     confirm() {
@@ -127,6 +136,10 @@ export default defineComponent({
     },
     onCancel(close: any) {
       close();
+      this.initialValues = {
+        ...this.initialValues,
+        amount: this.transaction?.amount,
+      };
       this.$emit("error");
     },
   },

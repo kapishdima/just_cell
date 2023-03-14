@@ -15,7 +15,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import VModal from "@/components/Modal/VModal.vue";
-import { format } from "@/components/fields/DatepickerField/format";
 import { TransactionsActions } from "@/store/modules/transactions";
 
 import ReverseAction from "../buttons/ReverseAction.vue";
@@ -42,16 +41,8 @@ export default defineComponent({
         ? "TRANSPORT"
         : "PTKS";
 
-      const DateFrom = this.$route.query.DateFrom || format(new Date());
-      const DateTo = this.$route.query.DateTo || format(new Date());
-      const filters = {
-        ...this.$route.query,
-        DateFrom,
-        DateTo,
-      };
-
       this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
-        ...filters,
+        ...this.$route.query,
         type: transactionType,
       });
     },
