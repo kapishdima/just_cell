@@ -31,12 +31,6 @@
             placeholder="Введіть максимальну суму для оффлайн платежу"
           />
         </form-field>
-        <form-title>
-          <template #title
-            >Ви можете отримувати результати транзакцій на свій backend. <br />
-            Для цього заповніть поля нижче</template
-          >
-        </form-title>
         <form-field
           label="Secret Key (підпис HmacSHA256)"
           :error="errors.secret_key"
@@ -52,6 +46,13 @@
             статусу транзакції)
           </template>
         </form-field>
+        <form-title>
+          <template #title
+            >Ви можете отримувати результати транзакцій на свій backend. <br />
+            Для цього заповніть поля нижче</template
+          >
+        </form-title>
+
         <form-field
           label="Endpoint для повідомлень про результати транзакцій"
           :error="errors.endpoint_result"
