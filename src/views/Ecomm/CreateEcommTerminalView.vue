@@ -3,7 +3,7 @@
     <template #appTitle> Загальні налаштування терміналу </template>
     <template #appContent>
       <app-loading :loading="loading" />
-      <terminal-form :actions-fixed="true" />
+      <terminal-form :actions-fixed="true" v-if="!loading" />
     </template>
   </app-layout>
 </template>

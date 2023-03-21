@@ -57,15 +57,35 @@
   </form-field>
   <sign-stract-field v-model="values[`${prefix}-sign_data`]" />
   <commision-type v-model="values[`${prefix}-comis_type`]" />
+
+  <div v-if="values[`${prefix}-comis_type`] === '3'" class="fields-row">
+    <form-field label="Комісія клієнта">
+      <input-field
+        type="number"
+        name="client_comis"
+        placeholder="Введіть комісію клієнта"
+        v-model="values[`${prefix}-client_comis`]"
+      />
+    </form-field>
+    <form-field label="Комісія мерчента">
+      <input-field
+        type="number"
+        name="merch_comis"
+        placeholder="Введіть комісію мерчента"
+        v-model="values[`${prefix}-merch_comis`]"
+      />
+    </form-field>
+  </div>
   <connection-type v-model="values[`${prefix}-request_type`]" />
   <acquirer-type v-model="values[`${prefix}-bank_list`]" />
-  <ballance-type
-    v-model="values[`${prefix}-balancer_type`]"
-    v-if="values[`${prefix}-bank_list`]?.length > 1"
+  {{ values["ecomm-bank_list"] }}
+  <balancer-field
+    :model-value="values[`${prefix}-balancer`]"
+    :selected-banks="values[`${prefix}-bank_list`]"
   />
 </template>
 
-<script lang="ts">
+<script>
 import FormField from "@/components/fields/FormField/FormField.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 import PasswordField from "@/components/fields/PasswordField/PasswordField.vue";
@@ -76,7 +96,7 @@ import PayloadTemplateField from "./fields/PayloadTemplateField.vue";
 import CommisionType from "./fields/CommisionType.vue";
 import ConnectionType from "./fields/ConnectionType.vue";
 import AcquirerType from "./fields/AcquirerType.vue";
-import BallanceType from "./fields/BalanceType.vue";
+import BalancerField from "./fields/BalancerField.vue";
 
 export default {
   props: ["formValues", "formErrors", "prefix"],
@@ -88,12 +108,12 @@ export default {
     CommisionType,
     ConnectionType,
     AcquirerType,
-    BallanceType,
+    BalancerField,
     PasswordField,
     VButton,
   },
 
-  data(): { values: any; errors: any } {
+  data() {
     return {
       values: this.formValues || {},
       errors: this.formErrors || {},
@@ -109,9 +129,7 @@ export default {
     },
     formErrors: {
       handler(values) {
-        console.log(values);
         this.errors = values || {};
-        console.log(this.errors);
       },
       immediate: true,
     },
@@ -120,9 +138,11 @@ export default {
   methods: {
     duplicateEccom() {
       const duplicateValues = Object.keys(this.formValues).reduce(
-        (acc: any, key) => {
+        (acc, key) => {
           if (key.startsWith("ecomm")) {
             const [_, property] = key.split("-");
+            console.log("property", property);
+            console.log("this.formValues[key]", this.formValues[key]);
             acc[`${this.prefix}-${property}`] = this.formValues[key];
           }
 

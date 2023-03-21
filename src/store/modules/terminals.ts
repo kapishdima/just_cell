@@ -115,6 +115,7 @@ const actions = {
   async [TerminalsActions.GET_ECOMM_TERMINALS_REF]({ commit }: any) {
     commit(TerminalsActions.SET_LOADING, true);
     const terminalsRef = await getEcommTermilaRefs();
+    console.log("GET_REF", terminalsRef);
 
     commit(TerminalsActions.SET_ECOMM_TERMINALS_REF, terminalsRef);
     commit(TerminalsActions.SET_LOADING, false);

@@ -4,7 +4,7 @@
       <template #fields="{ values, errors }">
         <v-tabs>
           <v-tab title="Ecomm">
-            <div class="terminal-form">
+            <div class="terminal-form ecomm-form__container">
               <form-field label="Назва" :error="errors.name">
                 <input-field
                   name="name"
@@ -71,13 +71,13 @@
 
               <sign-stract-field v-model="values['ecomm-sign_data']" />
               <commision-type v-model="values['ecomm-comis_type']" />
-              <template v-if="values['ecomm-comis_type'] === '3'">
+              <div v-if="values['ecomm-comis_type'] === '3'" class="fields-row">
                 <form-field label="Комісія клієнта">
                   <input-field
                     type="number"
                     name="client_comis"
                     placeholder="Введіть комісію клієнта"
-                    v-model="values.client_comis"
+                    v-model="values['ecomm-client_comis']"
                   />
                 </form-field>
                 <form-field label="Комісія мерчента">
@@ -85,10 +85,10 @@
                     type="number"
                     name="merch_comis"
                     placeholder="Введіть комісію мерчента"
-                    v-model="values.merch_comis"
+                    v-model="values['ecomm-merch_comis']"
                   />
                 </form-field>
-              </template>
+              </div>
               <connection-type v-model="values['ecomm-request_type']" />
               <form-field
                 label="Час очікування на введення картки клієнтом"
@@ -101,9 +101,9 @@
                 />
               </form-field>
               <acquirer-type v-model="values['ecomm-bank_list']" />
-              <ballance-type
-                v-model="values['ecomm-balancer_type']"
-                v-if="values['ecomm-bank_list']?.length > 1"
+              <balancer-field
+                :model-value="values['ecomm-balancer']"
+                :selected-banks="values['ecomm-bank_list']"
               />
             </div>
           </v-tab>
@@ -155,7 +155,7 @@ import PayloadTemplateField from "./fields/PayloadTemplateField.vue";
 import CommisionType from "./fields/CommisionType.vue";
 import ConnectionType from "./fields/ConnectionType.vue";
 import AcquirerType from "./fields/AcquirerType.vue";
-import BallanceType from "./fields/BalanceType.vue";
+import BalancerField from "./fields/BalancerField.vue";
 import AdditionConnectForm from "./AdditionConnectForm.vue";
 
 export default defineComponent({
@@ -185,7 +185,7 @@ export default defineComponent({
     CommisionType,
     ConnectionType,
     AcquirerType,
-    BallanceType,
+    BalancerField,
     PasswordField,
     AdditionConnectForm,
   },
@@ -205,10 +205,12 @@ export default defineComponent({
         "ecomm-request_type": "",
         "ecomm-time_out": "",
         "ecomm-bank_list": [],
-        "ecomm-balancer_type": "",
-        "ecomm-balancer_data": "",
-        client_comis: "",
-        merch_comis: "",
+        "ecomm-balancer": {
+          type: null,
+          data: [],
+        },
+        "ecomm-client_comis": "",
+        "ecomm-merch_comis": "",
         "A2C-callback": "",
         "A2C-callback_get": "",
         "A2C-callback_body": "",
@@ -218,8 +220,10 @@ export default defineComponent({
         "A2C-comis_type": "",
         "A2C-request_type": "",
         "A2C-bank_list": "",
-        "A2C-balancer_type": "",
-        "A2C-balancer_data": "",
+        "A2C-balancer": {
+          type: null,
+          data: [],
+        },
         "C2A-callback": "",
         "C2A-callback_get": "",
         "C2A-callback_body": "",
@@ -229,8 +233,10 @@ export default defineComponent({
         "C2A-comis_type": "",
         "C2A-request_type": "",
         "C2A-bank_list": "",
-        "C2A-balancer_type": "",
-        "C2A-balancer_data": "",
+        "C2A-balancer": {
+          type: null,
+          data: [],
+        },
       },
     };
   },

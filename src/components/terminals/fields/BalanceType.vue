@@ -36,7 +36,6 @@ export default defineComponent({
   computed: {
     ballanceTypes(): { value: string; label: string }[] {
       const ref: EcommTerminalRef = this.$store.state.terminals.terminalsRef;
-
       if (!ref) {
         return [];
       }

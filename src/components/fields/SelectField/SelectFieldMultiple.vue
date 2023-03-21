@@ -38,16 +38,35 @@
   </div>
 </template>
 <script setup lang="ts">
+// import { createPopper } from "@popperjs/core";
 interface SelectFieldProps {
   name: string;
   options: Option[];
   inputPlaceholder?: string;
   searchPlaceholder?: string;
   hasSearch?: boolean;
-  modelValue?: string;
+  modelValue?: any;
   disabled?: any;
   size?: "md" | "sm";
 }
+
+// const tooltip = ref<any>(null);
+// const trigger = ref<any>(null);
+// const popper = ref<any>(null);
+
+// onMounted(() => {
+//   popper.value = createPopper(trigger.value, tooltip.value, {
+//     placement: "right-start",
+//     modifiers: [
+//       {
+//         name: "offset",
+//         options: {
+//           offset: [0, 8],
+//         },
+//       },
+//     ],
+//   });
+// });
 
 withDefaults(defineProps<SelectFieldProps>(), {
   hasSearch: true,
@@ -55,10 +74,10 @@ withDefaults(defineProps<SelectFieldProps>(), {
 });
 </script>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import SearchInput from "./SelectSearchInput.vue";
 import SelectedInput from "./SelectSelectedInput.vue";
-import OptionItem from "./OptionItem.vue";
+import OptionItem from "./OptionItemWithCheckbox.vue";
 
 interface Option {
   label: string;
@@ -125,7 +144,6 @@ export default defineComponent({
         this.selected = [...this.selected, option.value];
       }
       this.selectedLabel = this.setSelectedLabel(this.selected);
-      this.close();
       this.$emit("update:modelValue", this.selected);
     },
     clear() {

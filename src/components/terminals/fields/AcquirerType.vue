@@ -22,10 +22,7 @@ import { EcommTerminalRef } from "@/api/terminals/terminal.model";
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  props: {
-    modelValue: String,
-    error: String,
-  },
+  props: ["modelValue", "error"],
   emits: ["update:modelValue"],
   components: {
     FormField,
