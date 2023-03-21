@@ -27,25 +27,15 @@ export type Terminal = {
   last_start: string;
 };
 
-export type TerminalPoint = {
+type SelectItem = {
   name: string;
   id: number;
 };
 
-export type TerminalType = {
+type SelectItemWithDescription = {
   name: string;
+  id: number;
   opis: string;
-  id: number;
-};
-
-export type City = {
-  name: string;
-  id: number;
-};
-
-export type Transport = {
-  name: string;
-  id: number;
 };
 
 export type TerminalModel = {
@@ -56,12 +46,18 @@ export type TerminalModel = {
   id: number;
 };
 
+export type SystemComis = {
+  name: string;
+  prc: string;
+  fix: string;
+};
+
 export type TerminalRef = {
   code: 0;
-  points: TerminalPoint[];
-  terminals_type: TerminalType[];
-  cities: City[];
-  transport_list: Transport[];
+  points: SelectItem[];
+  terminals_type: SelectItemWithDescription[];
+  cities: SelectItem[];
+  transport_list: SelectItem[];
   transport_support: TerminalModel[];
   offline_settings: TerminalOfflineSettings[];
   sync_type: TerminalSyncType[];
@@ -70,6 +66,16 @@ export type TerminalRef = {
     color: string;
     id: string;
   }[];
+  sign: string;
+};
+
+export type EcommTerminalRef = {
+  code: 0;
+  comis_type: SelectItem[];
+  request_type: SelectItemWithDescription[];
+  banks_list: SelectItem[];
+  balancer_type: SelectItemWithDescription[];
+  system_comis: SystemComis[];
   sign: string;
 };
 

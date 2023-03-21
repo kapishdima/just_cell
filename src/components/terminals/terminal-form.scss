@@ -18,3 +18,12 @@
     width: 100%;
   }
 }
+
+.terminal-form__extra {
+  display: flex;
+  justify-content: flex-start;
+
+  button {
+    color: $accent-primary;
+  }
+}

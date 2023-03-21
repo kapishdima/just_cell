@@ -130,6 +130,10 @@ const routes: Array<RouteRecordRaw> = [
       import("@/views/Transactions/TransactionsTransportListView.vue"),
   },
   {
+    path: "/ecomm_terminal",
+    component: () => import("@/views/Ecomm/CreateEcommTerminalView.vue"),
+  },
+  {
     path: "/Terminal/Activate",
     name: "activateTerminal",
     beforeEnter: (to, from, next) => {

@@ -1,14 +1,20 @@
 import { http } from "../client";
 import { ApiRoutes } from "../routes";
-import { Terminal } from "./terminal.model";
+import { EcommTerminalRef, Terminal, TerminalRef } from "./terminal.model";
 
 export const getTerminalsList = async (): Promise<Terminal[] | undefined> => {
   const { data } = await http.get(ApiRoutes.TERMINALS_LIST);
   return data.data || [];
 };
 
-export const getTerminalRefs = async () => {
+export const getTerminalRefs = async (): Promise<TerminalRef> => {
   const { data } = await http.get(ApiRoutes.TERMINALS_REFS);
+
+  return data;
+};
+
+export const getEcommTermilaRefs = async (): Promise<EcommTerminalRef> => {
+  const { data } = await http.get(ApiRoutes.ECOMM_TERMINAL_REF);
 
   return data;
 };
