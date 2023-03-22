@@ -46,15 +46,7 @@
             статусу транзакції)
           </template>
         </form-field>
-        <div class="checkbox-container">
-          <form-field>
-            <checkbox-field
-              v-model="values.regen_key"
-              name="regen_key"
-              label="Згенерувати новий приватний ключ підпису"
-            />
-          </form-field>
-        </div>
+
         <form-title>
           <template #title
             >Ви можете отримувати результати транзакцій на свій backend. <br />
@@ -92,6 +84,15 @@
           v-model="values.sign_stract"
           :error="errors.sign_stract"
         />
+        <div class="checkbox-container">
+          <form-field>
+            <checkbox-field
+              v-model="values.regen_key"
+              name="regen_key"
+              label="Згенерувати новий приватний ключ підпису"
+            />
+          </form-field>
+        </div>
         <request-method-select
           label="Тип запиту зворотного виклику"
           v-model="values.req_type"

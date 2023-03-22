@@ -112,9 +112,6 @@ const actions = {
         terminalData
       );
 
-      console.log(data);
-
-      console.log(Boolean(data.code === 0 && data.public_key));
       if (data.code === 0 && data.public_key) {
         const link = createKeyFile(data.public_key);
         const key = {
