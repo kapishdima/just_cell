@@ -46,6 +46,15 @@
             статусу транзакції)
           </template>
         </form-field>
+        <div class="checkbox-container">
+          <form-field>
+            <checkbox-field
+              v-model="values.regen_key"
+              name="regen_key"
+              label="Згенерувати новий приватний ключ підпису"
+            />
+          </form-field>
+        </div>
         <form-title>
           <template #title
             >Ви можете отримувати результати транзакцій на свій backend. <br />
@@ -208,6 +217,7 @@ const defaultConfigData = {
   update_all_term: false,
   add_data: "",
   callback_req_type: "",
+  regen_key: false,
 };
 
 export default defineComponent({

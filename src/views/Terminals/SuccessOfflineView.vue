@@ -19,11 +19,18 @@
         </p>
         <div class="success-offline-terminal__actions">
           <a
+            v-if="keyFileLink"
             class="success-offline-terminal__link"
             :href="keyFileLink"
             :download="keyFilename"
             >Завантажити публічний ключ</a
           >
+          <router-link
+            v-if="!keyFileLink"
+            :to="{ name: 'terminals' }"
+            class="success-offline-terminal__link"
+            >До терміналів
+          </router-link>
         </div>
       </div>
     </template>

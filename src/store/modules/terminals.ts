@@ -112,13 +112,19 @@ const actions = {
         terminalData
       );
 
-      if (data.code === 0) {
+      console.log(data);
+
+      console.log(Boolean(data.code === 0 && data.public_key));
+      if (data.code === 0 && data.public_key) {
         const link = createKeyFile(data.public_key);
         const key = {
           link,
           filename: TERMINAL_KEY_FILENAME,
         };
         commit(TerminalsActions.SET_KEY_LINK, key);
+        router.push({ name: "offlineTerminalSuccess" });
+      } else if (data.code === 0 && !data.public_key) {
+        commit(TerminalsActions.SET_KEY_LINK, null);
         router.push({ name: "offlineTerminalSuccess" });
       }
       commit(TerminalsActions.SET_LOADING, false);

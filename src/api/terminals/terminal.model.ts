@@ -104,7 +104,7 @@ export type OfflineTerminalPayload = {
 
 export type CreateOfflineTerminalResponse = {
   code: number;
-  public_key: string;
+  public_key?: string;
 };
 
 export type EditTerminalData = {
