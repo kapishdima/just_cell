@@ -78,13 +78,20 @@
           />
         </form-field>
         <payload-field v-model="values.payload" :error="errors.payload" />
+
         <sign-stract-field
           v-model="values.sign_stract"
           :error="errors.sign_stract"
         />
-        <request-type-select
+        <request-method-select
+          label="Тип запиту зворотного виклику"
           v-model="values.req_type"
           :error="errors.req_type"
+        />
+        <request-type-select
+          label="Тип зворотного виклику"
+          v-model="values.callback_req_type"
+          :error="errors.callback_req_type"
         />
         <form-field
           label="Час очікування картки, в секундах"
@@ -176,7 +183,8 @@ import { offlineTerminal } from "./validation/terminal.schema";
 import UpdateAllTerminals from "./fields/UpdateAllTerminals.vue";
 import SignStractField from "./fields/SignStractField.vue";
 import SettingsSelect from "./fields/SettingsSelect.vue";
-import RequestTypeSelect from "./fields/RequestMethodSelect.vue";
+import RequestMethodSelect from "./fields/RequestMethodSelect.vue";
+import RequestTypeSelect from "./fields/RequestTypeSelect.vue";
 import SynctypeSelect from "./fields/SyncTypeSelect.vue";
 
 const defaultConfigData = {
@@ -199,6 +207,7 @@ const defaultConfigData = {
   sync_period: 30,
   update_all_term: false,
   add_data: "",
+  callback_req_type: "",
 };
 
 export default defineComponent({
@@ -222,6 +231,7 @@ export default defineComponent({
     InputField,
     CheckboxField,
     TextareaField,
+    RequestMethodSelect,
     RequestTypeSelect,
     PayloadField,
     SettingsSelect,
