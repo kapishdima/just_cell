@@ -4,27 +4,27 @@
       <img src="@/assets/icons/kebab-icon.svg" alt="Actions" />
     </div>
     <div class="popover-tooltip" ref="tooltip" :data-show="opened">
-      <div class="popover-tooltip__actions">
+      <div class="popover-tooltip__actions" v-if="opened">
         <slot name="actions" :close="close"></slot>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
-import { createPopper, Instance as PopoverInstance } from "@popperjs/core";
+import { createPopper } from "@popperjs/core";
 
 export default defineComponent({
-  data(): { opened: boolean; popover: PopoverInstance | null } {
+  data() {
     return {
       opened: false,
-      popover: null,
     };
   },
+
   mounted() {
-    const trigger = this.$refs.trigger as HTMLDivElement;
-    const tooltip = this.$refs.tooltip as HTMLDivElement;
+    const trigger = this.$refs.trigger;
+    const tooltip = this.$refs.tooltip;
 
     this.popover = createPopper(trigger, tooltip, {
       placement: "left-start",
@@ -48,7 +48,7 @@ export default defineComponent({
       this.popover?.setOptions((options) => ({
         ...options,
         modifiers: [
-          ...(options.modifiers as any),
+          ...options.modifiers,
           { name: "eventListeners", enabled: this.opened },
         ],
       }));

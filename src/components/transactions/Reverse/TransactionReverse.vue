@@ -48,6 +48,7 @@ export default defineComponent({
     },
     open() {
       const modal = this.$refs.modal as typeof VModal;
+      console.log(modal);
       modal.open();
       this.$emit("opened");
     },
