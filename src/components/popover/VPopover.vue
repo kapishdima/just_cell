@@ -5,7 +5,7 @@
     </div>
     <div class="popover-tooltip" ref="tooltip" :data-show="opened">
       <div class="popover-tooltip__actions" v-if="opened">
-        <slot name="actions" :close="close"></slot>
+        <slot name="actions" :close="close" :hide="hide"></slot>
       </div>
     </div>
   </div>
@@ -54,7 +54,14 @@ export default defineComponent({
       }));
     },
     close() {
+      const tooltip = this.$refs.tooltip;
+      tooltip.style.opacity = "1";
       this.opened = false;
+    },
+
+    hide() {
+      const tooltip = this.$refs.tooltip;
+      tooltip.style.opacity = "0";
     },
   },
 });

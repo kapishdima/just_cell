@@ -1,9 +1,13 @@
 <template>
   <v-popover>
-    <template #actions>
+    <template #actions="{ hide, close }">
       <update-status-action />
-      <transaction-reverse :transaction="transaction" v-if="hasReverse" />
-      <!-- @opened="close" -->
+      <transaction-reverse
+        :transaction="transaction"
+        @opened="hide"
+        @closed="close"
+        v-if="hasReverse"
+      />
     </template>
   </v-popover>
 </template>

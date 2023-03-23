@@ -32,6 +32,19 @@
       margin-top: 0;
     }
 
+    &.first {
+      width: 42px;
+      &:after {
+        content: "...";
+      }
+    }
+    &.last {
+      width: 42px;
+      &:before {
+        content: "...\00a0";
+      }
+    }
+
     svg {
       width: 16px;
       height: 16px;
