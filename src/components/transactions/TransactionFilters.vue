@@ -127,6 +127,7 @@ import StatusSelect from "./StatusSelect.vue";
 import { format } from "@/components/fields/DatepickerField/format";
 
 export default defineComponent({
+  emits: ["update:filters"],
   components: {
     FormField,
     InputField,
@@ -179,14 +180,18 @@ export default defineComponent({
           Boolean(value)
         )
       );
-      console.log(filters);
+
+      const filtersData = {
+        ...filters,
+        perPage: filters.perPage,
+        page: "0",
+      };
+
+      this.$emit("update:filters", filtersData);
+
       this.$router.replace({
         path: this.$route.path,
-        query: {
-          ...filters,
-          perPage: filters.perPage,
-          page: "0",
-        },
+        query: filtersData,
       });
     },
   },

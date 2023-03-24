@@ -5,7 +5,7 @@
     </template>
     <template #appTitle>Перегляд ПТКС транзакцій</template>
     <template #appContent>
-      <transaction-filters />
+      <transaction-filters @update:filters="filter" />
       <transactions-table
         :data="transactions"
         :empty="!hasTransactions"
@@ -66,12 +66,6 @@ export default defineComponent({
   },
 
   methods: {
-    onFilterChange(data: any) {
-      this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
-        type: "PTKS",
-        ...data,
-      });
-    },
     filter(filterData: any) {
       this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
         ...filterData,

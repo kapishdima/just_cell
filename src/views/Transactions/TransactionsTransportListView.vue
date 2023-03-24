@@ -5,7 +5,7 @@
     </template>
     <template #appTitle>Перегляд транспортних транзакцій</template>
     <template #appContent>
-      <transaction-filters />
+      <transaction-filters @update:filters="filter" />
       <transactions-table
         :data="transactions"
         :empty="!hasTransactions"
@@ -67,12 +67,6 @@ export default defineComponent({
   },
 
   methods: {
-    onFilterChange(data: any) {
-      this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
-        type: "TRANSPORT",
-        ...data,
-      });
-    },
     filter(filterData: any) {
       this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
         ...filterData,
