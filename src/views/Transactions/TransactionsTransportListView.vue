@@ -6,6 +6,13 @@
     <template #appTitle>Перегляд транспортних транзакцій</template>
     <template #appContent>
       <transaction-filters @update:filters="filter" />
+      <div class="table-actions" v-if="total > 0">
+        <export-button
+          :export-data="exportTransactions"
+          :loading="exportLoading"
+          @click="fetchExportData"
+        />
+      </div>
       <transactions-table
         :data="transactions"
         :empty="!hasTransactions"
@@ -24,6 +31,7 @@ import TransactionsTable from "@/components/transactions/TransactionsTransportTa
 import TransactionFilters from "@/components/transactions/TransactionFilters.vue";
 import { TransactionsActions } from "@/store/modules/transactions";
 import { TerminalsActions } from "@/store/modules/terminals";
+import ExportButton from "@/components/table/ExportButton.vue";
 
 export default defineComponent({
   components: {
@@ -31,6 +39,7 @@ export default defineComponent({
     AppLoading,
     TransactionsTable,
     TransactionFilters,
+    ExportButton,
   },
 
   computed: {
@@ -49,6 +58,13 @@ export default defineComponent({
     total(): number {
       console.log(this.$store.state.transactions.total);
       return this.$store.state.transactions.total;
+    },
+    exportLoading(): boolean {
+      return this.$store.state.transactions.exportLoading;
+    },
+    exportTransactions(): any {
+      console.log(this.$store.state.transactions.exportTransactions);
+      return this.$store.state.transactions.exportTransactions;
     },
   },
 
@@ -71,6 +87,12 @@ export default defineComponent({
       this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
         ...filterData,
         type: "TRANSPORT",
+      });
+    },
+    fetchExportData() {
+      this.$store.dispatch(TransactionsActions.GET_EXPORT_TRANSACTIONS, {
+        ...this.$route.query,
+        type: "PTKS",
       });
     },
   },
