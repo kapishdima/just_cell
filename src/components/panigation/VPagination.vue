@@ -1,5 +1,5 @@
 <template>
-  <div class="pagination">
+  <div class="pagination" v-if="total > 0">
     <div
       class="pagination-button pagination-prev"
       :class="{ disabled: !canPrev }"
@@ -19,15 +19,23 @@
       </svg>
     </div>
     <template v-if="!isMobile">
-      <div
-        class="pagination-button page"
-        :class="{ active: page === index }"
-        v-for="index in pages"
-        :key="index"
-        @click="setPage(index)"
-      >
-        {{ index }}
-      </div>
+      <template v-for="index in pages">
+        <div
+          class="pagination-button page"
+          :class="{
+            active: page === index,
+            last: index === pages - 1 && Math.abs(index - page) > 5,
+            first: index === 1 && Math.abs(index - page) > 5,
+          }"
+          v-if="
+            Math.abs(index - page) < 5 || index === pages - 1 || index === 1
+          "
+          :key="index"
+          @click="setPage(index)"
+        >
+          {{ index }}
+        </div>
+      </template>
     </template>
     <div
       class="pagination-button pagination-next"

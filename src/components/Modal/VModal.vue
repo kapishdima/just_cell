@@ -1,27 +1,32 @@
 <template>
-  <div
-    class="modal"
-    tabindex="-1"
-    role="dialog"
-    :class="{ 'modal--opened': opened, [`${classNames}`]: Boolean(classNames) }"
-    @click="close"
-    ref="modal"
-  >
-    <div class="modal-content" :style="{ minWidth, maxWidth }" @click.stop>
-      <div class="modal-header">
-        <h4 class="modal-title">
-          <slot name="title"></slot>
-        </h4>
-        <div class="modal-close-button" v-if="showCloseButton" @click="close">
-          <img src="@/assets/icons/close-icon.svg" alt="Close" />
+  <Teleport to="body">
+    <div
+      class="modal"
+      tabindex="-1"
+      role="dialog"
+      :class="{
+        'modal--opened': opened,
+        [`${classNames}`]: Boolean(classNames),
+      }"
+      @click="close"
+      ref="modal"
+    >
+      <div class="modal-content" :style="{ minWidth, maxWidth }" @click.stop>
+        <div class="modal-header">
+          <h4 class="modal-title">
+            <slot name="title"></slot>
+          </h4>
+          <div class="modal-close-button" v-if="showCloseButton" @click="close">
+            <img src="@/assets/icons/close-icon.svg" alt="Close" />
+          </div>
+        </div>
+        <slot name="content" :close="close"></slot>
+        <div class="modal-footer">
+          <slot name="footer" :close="close"></slot>
         </div>
       </div>
-      <slot name="content" :close="close"></slot>
-      <div class="modal-footer">
-        <slot name="footer" :close="close"></slot>
-      </div>
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <script lang="ts">
@@ -45,8 +50,6 @@ export default defineComponent({
   },
 
   mounted() {
-    const modal = this.$refs.modal as HTMLDivElement;
-    document.body.prepend(modal);
     document.addEventListener("keydown", this.onKeydown);
   },
 

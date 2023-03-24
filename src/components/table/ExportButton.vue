@@ -1,9 +1,10 @@
 <template>
   <div class="export-button">
-    <v-button variant="ghost" @click="exportToXLS" :has-max-width="false">
+    <v-button variant="ghost" @click="$emit('click')" :has-max-width="false">
       <template #text>Export XLS</template>
       <template #afterIcon>
-        <img src="@/assets/icons/document-icon.svg" alt="" />
+        <img v-if="!loading" src="@/assets/icons/document-icon.svg" alt="" />
+        <img v-if="loading" src="@/assets/icons/loading-icon.gif" alt="" />
       </template>
     </v-button>
   </div>
@@ -15,37 +16,25 @@ import VButton from "../buttons/BaseButton/BaseButton.vue";
 import { utils, writeFileXLSX } from "xlsx";
 
 export default defineComponent({
-  props: ["exportData", "table"],
+  props: ["exportData", "loading"],
+  emits: ["click"],
   components: {
     VButton,
   },
 
-  methods: {
-    exportToXLS() {
-      const data = this.table.getCoreRowModel().rows.map((row: any) => {
-        let column: any = {};
-        row.getVisibleCells().forEach((cell: any) => {
-          const columnName = cell.column.columnDef.header;
-          const columnValue = cell.getValue();
-
-          if (columnName === "Дії") {
-            return;
-          }
-
-          column[columnName] = columnValue;
-        });
-        return {
-          ...column,
-          ...row.originalSubRows[0],
-        };
-      });
-
+  watch: {
+    exportData(value) {
+      if (!value || !value.length) {
+        return;
+      }
       const wb = utils.book_new();
-      const ws = utils.json_to_sheet(data);
+      const ws = utils.json_to_sheet(this.exportData);
       utils.book_append_sheet(wb, ws, "Transactions");
       writeFileXLSX(wb, "Transactions.xlsx");
     },
   },
+
+  methods: {},
 });
 </script>
 

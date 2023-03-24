@@ -6,7 +6,7 @@
       <reverse-form
         :transaction="transaction"
         @success="onSuccess(close)"
-        @error="close"
+        @error="onError(close)"
       />
     </template>
   </v-modal>
@@ -21,7 +21,7 @@ import ReverseAction from "../buttons/ReverseAction.vue";
 import ReverseForm from "./ReverseForm.vue";
 
 export default defineComponent({
-  emits: ["opened"],
+  emits: ["opened", "closed"],
   props: {
     transaction: Object,
   },
@@ -32,8 +32,13 @@ export default defineComponent({
   },
 
   methods: {
+    async onError(close: any) {
+      await close();
+      this.$emit("closed");
+    },
     async onSuccess(close: any) {
       await close();
+      this.$emit("closed");
 
       const transactionType = Object.keys(this.transaction as any).includes(
         "ticket_num"

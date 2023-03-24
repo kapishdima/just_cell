@@ -1,5 +1,5 @@
 <template lang="">
-  <v-table :data="data" :columns="columns" :has-export="false" />
+  <v-table :data="data" :columns="columns" />
 </template>
 <script setup lang="ts">
 import { Terminal } from "@/api/terminals/terminal.model";

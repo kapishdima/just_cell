@@ -61,7 +61,6 @@
     line-height: 150%;
 
     color: $dark-primary;
-    margin-top: 12px;
   }
 
   &__description {
@@ -94,5 +93,9 @@
     line-height: 150%;
     text-decoration: none;
     color: #fff;
+  }
+
+  &__actions {
+    margin-top: 24px;
   }
 }

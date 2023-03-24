@@ -1,7 +1,4 @@
 <template lang="">
-  <div class="table-actions" v-if="!empty && hasExport">
-    <export-button :export-data="data" :table="table" />
-  </div>
   <table-empty v-if="empty" />
   <table
     v-else
@@ -28,7 +25,6 @@ interface TableProps {
   columns: ColumnDef<any>[];
   data: any;
   empty: boolean;
-  hasExport: boolean;
   hasPagination: boolean;
   total?: number;
 }
@@ -50,7 +46,6 @@ import { defineComponent } from "vue";
 import TableBody from "./TableBody.vue";
 import TableHeader from "./TableHeader.vue";
 import TableEmpty from "./EmptyTable.vue";
-import ExportButton from "./ExportButton.vue";
 import VPagination from "../panigation/VPagination.vue";
 
 export default defineComponent({
@@ -58,7 +53,6 @@ export default defineComponent({
     TableBody,
     TableHeader,
     TableEmpty,
-    ExportButton,
     VPagination,
   },
 });
