@@ -37,10 +37,7 @@ export default defineComponent({
       this.isScanning = true;
       createScanner("reader", (decodedUrl) => {
         this.isScanning = false;
-
-        const url = new URL(decodedUrl);
-        const path = url.pathname + url.search;
-        this.$router.push(path);
+        this.$router.push(decodedUrl);
       });
     },
 
