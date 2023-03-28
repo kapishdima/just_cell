@@ -10,8 +10,8 @@
           <div id="reader"></div>
         </div>
         <div class="qr-scanner__actions">
-          <qr-scanner-file v-if="showFileScanner" />
-          <v-button @click="stopScan">
+          <qr-scanner-file v-if="showFileScanner" @stop:scan="stopScan" />
+          <v-button @click="cancelScan">
             <template #text>Відмінити</template>
           </v-button>
         </div>
@@ -36,6 +36,7 @@ export default defineComponent({
 
   data() {
     return {
+      loading: false,
       showFileScanner: false,
     };
   },
@@ -53,9 +54,15 @@ export default defineComponent({
   },
 
   methods: {
+    async cancelScan() {
+      this.stopScan();
+      this.$router.back();
+    },
     async stopScan() {
       await stop();
-      this.$router.back();
+    },
+    updateLoading(value: boolean) {
+      this.loading = value;
     },
   },
 });

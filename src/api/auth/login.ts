@@ -19,12 +19,7 @@ export const login = async (credentials: LoginDTO) => {
     p_client,
   };
 
-  const loginData = {
-    ...payload,
-    sign: await sign(payload, getToken()),
-  };
-
-  const { data } = await http.post(ApiRoutes.LOGIN, loginData);
+  const { data } = await http.post(ApiRoutes.LOGIN, payload);
 
   if (data.code === 0) {
     createAndSaveToken(data);

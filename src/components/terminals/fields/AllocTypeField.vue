@@ -6,7 +6,7 @@
       input-placeholder="Оберіть тип встановлення"
       search-placeholder="Введіть тип встановлення"
       :has-search="false"
-      :model-value="modelValue"
+      :model-value="value"
       @update:model-value="select"
     />
   </form-field>
@@ -28,6 +28,10 @@ export default defineComponent({
     SelectField,
   },
 
+  data() {
+    return { value: "" };
+  },
+
   computed: {
     allocTypes(): { value: string; label: string }[] {
       const ref: TerminalRef = this.$store.state.terminals.terminalsRef;
@@ -44,6 +48,23 @@ export default defineComponent({
       allocTypes.push({ label: "Не вибрано", value: "" });
 
       return allocTypes;
+    },
+  },
+
+  watch: {
+    modelValue: {
+      handler(value: string) {
+        if (Number.isNaN(parseInt(value))) {
+          this.value =
+            this.allocTypes.find((type) => type.label === value)?.value || "";
+          this.$emit("update:modelValue", this.value);
+          return;
+        }
+
+        this.value = value;
+        return;
+      },
+      immediate: true,
     },
   },
 

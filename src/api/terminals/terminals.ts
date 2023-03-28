@@ -62,7 +62,7 @@ export const editTerminal = async (terminalData: any) => {
   const editTerminaData = {
     ...terminalData,
     sign: await sign(
-      omit(terminalData, ["allocation_type", "dop_info"]),
+      omit(terminalData, ["allocation_type", "dop_info", "ptks_num"]),
       getToken()
     ),
   };

@@ -9,7 +9,7 @@
     </template>
     <template #appContent>
       <terminal-form
-        v-if="Boolean(terminal)"
+        v-if="Boolean(terminal) && !loading"
         :configData="configData"
         :actions-fixed="true"
         :terminal="terminal"

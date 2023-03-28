@@ -5,20 +5,27 @@
     ref="fileInput"
     @change="onFileGet"
   />
-  <v-button @click="openScan" :loading="loading">
+  <v-button @click="openScan">
     <template #text>Додати через фото</template>
   </v-button>
+
+  <div class="qr-scanner-file__loader" :class="{ opened: loading }">
+    <app-loading :loading="loading" />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
+import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 
 import { scanQr } from "@/api/qr/qr.api";
 
 export default defineComponent({
+  emits: ["stop:scan"],
   components: {
     VButton,
+    AppLoading,
   },
 
   data() {
@@ -48,8 +55,11 @@ export default defineComponent({
         const path = url.pathname + url.search;
         this.loading = false;
 
-        this.$router.replace(path);
+        this.$emit("stop:scan");
+        this.$router.push(path);
       }
+
+      this.loading = false;
     },
   },
 });

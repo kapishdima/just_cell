@@ -179,7 +179,6 @@ export default defineComponent({
           Boolean(value)
         )
       );
-      console.log(filters);
       this.$router.replace({
         path: this.$route.path,
         query: {
