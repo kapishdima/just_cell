@@ -5,7 +5,14 @@
     </template>
     <template #appTitle>Перегляд ПТКС транзакцій</template>
     <template #appContent>
-      <transaction-filters />
+      <transaction-filters @update:filters="filter" />
+      <div class="table-actions" v-if="total > 0">
+        <export-button
+          :export-data="exportTransactions"
+          :loading="exportLoading"
+          @click="fetchExportData"
+        />
+      </div>
       <transactions-table
         :data="transactions"
         :empty="!hasTransactions"
@@ -20,6 +27,7 @@ import { defineComponent } from "vue";
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 import TransactionsTable from "@/components/transactions/TransactionsPTKSTable.vue";
+import ExportButton from "@/components/table/ExportButton.vue";
 
 import TransactionFilters from "@/components/transactions/TransactionFilters.vue";
 import { TransactionsActions } from "@/store/modules/transactions";
@@ -31,6 +39,7 @@ export default defineComponent({
     AppLoading,
     TransactionsTable,
     TransactionFilters,
+    ExportButton,
   },
 
   computed: {
@@ -39,6 +48,13 @@ export default defineComponent({
     },
     transactions(): any {
       return this.$store.state.transactions.transactions;
+    },
+    exportLoading(): boolean {
+      return this.$store.state.transactions.exportLoading;
+    },
+    exportTransactions(): any {
+      console.log(this.$store.state.transactions.exportTransactions);
+      return this.$store.state.transactions.exportTransactions;
     },
     hasTransactions(): boolean {
       return (
@@ -66,15 +82,15 @@ export default defineComponent({
   },
 
   methods: {
-    onFilterChange(data: any) {
-      this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
-        type: "PTKS",
-        ...data,
-      });
-    },
     filter(filterData: any) {
       this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
         ...filterData,
+        type: "PTKS",
+      });
+    },
+    fetchExportData() {
+      this.$store.dispatch(TransactionsActions.GET_EXPORT_TRANSACTIONS, {
+        ...this.$route.query,
         type: "PTKS",
       });
     },
