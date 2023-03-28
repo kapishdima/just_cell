@@ -56,6 +56,19 @@
           :error="errors.can_user_reversal"
         />
       </div>
+      <alloc-type-field v-model="values.allocation_type" />
+      <form-field
+        label="Ідентифікатор ПТКС"
+        :error="errors.ptks_num"
+        v-if="values.allocation_type === '1'"
+      >
+        <input-field
+          v-model="values.ptks_num"
+          name="ptks_num"
+          type="number"
+          placeholder="Введіть ідентифікатор ПТКС"
+        />
+      </form-field>
       <form-field label="URL-адреса зворотного виклику">
         <input-field
           v-model="values.callback_url"
@@ -117,6 +130,10 @@
         <timepicker-field v-model="values.shift_end" />
       </form-field>
 
+      <form-field label="Додаткова інформація">
+        <textarea-field v-model="values.dop_info" />
+      </form-field>
+
       <div
         class="form-actions"
         :class="{ 'form-actions--fixed': actionsFixed }"
@@ -142,6 +159,7 @@ import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import TimepickerField from "@/components/fields/TimepickerField/TimepickerField.vue";
 import StatusSelect from "../transactions/StatusSelect.vue";
 
+import AllocTypeField from "./fields/AllocTypeField.vue";
 import RequestTypeSelect from "./fields/RequestTypeSelect.vue";
 import RequestMethodSelect from "./fields/RequestMethodSelect.vue";
 import { EditTerminalData } from "@/api/terminals/terminal.model";
@@ -170,6 +188,9 @@ const createInitialData = (terminal: EditTerminalData) => ({
   resendPeriod: terminal.resendPeriod || "",
   shift_start: terminal.shift_start || "00:00",
   shift_end: terminal.shift_end || "00:00",
+  allocation_type: terminal.allocation_type || "",
+  dop_info: terminal.dop_info || "",
+  ptks_num: terminal.ptks_num || "",
 });
 
 export default defineComponent({
@@ -198,6 +219,7 @@ export default defineComponent({
     TimepickerField,
     StatusSelect,
     SignStractField,
+    AllocTypeField,
   },
 
   setup() {
@@ -227,7 +249,7 @@ export default defineComponent({
   methods: {
     editConfig(values: any) {
       this.$store.dispatch(TerminalsActions.EDIT_TERMINAL, {
-        terminal: this.values,
+        terminal: values,
         toast: this.toast,
       });
     },

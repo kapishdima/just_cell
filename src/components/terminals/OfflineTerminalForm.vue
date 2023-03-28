@@ -31,6 +31,19 @@
             placeholder="Введіть максимальну суму для оффлайн платежу"
           />
         </form-field>
+        <alloc-type-field v-model="values.allocation_type" />
+        <form-field
+          label="Ідентифікатор ПТКС"
+          :error="errors.ptks_num"
+          v-if="values.allocation_type === '1'"
+        >
+          <input-field
+            v-model="values.ptks_num"
+            name="ptks_num"
+            type="number"
+            placeholder="Введіть ідентифікатор ПТКС"
+          />
+        </form-field>
         <form-field
           label="Secret Key (підпис HmacSHA256)"
           :error="errors.secret_key"
@@ -190,6 +203,7 @@ import { TerminalsActions } from "@/store/modules/terminals";
 import { Rules } from "@/contants/rules";
 import { offlineTerminal } from "./validation/terminal.schema";
 
+import AllocTypeField from "./fields/AllocTypeField.vue";
 import UpdateAllTerminals from "./fields/UpdateAllTerminals.vue";
 import SignStractField from "./fields/SignStractField.vue";
 import SettingsSelect from "./fields/SettingsSelect.vue";
@@ -219,6 +233,8 @@ const defaultConfigData = {
   add_data: "",
   callback_req_type: "",
   regen_key: false,
+  allocation_type: "",
+  ptks_num: "",
 };
 
 export default defineComponent({
@@ -253,6 +269,7 @@ export default defineComponent({
     FormTitle,
     UpdateAllTerminals,
     PasswordField,
+    AllocTypeField,
   },
 
   setup() {

@@ -16,25 +16,25 @@ export const http = axios.create({
   withCredentials: true,
 });
 
-http.interceptors.request.use(
-  async function (config) {
-    if (config.url === ApiRoutes.LOGIN || config.method === "get") {
-      return config;
-    }
-    const token = getToken();
-    const signedData = await sign(config.data, token);
-    return {
-      ...config,
-      data: {
-        ...config.data,
-        sign: signedData,
-      },
-    };
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
+// http.interceptors.request.use(
+//   async function (config) {
+//     if (config.url === ApiRoutes.LOGIN || config.method === "get") {
+//       return config;
+//     }
+//     const token = getToken();
+//     // const signedData = await sign(config.data, token);
+//     return {
+//       ...config,
+//       data: {
+//         ...config.data,
+//         sign: signedData,
+//       },
+//     };
+//   },
+//   function (error) {
+//     return Promise.reject(error);
+//   }
+// );
 
 http.interceptors.response.use(
   function (response) {

@@ -85,11 +85,6 @@ export default defineComponent({
 
   mounted() {
     document.addEventListener("keydown", this.onEscapePressed);
-
-    this.selectedLabel =
-      (this.$props.options as any).find(({ value }: any) => {
-        return value === this.$props.modelValue;
-      })?.label || "";
   },
 
   beforeUnmount() {
@@ -106,11 +101,18 @@ export default defineComponent({
           ({ value }: any) => value === this.$props.modelValue
         )?.label || "";
     },
-    modelValue(selected) {
-      this.selectedLabel =
-        (this.$props.options as any).find(({ value }: any) => {
+    modelValue: {
+      handler(selected) {
+        this.selectedLabel =
+          (this.$props.options as any).find(({ value }: any) => {
+            return value === selected;
+          })?.label || "";
+
+        this.selected = (this.$props.options as any).find(({ value }: any) => {
           return value === selected;
-        })?.label || "";
+        });
+      },
+      immediate: true,
     },
   },
 
@@ -127,8 +129,8 @@ export default defineComponent({
     select(option: Option) {
       this.selected = option;
       this.selectedLabel = option.label;
-      this.close();
       this.$emit("update:modelValue", option.value);
+      this.close();
     },
     clear() {
       this.value = "";

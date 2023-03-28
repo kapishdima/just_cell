@@ -12,7 +12,7 @@
           <div class="app-layout__link" v-if="hasAppLink">
             <slot name="appLink"></slot>
           </div>
-          <div class="app-layout__text">
+          <div class="app-layout__text" v-if="hasAppTitle">
             <h2 class="app-layout__title">
               <slot name="appTitle"></slot>
             </h2>
@@ -55,6 +55,9 @@ export default defineComponent({
   computed: {
     hasAppLink(): boolean {
       return Boolean(this.$slots.appLink);
+    },
+    hasAppTitle(): boolean {
+      return Boolean(this.$slots.appTitle);
     },
 
     routeLoading(): boolean {

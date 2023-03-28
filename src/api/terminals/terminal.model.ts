@@ -25,6 +25,8 @@ export type Terminal = {
   status: string;
   last_online: string;
   last_start: string;
+  allocation_type: string;
+  dop_info: string;
 };
 
 export type TerminalPoint = {
@@ -48,6 +50,11 @@ export type Transport = {
   id: number;
 };
 
+export type AllocType = {
+  name: string;
+  id: number;
+};
+
 export type TerminalModel = {
   name: string;
   opis: string;
@@ -65,6 +72,7 @@ export type TerminalRef = {
   transport_support: TerminalModel[];
   offline_settings: TerminalOfflineSettings[];
   sync_type: TerminalSyncType[];
+  alloc_type: AllocType[];
   status_list: {
     name: string;
     color: string;
@@ -126,4 +134,7 @@ export type EditTerminalData = {
   resendPeriod: string;
   shift_start: string;
   shift_end: string;
+  allocation_type: string;
+  dop_info: string;
+  ptks_num: string;
 };

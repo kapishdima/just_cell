@@ -1,6 +1,10 @@
 import { http } from "../client";
+import { sign } from "../crypto/DeffiHellman";
+import { getToken } from "../crypto/token";
 import { ApiRoutes } from "../routes";
 import { Terminal } from "./terminal.model";
+
+import omit from "lodash.omit";
 
 export const getTerminalsList = async (): Promise<Terminal[] | undefined> => {
   const { data } = await http.get(ApiRoutes.TERMINALS_LIST);
@@ -14,9 +18,13 @@ export const getTerminalRefs = async () => {
 };
 
 export const createOfflineTerminal = async (terminalData: any) => {
+  const offlineTerminalData = {
+    ...terminalData,
+    sign: await sign(terminalData, getToken()),
+  };
   const { data } = await http.post(
     ApiRoutes.CREATE_OFFLINE_TERMINAL,
-    terminalData
+    offlineTerminalData
   );
 
   return data;
@@ -33,7 +41,15 @@ export const getTerminalConfig = async () => {
 };
 
 export const activateTeminal = async (terminal: any) => {
-  const { data } = await http.post(ApiRoutes.ACTIVATE_TERMINAL, terminal);
+  const activeTerminalData = {
+    ...terminal,
+    sign: await sign(terminal, getToken()),
+  };
+
+  const { data } = await http.post(
+    ApiRoutes.ACTIVATE_TERMINAL,
+    activeTerminalData
+  );
 
   return data.code;
 };
@@ -43,7 +59,15 @@ export const createKeyFile = (publicKey: string) => {
 };
 
 export const editTerminal = async (terminalData: any) => {
-  const { data } = await http.post(ApiRoutes.EDIT_TERMINAL, terminalData);
+  const editTerminaData = {
+    ...terminalData,
+    sign: await sign(
+      omit(terminalData, ["allocation_type", "dop_info"]),
+      getToken()
+    ),
+  };
+
+  const { data } = await http.post(ApiRoutes.EDIT_TERMINAL, editTerminaData);
 
   return data;
 };

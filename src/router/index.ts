@@ -89,6 +89,10 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   {
+    path: "/qr",
+    component: () => import("@/views/QRScannerView/QRScannerView.vue"),
+  },
+  {
     path: "/terminals",
     children: [
       {

@@ -221,6 +221,8 @@ const transformForTable = (terminals: Terminal[]) => {
         "Початок зміни": terminal.shift_start,
         "Кінець зміни": terminal.shift_end,
         Статус: terminal.status,
+        "Тип встановлення": terminal.allocation_type,
+        "Додаткова інформація": terminal.dop_info,
       },
     ],
   }));

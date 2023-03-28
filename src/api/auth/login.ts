@@ -1,7 +1,7 @@
 import { http } from "@/api/client";
 import { ApiRoutes } from "@/api/routes";
-import { generatePartClientKey } from "@/api/crypto/DeffiHellman";
-import { generateToken, saveToken } from "@/api/crypto/token";
+import { generatePartClientKey, sign } from "@/api/crypto/DeffiHellman";
+import { generateToken, getToken, saveToken } from "@/api/crypto/token";
 import { saveMenu } from "@/api/menu/menu.api";
 import md5 from "md5";
 
@@ -19,7 +19,12 @@ export const login = async (credentials: LoginDTO) => {
     p_client,
   };
 
-  const { data } = await http.post(ApiRoutes.LOGIN, payload);
+  const loginData = {
+    ...payload,
+    sign: await sign(payload, getToken()),
+  };
+
+  const { data } = await http.post(ApiRoutes.LOGIN, loginData);
 
   if (data.code === 0) {
     createAndSaveToken(data);

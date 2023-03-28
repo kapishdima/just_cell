@@ -14,7 +14,7 @@
     <table-body :table="table" v-if="!empty" />
   </table>
 
-  <v-pagination v-if="hasPagination" :total="total" />
+  <v-pagination v-if="hasPagination && total > 0" :total="total" />
 </template>
 <script setup lang="ts">
 import {

@@ -44,6 +44,19 @@
             placeholder="Введіть максимальну суму для оффлайн платежу"
           />
         </form-field>
+        <alloc-type-field v-model="values.allocation_type" />
+        <form-field
+          label="Ідентифікатор ПТКС"
+          :error="errors.ptks_num"
+          v-if="values.allocation_type === '1'"
+        >
+          <input-field
+            v-model="values.ptks_num"
+            name="ptks_num"
+            type="number"
+            placeholder="Введіть ідентифікатор ПТКС"
+          />
+        </form-field>
         <form-field
           label="Secret Key (підпис HmacSHA256)"
           :error="errors.secret_key"
@@ -185,6 +198,8 @@ import VProtected from "../protected/VProtected.vue";
 import FormTitle from "@/components/form/FormTitle.vue";
 import PasswordField from "@/components/fields/PasswordField/PasswordField.vue";
 
+import AllocTypeField from "./fields/AllocTypeField.vue";
+
 import { activateTerminalSchema } from "./validation/terminal.schema";
 import { TerminalsActions } from "@/store/modules/terminals";
 
@@ -212,6 +227,8 @@ const defaultConfigData = {
   sync_period: 30,
   add_data: "",
   callback_req_type: "",
+  allocation_type: "",
+  ptks_num: "",
 };
 
 export default defineComponent({
@@ -255,6 +272,7 @@ export default defineComponent({
     FormTitle,
     PasswordField,
     VProtected,
+    AllocTypeField,
   },
 
   setup() {
