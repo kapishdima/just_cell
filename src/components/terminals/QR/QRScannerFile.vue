@@ -5,9 +5,13 @@
     ref="fileInput"
     @change="onFileGet"
   />
-  <v-button @click="openScan">
-    <template #text>Додати через фото</template>
-  </v-button>
+  <v-protected :rule="Rules.ADD_TERMINAL">
+    <template #content="{ canRender }">
+      <v-button @click="openScan" :disabled="!canRender">
+        <template #text>Додати через фото</template>
+      </v-button>
+    </template>
+  </v-protected>
 
   <div class="qr-scanner-file__loader" :class="{ opened: loading }">
     <app-loading :loading="loading" />
@@ -17,15 +21,25 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
+import VProtected from "@/components/protected/VProtected.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 
+import { Rules } from "@/contants/rules";
+
 import { scanQr } from "@/api/qr/qr.api";
+import { useToast } from "vue-toastification";
 
 export default defineComponent({
   emits: ["stop:scan"],
   components: {
     VButton,
     AppLoading,
+    VProtected,
+  },
+
+  setup() {
+    const toast = useToast();
+    return { toast, Rules };
   },
 
   data() {
@@ -57,8 +71,11 @@ export default defineComponent({
 
         this.$emit("stop:scan");
         this.$router.push(path);
+
+        return;
       }
 
+      this.toast.error("Не вдалося розпізнати код. Спробуйте ще раз");
       this.loading = false;
     },
   },

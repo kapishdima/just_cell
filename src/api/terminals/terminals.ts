@@ -18,9 +18,18 @@ export const getTerminalRefs = async () => {
 };
 
 export const createOfflineTerminal = async (terminalData: any) => {
-  const offlineTerminalData = {
+  const stringifiedTerminalData = {
     ...terminalData,
-    sign: await sign(terminalData, getToken()),
+    is_default_offline: `${terminalData.is_default_offline}`,
+    is_for_all_card: `${terminalData.is_for_all_card}`,
+    can_user_add_card: `${terminalData.can_user_add_card}`,
+    need_shift: `${terminalData.need_shift}`,
+    update_all_term: `${terminalData.update_all_term}`,
+    regen_key: `${terminalData.regen_key}`,
+  };
+  const offlineTerminalData = {
+    ...stringifiedTerminalData,
+    sign: await sign(stringifiedTerminalData, getToken()),
   };
   const { data } = await http.post(
     ApiRoutes.CREATE_OFFLINE_TERMINAL,
@@ -40,10 +49,17 @@ export const getTerminalConfig = async () => {
   return terminalConfig;
 };
 
-export const activateTeminal = async (terminal: any) => {
+export const activateTeminal = async (terminalData: any) => {
+  const stringifiedTerminalData = {
+    ...terminalData,
+    is_default_offline: `${terminalData.is_default_offline}`,
+    is_for_all_card: `${terminalData.is_for_all_card}`,
+    can_user_add_card: `${terminalData.can_user_add_card}`,
+    need_shift: `${terminalData.need_shift}`,
+  };
   const activeTerminalData = {
-    ...terminal,
-    sign: await sign(terminal, getToken()),
+    ...stringifiedTerminalData,
+    sign: await sign(stringifiedTerminalData, getToken()),
   };
 
   const { data } = await http.post(
@@ -59,10 +75,20 @@ export const createKeyFile = (publicKey: string) => {
 };
 
 export const editTerminal = async (terminalData: any) => {
-  const editTerminaData = {
+  const stringifiedTerminalData = {
     ...terminalData,
+    can_offline: `${terminalData.can_offline}`,
+    can_user_reversal: `${terminalData.can_user_reversal}`,
+    inShifts: `${terminalData.inShifts}`,
+  };
+  const editTerminaData = {
+    ...stringifiedTerminalData,
     sign: await sign(
-      omit(terminalData, ["allocation_type", "dop_info", "ptks_num"]),
+      omit(stringifiedTerminalData, [
+        "allocation_type",
+        "dop_info",
+        "ptks_num",
+      ]),
       getToken()
     ),
   };

@@ -5,12 +5,7 @@
     </template>
     <template #appExtra>
       <div class="terminals-extra-actions" v-if="hasTerminals">
-        <!-- <qr-scanner /> -->
-        <router-link to="/qr">
-          <v-button>
-            <template #text> Додати термінал через QR-code </template>
-          </v-button>
-        </router-link>
+        <qr-scanner-link />
         <qr-scanner-file />
         <add-by-id />
       </div>
@@ -27,11 +22,9 @@ import { defineComponent } from "vue";
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 import TerminalTable from "@/components/terminals/TerminalTable.vue";
-import QrScanner from "@/components/terminals/QR/QRScanner.vue";
 import AddById from "@/components/terminals/buttons/AddById.vue";
 import QrScannerFile from "@/components/terminals/QR/QRScannerFile.vue";
-
-import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
+import QrScannerLink from "@/components/terminals/QR/QRScannerLink.vue";
 
 import { TerminalsActions } from "@/store/modules/terminals";
 import TerminalsEmptyView from "./TerminalsEmptyView.vue";
@@ -42,7 +35,7 @@ export default defineComponent({
     TerminalTable,
     AppLoading,
     TerminalsEmptyView,
-    VButton,
+    QrScannerLink,
     AddById,
     QrScannerFile,
   },

@@ -183,7 +183,7 @@ export default defineComponent({
 
       const filtersData = {
         ...filters,
-        perPage: filters.perPage,
+        perPage: filters.perPage || "10",
         page: "0",
       };
 

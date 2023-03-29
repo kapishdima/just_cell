@@ -9,7 +9,6 @@
     :class="`
     form-field__input--${size} form-field__input--${variant}`"
     :value="modelValue"
-    :disabled="disabled !== undefined ? disabled : !canEdit"
     autocomplete="false"
     @input="input($event)"
     @blur="$emit('blur')"
@@ -31,7 +30,7 @@ Object.assign(Datepicker.locales, uk);
 
 const datepickerOptions = {
   language: "uk",
-  minDate: new Date("01.01.1900"),
+  // minDate: new Date("01.01.1900"),
   format: "yyyy-mm-dd",
   autohide: true,
 };
@@ -44,7 +43,6 @@ const maskOptions = {
 };
 
 export default defineComponent({
-  inject: ["rules"],
   emits: ["update:modelValue", "blur"],
   props: {
     name: {
@@ -81,7 +79,6 @@ export default defineComponent({
   data() {
     return {
       mask: maskOptions,
-      canEdit: false,
     };
   },
   setup() {
@@ -89,7 +86,6 @@ export default defineComponent({
   },
 
   mounted() {
-    this.canEdit = Boolean(this.rules !== null);
     this.initDatepicker();
   },
 
