@@ -31,6 +31,7 @@ export const getTransactionsList = async (
           Відповідь: item.answ_description,
           "Код відповіді": item.answ_code,
           Дата: item.add_time,
+          Компанія: item.client_name,
         },
       ],
     })),

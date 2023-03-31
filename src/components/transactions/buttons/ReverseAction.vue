@@ -3,7 +3,9 @@
     <template #content="{ canRender }">
       <div
         class="popover-action"
-        :class="{ 'popover-action--disabled': !canRender }"
+        :class="{
+          'popover-action--disabled': !canReverse || !canRender,
+        }"
         @click="$emit('click')"
       >
         Сторнувати
@@ -20,6 +22,7 @@ import VProtected from "@/components/protected/VProtected.vue";
 
 export default defineComponent({
   emits: ["click"],
+  props: ["canReverse"],
   components: { VProtected },
   setup() {
     return {

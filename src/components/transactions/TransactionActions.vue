@@ -6,6 +6,7 @@
         :transaction="transaction"
         @opened="hide"
         @closed="close"
+        :can-reverse="canReverse"
         v-if="hasReverse"
       />
     </template>
@@ -22,6 +23,7 @@ export default defineComponent({
   props: {
     transaction: Object,
     hasReverse: Boolean,
+    canReverse: Boolean,
   },
   components: {
     VPopover,

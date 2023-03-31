@@ -157,7 +157,7 @@ import TextareaField from "@/components/fields/TextareaField/TextareaField.vue";
 import PayloadField from "@/components/terminals/fields/PayloadTemplateField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import TimepickerField from "@/components/fields/TimepickerField/TimepickerField.vue";
-import StatusSelect from "../transactions/StatusSelect.vue";
+import StatusSelect from "../transactions/fields/StatusSelect.vue";
 
 import AllocTypeField from "./fields/AllocTypeField.vue";
 import RequestTypeSelect from "./fields/RequestTypeSelect.vue";

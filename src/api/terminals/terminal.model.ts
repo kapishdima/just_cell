@@ -55,6 +55,11 @@ export type AllocType = {
   id: number;
 };
 
+export type CompanyType = {
+  name: string;
+  id: number;
+};
+
 export type TerminalModel = {
   name: string;
   opis: string;
@@ -73,6 +78,7 @@ export type TerminalRef = {
   offline_settings: TerminalOfflineSettings[];
   sync_type: TerminalSyncType[];
   alloc_type: AllocType[];
+  parent_child: CompanyType[];
   status_list: {
     name: string;
     color: string;

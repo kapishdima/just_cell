@@ -57,6 +57,7 @@ const columns = [
     cell: (info) =>
       h(TransactionActions, {
         transaction: info.row.original,
+        canReverse: JSON.parse(info.row.original.can_reverse || "false"),
         hasReverse:
           info.row.original.status_name === TransactionStatuses.SUCCESS,
       }),

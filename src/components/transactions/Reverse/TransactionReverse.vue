@@ -1,5 +1,5 @@
 <template>
-  <reverse-action @click="open" />
+  <reverse-action @click="open" :can-reverse="canReverse" />
   <v-modal ref="modal" min-width="30vw">
     <template #title>Сумма для сторнування</template>
     <template #content="{ close }">
@@ -14,8 +14,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import VModal from "@/components/Modal/VModal.vue";
 import { TransactionsActions } from "@/store/modules/transactions";
+import VModal from "@/components/Modal/VModal.vue";
 
 import ReverseAction from "../buttons/ReverseAction.vue";
 import ReverseForm from "./ReverseForm.vue";
@@ -24,6 +24,7 @@ export default defineComponent({
   emits: ["opened", "closed"],
   props: {
     transaction: Object,
+    canReverse: Boolean,
   },
   components: {
     VModal,
