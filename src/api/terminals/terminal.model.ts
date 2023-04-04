@@ -68,6 +68,11 @@ export type TerminalModel = {
   id: number;
 };
 
+export type TerminalCommand = {
+  name: string;
+  id: string;
+};
+
 export type TerminalRef = {
   code: 0;
   points: TerminalPoint[];
@@ -79,6 +84,7 @@ export type TerminalRef = {
   sync_type: TerminalSyncType[];
   alloc_type: AllocType[];
   parent_child: CompanyType[];
+  trm_cmd: TerminalCommand[];
   status_list: {
     name: string;
     color: string;
@@ -143,4 +149,14 @@ export type EditTerminalData = {
   allocation_type: string;
   dop_info: string;
   ptks_num: string;
+};
+
+export type TerminalFilters = {
+  terminal_id: string;
+  child_id: string;
+};
+
+export type SendCommandData = {
+  terminal_id: string;
+  cmd_id: string;
 };

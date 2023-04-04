@@ -1,17 +1,19 @@
 <template>
-  <form-field label="Компанії" small shadow>
-    <select-field
-      :options="companies"
-      name="companies"
-      input-placeholder="Оберіть компанію"
-      search-placeholder="Введіть компанію"
-      :has-search="false"
-      :model-value="modelValue"
-      @update:model-value="select"
-      size="sm"
-      :disabled="disabled"
-    />
-  </form-field>
+  <div class="filters-item" v-if="companies.length">
+    <form-field label="Компанії" small shadow>
+      <select-field
+        :options="companies"
+        name="companies"
+        input-placeholder="Оберіть компанію"
+        search-placeholder="Введіть компанію"
+        :has-search="false"
+        :model-value="modelValue"
+        @update:model-value="select"
+        size="sm"
+        :disabled="disabled"
+      />
+    </form-field>
+  </div>
 </template>
 <script lang="ts">
 import FormField from "../../fields/FormField/FormField.vue";

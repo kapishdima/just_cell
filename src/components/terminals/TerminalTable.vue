@@ -1,5 +1,5 @@
 <template lang="">
-  <v-table :data="data" :columns="columns" />
+  <v-table :data="data" :columns="columns" :empty="empty" />
 </template>
 <script setup lang="ts">
 import { Terminal } from "@/api/terminals/terminal.model";
@@ -8,6 +8,7 @@ import { createColumnHelper } from "@tanstack/vue-table";
 
 interface TerminalTableProps {
   data: Terminal[];
+  empty: boolean;
 }
 
 const columnHelper = createColumnHelper<Terminal>();
@@ -57,12 +58,12 @@ defineProps<TerminalTableProps>();
 </script>
 <script lang="ts">
 import VTable from "../table/VTable.vue";
-import { h } from "vue";
+import { defineComponent, h } from "vue";
 import TerminalActions from "@/components/terminals/TerminalActions.vue";
 
-export default {
+export default defineComponent({
   components: {
     VTable,
   },
-};
+});
 </script>

@@ -44,6 +44,11 @@
     transition: background-color 0.25s ease;
     cursor: pointer;
 
+    &__loader {
+      display: flex;
+      justify-content: center;
+    }
+
     &--disabled {
       background-color: lighten($dark-secondary, 70);
       color: $dark-secondary;

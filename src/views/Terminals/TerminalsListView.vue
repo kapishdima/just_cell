@@ -12,8 +12,8 @@
     </template>
     <template #appTitle>Перегляд терміналів</template>
     <template #appContent>
-      <terminals-empty-view v-if="!hasTerminals" />
-      <terminal-table v-else :data="terminals" />
+      <terminal-filters v-if="!loading" @update:filters="filter" />
+      <terminal-table :data="terminals" :empty="!hasTerminals" />
     </template>
   </app-layout>
 </template>
@@ -26,18 +26,19 @@ import AddById from "@/components/terminals/buttons/AddById.vue";
 import QrScannerFile from "@/components/terminals/QR/QRScannerFile.vue";
 import QrScannerLink from "@/components/terminals/QR/QRScannerLink.vue";
 
+import TerminalFilters from "@/components/terminals/TerminalsFilters.vue";
+
 import { TerminalsActions } from "@/store/modules/terminals";
-import TerminalsEmptyView from "./TerminalsEmptyView.vue";
 
 export default defineComponent({
   components: {
     AppLayout,
     TerminalTable,
     AppLoading,
-    TerminalsEmptyView,
     QrScannerLink,
     AddById,
     QrScannerFile,
+    TerminalFilters,
   },
 
   computed: {
@@ -57,10 +58,18 @@ export default defineComponent({
 
   mounted() {
     this.$store.dispatch(TerminalsActions.GET_TERMINALS);
+    this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
   },
 
   beforeUnmount() {
     this.$store.dispatch(TerminalsActions.CLEAR_TERMINALS);
+  },
+
+  methods: {
+    filter(filterData: any) {
+      console.log(filterData);
+      this.$store.dispatch(TerminalsActions.GET_TERMINALS, filterData);
+    },
   },
 });
 </script>

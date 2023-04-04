@@ -11,4 +11,6 @@ export enum ApiRoutes {
   TRANSACTIONS_LIST = "Payments/Transactions/index.php",
   PAYMENTS_REFUND = "Payments/Refund/index.php",
   EDIT_TERMINAL = "Terminals/Edit/index.php",
+  SCAN_QR = "Terminals/Scan/index.php",
+  SEND_TERMINAL_COMMAMD = "Terminals/AddCmd/index.php",
 }

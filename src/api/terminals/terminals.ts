@@ -2,12 +2,14 @@ import { http } from "../client";
 import { sign } from "../crypto/DeffiHellman";
 import { getToken } from "../crypto/token";
 import { ApiRoutes } from "../routes";
-import { Terminal } from "./terminal.model";
+import { SendCommandData, Terminal, TerminalFilters } from "./terminal.model";
 
 import omit from "lodash.omit";
 
-export const getTerminalsList = async (): Promise<Terminal[] | undefined> => {
-  const { data } = await http.get(ApiRoutes.TERMINALS_LIST);
+export const getTerminalsList = async (
+  filters: TerminalFilters
+): Promise<Terminal[] | undefined> => {
+  const { data } = await http.post(ApiRoutes.TERMINALS_LIST, filters);
   return data.data || [];
 };
 
@@ -38,6 +40,7 @@ export const createOfflineTerminal = async (terminalData: any) => {
 
   return data;
 };
+
 export const getTerminalConfig = async () => {
   const { data } = await http.get(ApiRoutes.GET_TERMINAL_CONFIG);
   const terminalConfig = data.terminal_config.at(0);
@@ -94,6 +97,21 @@ export const editTerminal = async (terminalData: any) => {
   };
 
   const { data } = await http.post(ApiRoutes.EDIT_TERMINAL, editTerminaData);
+
+  return data;
+};
+
+export const sendTerminalCommand = async (
+  sendCommandPayload: SendCommandData
+) => {
+  const sendCommandData = {
+    ...sendCommandPayload,
+    sign: await sign(sendCommandPayload, getToken()),
+  };
+  const { data } = await http.post(
+    ApiRoutes.SEND_TERMINAL_COMMAMD,
+    sendCommandData
+  );
 
   return data;
 };

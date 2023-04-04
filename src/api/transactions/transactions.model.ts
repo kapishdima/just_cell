@@ -20,7 +20,7 @@ export type Transaction = {
   revers_time: string;
   ticket_num: number;
   pay_type: string;
-  can_reverse: string;
+  can_revers: string;
 };
 
 export type TransactionFilters = {

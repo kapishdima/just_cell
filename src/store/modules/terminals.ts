@@ -3,6 +3,7 @@ import {
   TerminalRef,
   OfflineTerminalPayload,
   CreateOfflineTerminalResponse,
+  TerminalFilters,
 } from "@/api/terminals/terminal.model";
 import {
   getTerminalRefs,
@@ -88,9 +89,13 @@ const mutations = {
 };
 
 const actions = {
-  async [TerminalsActions.GET_TERMINALS]({ commit }: any) {
+  async [TerminalsActions.GET_TERMINALS](
+    { commit }: any,
+    filters: TerminalFilters
+  ) {
     commit(TerminalsActions.SET_LOADING, true);
-    const terminals = await getTerminalsList();
+    console.log("get terminals", filters);
+    const terminals = await getTerminalsList(filters);
 
     commit(TerminalsActions.SET_TERMINALS, transformForTable(terminals || []));
     commit(TerminalsActions.SET_LOADING, false);
