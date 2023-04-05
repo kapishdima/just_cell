@@ -12,7 +12,7 @@
     </template>
     <template #appTitle>Перегляд терміналів</template>
     <template #appContent>
-      <terminal-filters v-if="!loading" @update:filters="filter" />
+      <terminal-filters @update:filters="filter" />
       <terminal-table :data="terminals" :empty="!hasTerminals" />
     </template>
   </app-layout>
@@ -67,7 +67,6 @@ export default defineComponent({
 
   methods: {
     filter(filterData: any) {
-      console.log(filterData);
       this.$store.dispatch(TerminalsActions.GET_TERMINALS, filterData);
     },
   },

@@ -22,6 +22,7 @@ import { TerminalRef } from "@/api/terminals/terminal.model";
 import { sendTerminalCommand } from "@/api/terminals/terminals";
 
 import EditAction from "./buttons/EditAction.vue";
+import { useToast } from "vue-toastification";
 
 export default defineComponent({
   props: ["terminal"],
@@ -29,6 +30,12 @@ export default defineComponent({
     VPopover,
     VSpinner,
     EditAction,
+  },
+
+  setup() {
+    const toast = useToast();
+
+    return { toast };
   },
 
   data() {
@@ -56,14 +63,19 @@ export default defineComponent({
 
   methods: {
     async sendCommand(value: string, close: any) {
-      this.loading = true;
-      const data = await sendTerminalCommand({
-        terminal_id: this.terminal.ID,
-        cmd_id: value,
-      });
-      console.log(data);
-      this.loading = false;
-      close();
+      try {
+        this.loading = true;
+        await sendTerminalCommand({
+          terminal_id: this.terminal.ID,
+          cmd_id: value,
+        });
+
+        this.loading = false;
+        close();
+        this.toast.success("Команду успішно відправлено!");
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 });

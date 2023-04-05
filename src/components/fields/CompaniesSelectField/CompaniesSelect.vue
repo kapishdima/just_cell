@@ -51,6 +51,11 @@ export default defineComponent({
         label: type.name || "",
       }));
 
+      companies.unshift({
+        value: "",
+        label: "Не обрано",
+      });
+
       return companies;
     },
   },

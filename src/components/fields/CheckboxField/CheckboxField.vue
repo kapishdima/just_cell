@@ -39,7 +39,7 @@ interface CheckboxFieldProps {
   direction?: "right" | "left";
   defaultChecked?: boolean;
   variant?: "primary" | "secondary";
-  modelValue?: boolean;
+  modelValue?: boolean | string;
   disabled?: any;
   error?: string;
 }

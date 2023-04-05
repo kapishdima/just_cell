@@ -27,6 +27,9 @@ export type Terminal = {
   last_start: string;
   allocation_type: string;
   dop_info: string;
+  client_name: string;
+  test_mode: string;
+  fontStyle?: boolean;
 };
 
 export type TerminalPoint = {

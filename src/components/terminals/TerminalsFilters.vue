@@ -13,6 +13,14 @@
         </form-field>
       </div>
       <companies-select v-model="filters.child_id" />
+      <div class="checkbox-container">
+        <checkbox-field
+          name="test_mode"
+          v-model="filters.test_mode"
+          label="У тестовому режимі"
+          direction="left"
+        />
+      </div>
       <div class="filters-item filters-actions">
         <v-button :has-max-width="false" type="button" @click="applyFilter">
           <template #text>Фільтрувати</template>
@@ -28,6 +36,7 @@ import FormField from "@/components/fields/FormField/FormField.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 
 import CompaniesSelect from "@/components/fields/CompaniesSelectField/CompaniesSelect.vue";
+import CheckboxField from "../fields/CheckboxField/CheckboxField.vue";
 
 import VButton from "../buttons/BaseButton/BaseButton.vue";
 
@@ -38,6 +47,7 @@ export default defineComponent({
     InputField,
     VButton,
     CompaniesSelect,
+    CheckboxField,
   },
 
   data() {
@@ -45,6 +55,7 @@ export default defineComponent({
       filters: {
         terminal_id: "",
         child_id: "",
+        test_mode: "false",
       },
     };
   },
@@ -57,6 +68,7 @@ export default defineComponent({
     "$route.query": {
       handler(value) {
         this.filters = { ...this.filters, ...value };
+        console.log(this.filters);
       },
       deep: true,
       immediate: true,
@@ -66,23 +78,17 @@ export default defineComponent({
   methods: {
     applyFilter() {
       const filters = Object.fromEntries(
-        Object.entries(this.$data.filters).filter(([_, value]) =>
-          Boolean(value)
+        Object.entries(this.$data.filters).filter(
+          ([_, value]) => typeof value === "boolean" || Boolean(value)
         )
       );
 
-      const filtersData = {
-        ...filters,
-        // perPage: filters.perPage || "10",
-        // page: "0",
-      };
-
-      this.$emit("update:filters", filtersData);
-
       this.$router.replace({
         path: this.$route.path,
-        query: filtersData,
+        query: filters,
       });
+
+      this.$emit("update:filters", filters);
     },
   },
 });

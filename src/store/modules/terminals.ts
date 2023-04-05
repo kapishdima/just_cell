@@ -94,7 +94,6 @@ const actions = {
     filters: TerminalFilters
   ) {
     commit(TerminalsActions.SET_LOADING, true);
-    console.log("get terminals", filters);
     const terminals = await getTerminalsList(filters);
 
     commit(TerminalsActions.SET_TERMINALS, transformForTable(terminals || []));
@@ -202,6 +201,9 @@ const getters = {
 const transformForTable = (terminals: Terminal[]) => {
   return terminals.map((terminal) => ({
     ...terminal,
+    status_color:
+      terminal.test_mode === "true" ? "#c0392b" : terminal.status_color,
+    fontStyle: terminal.test_mode === "true",
     subRows: [
       {
         Налаштування: terminal.settings,
@@ -227,6 +229,7 @@ const transformForTable = (terminals: Terminal[]) => {
         "Кінець зміни": terminal.shift_end,
         Статус: terminal.status,
         "Тип встановлення": terminal.allocation_type,
+        Компанія: terminal.client_name,
         "Додаткова інформація": terminal.dop_info,
       },
     ],

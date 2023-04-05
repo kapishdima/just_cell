@@ -12,6 +12,7 @@
           class="table-td table-cell"
           :style="{
             color: row.original.status_color || '#000',
+            fontStyle: row.original.fontStyle ? 'italic' : 'normal',
             ...setActionColumnSize(cell.column.columnDef.header as string),
           }"
         >

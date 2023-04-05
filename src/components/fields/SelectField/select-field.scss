@@ -6,14 +6,15 @@
   position: relative;
   min-width: 100%;
 
-  margin-top: -10px;
+  // margin-top: -10px;
 
-  @include mobile {
-    margin-top: -20px;
-  }
+  // @include mobile {
+  //   margin-top: -20px;
+  // }
 
   .select-input-hidden {
     opacity: 0;
+    display: none;
     filter: alpha(opacity=0);
     z-index: -2;
   }
