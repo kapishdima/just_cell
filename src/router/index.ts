@@ -150,6 +150,10 @@ const routes: Array<RouteRecordRaw> = [
     },
     component: () => import("@/views/Terminals/ActivateTerminalView.vue"),
   },
+  {
+    path: "/Loyalty/Create",
+    component: () => import("@/views/Loyalty/CreateLoyaltyView.vue"),
+  },
 ];
 
 const router = createRouter({
