@@ -79,6 +79,9 @@ export default defineComponent({
 
   mounted() {
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
+    this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
+      type: "PTKS",
+    });
   },
 
   methods: {

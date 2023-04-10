@@ -2,13 +2,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  column-gap: 8px;
 
   &__label {
     display: flex;
     align-items: center;
     column-gap: 8px;
 
-    margin: 9px 0;
+    // margin: 9px 0;
 
     font-family: "Roboto";
     font-style: normal;
@@ -17,6 +18,10 @@
     line-height: 150%;
 
     color: $dark-primary;
+
+    @include mobile {
+      font-size: 16px;
+    }
   }
 
   &__button {
@@ -33,6 +38,10 @@
     color: $accent-primary;
 
     cursor: pointer;
+
+    @include mobile {
+      font-size: 14px;
+    }
   }
 
   &__preview {

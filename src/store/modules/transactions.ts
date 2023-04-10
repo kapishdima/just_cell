@@ -72,9 +72,11 @@ const actions = {
       const DateFrom = filters.DateFrom || format(new Date());
       const DateTo = filters.DateTo || format(new Date());
       const filtersData = {
-        ...filters,
         DateFrom,
         DateTo,
+        page: filters.page || 0,
+        perPage: filters.perPage || 10,
+        type: filters.type,
       };
 
       const transactionsList = await getTransactionsList(filtersData);

@@ -27,6 +27,8 @@ export type TransactionFilters = {
   DateFrom: string;
   DateTo: string;
   type: "PTKS";
+  page: number;
+  perPage: number;
 };
 
 export type ExportTransactionFilters = {

@@ -27,6 +27,9 @@
       />
     </div>
     <div class="select-field__dropdown">
+      <div class="select-field__item" v-if="hasExtra">
+        <slot name="extra"></slot>
+      </div>
       <template v-for="option in options" :key="option.value">
         <option-item
           :option="option"
@@ -81,6 +84,12 @@ export default defineComponent({
       selectedLabel: "",
       selected: null,
     };
+  },
+
+  computed: {
+    hasExtra() {
+      return Boolean(this.$slots.extra);
+    },
   },
 
   mounted() {

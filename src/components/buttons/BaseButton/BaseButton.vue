@@ -3,7 +3,7 @@
     :type="type"
     :class="`v-button--${variant} ${rounded ? 'v-button--rounded' : ''} ${
       hasMaxWidth ? 'v-button--max-width' : ''
-    } ${fixed ? 'v-button--fixed' : ''} ${className || ''} `"
+    } ${fixed ? 'v-button--fixed' : ''} v-button--${size} ${className || ''} `"
     @click="$emit('click')"
     class="v-button"
     :disabled="disabled"
@@ -30,11 +30,13 @@ interface ButtonProps {
   fixed?: boolean;
   className?: string;
   disabled?: boolean;
+  size?: "sm" | "md";
 }
 
 withDefaults(defineProps<ButtonProps>(), {
   type: "button",
   variant: "primary",
+  size: "md",
   rounded: false,
   hasMaxWidth: true,
   loading: false,

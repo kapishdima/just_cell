@@ -63,7 +63,6 @@ export default defineComponent({
       return this.$store.state.transactions.exportLoading;
     },
     exportTransactions(): any {
-      console.log(this.$store.state.transactions.exportTransactions);
       return this.$store.state.transactions.exportTransactions;
     },
   },

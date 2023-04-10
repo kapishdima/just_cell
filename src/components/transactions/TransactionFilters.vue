@@ -166,7 +166,6 @@ export default defineComponent({
     "$route.query": {
       handler(value) {
         this.filters = { ...this.filters, ...value };
-        console.log(this.filters);
       },
       deep: true,
       immediate: true,

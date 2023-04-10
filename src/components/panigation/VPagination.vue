@@ -18,7 +18,7 @@
         />
       </svg>
     </div>
-    <template v-if="!isMobile">
+    <template v-if="!isMobile && pages > 0">
       <template v-for="index in pages">
         <div
           class="pagination-button page"
