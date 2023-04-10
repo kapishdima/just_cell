@@ -2,7 +2,14 @@ import { http } from "../client";
 import { sign } from "../crypto/DeffiHellman";
 import { getToken } from "../crypto/token";
 import { ApiRoutes } from "../routes";
-import { SendCommandData, Terminal, TerminalFilters } from "./terminal.model";
+
+import {
+  SendCommandData,
+  Terminal,
+  TerminalFilters,
+  EcommTerminalRef,
+  TerminalRef,
+} from "./terminal.model";
 
 import omit from "lodash.omit";
 
@@ -13,8 +20,14 @@ export const getTerminalsList = async (
   return data.data || [];
 };
 
-export const getTerminalRefs = async () => {
+export const getTerminalRefs = async (): Promise<TerminalRef> => {
   const { data } = await http.get(ApiRoutes.TERMINALS_REFS);
+
+  return data;
+};
+
+export const getEcommTermilaRefs = async (): Promise<EcommTerminalRef> => {
+  const { data } = await http.get(ApiRoutes.ECOMM_TERMINAL_REF);
 
   return data;
 };

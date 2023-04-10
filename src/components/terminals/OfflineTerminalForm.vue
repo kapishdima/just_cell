@@ -180,8 +180,8 @@
           <v-button type="submit" :loading="loading">
             <template #text>Додати налаштування</template>
           </v-button>
-        </div></template
-      >
+        </div>
+      </template>
     </v-form>
   </div>
 </template>

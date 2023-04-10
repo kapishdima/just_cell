@@ -1,3 +1,6 @@
+.ecomm-form__container {
+  padding-bottom: 150px;
+}
 .terminal-form__container {
   width: 100%;
 
@@ -17,4 +20,30 @@
   @include mobile {
     width: 100%;
   }
+}
+
+.terminal-form__extra {
+  display: flex;
+  justify-content: flex-start;
+
+  button {
+    color: $accent-primary;
+  }
+}
+
+.balancer {
+  .balancer-fields-row {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+  }
+  .fields-row {
+    margin-top: 24px;
+  }
+}
+
+.fields-row {
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
 }

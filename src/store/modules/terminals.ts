@@ -4,6 +4,7 @@ import {
   OfflineTerminalPayload,
   CreateOfflineTerminalResponse,
   TerminalFilters,
+  EcommTerminalRef,
 } from "@/api/terminals/terminal.model";
 import {
   getTerminalRefs,
@@ -13,6 +14,7 @@ import {
   getTerminalConfig,
   activateTeminal,
   editTerminal,
+  getEcommTermilaRefs,
 } from "@/api/terminals/terminals";
 
 import router from "@/router";
@@ -24,7 +26,7 @@ type KeyFile = {
 
 type TerminalState = {
   terminals: Terminal[];
-  terminalsRef: TerminalRef | null;
+  terminalsRef: TerminalRef | EcommTerminalRef | null;
   terminalConfig: OfflineTerminalPayload | null;
   loading: boolean;
   formLoading: boolean;
@@ -36,9 +38,11 @@ export enum TerminalsActions {
   GET_TERMINALS = "get_terminals",
   SET_TERMINALS = "set_terminals",
   GET_TERMINALS_REF = "get_terminals_ref",
+  GET_ECOMM_TERMINALS_REF = "get_ecomm_terminals_ref",
   GET_TERMINAL_CONFIG = "get_terminal_config",
   SET_TERMINAL_CONFIG = "set_terminal_config",
   SET_TERMINALS_REF = "set_terminals_ref",
+  SET_ECOMM_TERMINALS_REF = "set_ecomm_terminals_ref",
   SET_LOADING = "set_loading",
   SET_FORM_LOADING = "set_form_loading",
   CREATE_OFFLINE_TERMINAL = "create_offline_terminal",
@@ -68,6 +72,12 @@ const mutations = {
   [TerminalsActions.SET_TERMINALS_REF](
     state: TerminalState,
     terminalsRef: TerminalRef
+  ) {
+    state.terminalsRef = terminalsRef;
+  },
+  [TerminalsActions.SET_ECOMM_TERMINALS_REF](
+    state: TerminalState,
+    terminalsRef: EcommTerminalRef
   ) {
     state.terminalsRef = terminalsRef;
   },
@@ -104,6 +114,14 @@ const actions = {
     const terminalsRef = await getTerminalRefs();
 
     commit(TerminalsActions.SET_TERMINALS_REF, terminalsRef);
+    commit(TerminalsActions.SET_LOADING, false);
+  },
+  async [TerminalsActions.GET_ECOMM_TERMINALS_REF]({ commit }: any) {
+    commit(TerminalsActions.SET_LOADING, true);
+    const terminalsRef = await getEcommTermilaRefs();
+    console.log("GET_REF", terminalsRef);
+
+    commit(TerminalsActions.SET_ECOMM_TERMINALS_REF, terminalsRef);
     commit(TerminalsActions.SET_LOADING, false);
   },
   async [TerminalsActions.CREATE_OFFLINE_TERMINAL](
@@ -192,7 +210,7 @@ const actions = {
 
 const getters = {
   terminalModel: (state: TerminalState) => (id: number) => {
-    return state.terminalsRef?.transport_support.find(
+    return (state.terminalsRef as TerminalRef)?.transport_support.find(
       (model) => model.id === id
     );
   },

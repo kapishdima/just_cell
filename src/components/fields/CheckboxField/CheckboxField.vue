@@ -14,6 +14,7 @@
       'checkbox-field--disabled': disabled,
       [`checkbox-field--${direction}`]: true,
       [`checkbox-field--${variant}`]: true,
+      [`checkbox-field--${size}`]: true,
     }"
     @click="check"
   >
@@ -36,10 +37,11 @@
 interface CheckboxFieldProps {
   name: string;
   label?: string;
-  direction?: "right" | "left";
   defaultChecked?: boolean;
+  direction?: "right" | "left";
   variant?: "primary" | "secondary";
-  modelValue?: boolean | string;
+  size?: "md" | "sm";
+  modelValue?: boolean;
   disabled?: any;
   error?: string;
 }
@@ -47,6 +49,7 @@ interface CheckboxFieldProps {
 withDefaults(defineProps<CheckboxFieldProps>(), {
   direction: "right",
   variant: "primary",
+  size: "md",
 });
 </script>
 <script lang="ts">

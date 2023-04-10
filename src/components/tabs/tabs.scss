@@ -1,0 +1,30 @@
+.tabs {
+  &-pills {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 24px;
+  }
+
+  .tab-pill {
+    padding: 8px 12px;
+
+    border-radius: 4px;
+
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: $dark-primary;
+
+    transition: background-color 0.25s ease, color 0.25s ease;
+    cursor: pointer;
+
+    &.active {
+      background-color: $accent-primary;
+      color: #fff;
+    }
+  }
+}

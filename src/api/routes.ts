@@ -13,4 +13,5 @@ export enum ApiRoutes {
   EDIT_TERMINAL = "Terminals/Edit/index.php",
   SCAN_QR = "Terminals/Scan/index.php",
   SEND_TERMINAL_COMMAMD = "Terminals/AddCmd/index.php",
+  ECOMM_TERMINAL_REF = "Terminals/Ecomm/Ref/index.php",
 }
