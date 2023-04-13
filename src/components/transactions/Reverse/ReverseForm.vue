@@ -152,5 +152,7 @@ export default defineComponent({
   flex-direction: column;
   align-items: center;
   row-gap: 14px;
+
+  overflow: hidden;
 }
 </style>
