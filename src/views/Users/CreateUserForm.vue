@@ -40,6 +40,13 @@
         />
       </form-field> -->
         <affiliation-select />
+        <form-field shadow label="ЄДРПОУ:">
+          <input-field
+            name="job"
+            placeholder="Введіть код ЄДРПОУ"
+            v-model="values.jon"
+          />
+        </form-field>
         <user-permissions />
       </div>
       <div class="app-layout-form">

@@ -1,5 +1,5 @@
 <template>
-  <div class="filters">
+  <div class="filters terminal-filters">
     <div class="filters-row">
       <div class="filters-item">
         <form-field :shadow="true" small label="Темінал">

@@ -41,9 +41,8 @@ export default defineComponent({
   data() {
     return {
       mask: {
-        mask: Number,
+        mask: "0000 0000 0000 000",
         lazy: false,
-        thousandsSeparator: " ",
       },
     };
   },

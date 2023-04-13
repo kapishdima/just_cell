@@ -15,12 +15,12 @@
       @click="!hasSearch ? toggle() : open()"
     >
       <selected-input
-        v-if="!hasSearch || !opened"
+        v-show="!hasSearch || !opened"
         :label="selectedLabel"
         :placeholder="inputPlaceholder"
       />
       <search-input
-        v-if="opened && hasSearch"
+        v-show="opened && hasSearch"
         :placeholder="searchPlaceholder"
         @clear="clear"
         :name="name"

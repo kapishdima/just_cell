@@ -12,6 +12,7 @@ import { defineComponent } from "vue";
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
 import LoyaltyForm from "@/components/loyalty/CreateLoyaltyForm.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
+import { TerminalsActions } from "@/store/modules/terminals";
 
 export default defineComponent({
   components: {
@@ -26,9 +27,9 @@ export default defineComponent({
     },
   },
 
-  //   mounted() {
-  //     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
-  //   },
+  mounted() {
+    this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
+  },
 });
 </script>
 <style lang=""></style>
