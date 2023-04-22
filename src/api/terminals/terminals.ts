@@ -101,6 +101,7 @@ export const editTerminal = async (terminalData: any) => {
     ...stringifiedTerminalData,
     sign: await sign(
       omit(stringifiedTerminalData, [
+        "amount_list",
         "allocation_type",
         "dop_info",
         "ptks_num",

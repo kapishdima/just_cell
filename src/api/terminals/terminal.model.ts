@@ -30,6 +30,7 @@ export type Terminal = {
   client_name: string;
   test_mode: string;
   fontStyle?: boolean;
+  amount_list?: string;
 };
 
 type SelectItem = {
@@ -157,6 +158,7 @@ export type EditTerminalData = {
   allocation_type: string;
   dop_info: string;
   ptks_num: string;
+  amount_list: string;
 };
 
 export type TerminalFilters = {

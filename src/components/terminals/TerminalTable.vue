@@ -38,7 +38,7 @@ const columns = [
   }),
   columnHelper.accessor("inShifts", {
     cell: (info) => (JSON.parse(info.getValue()) ? "Так" : "Ні"),
-    header: "У змінах",
+    header: "Відкриття зміни",
   }),
   columnHelper.accessor("last_online", {
     cell: (info) => info.getValue(),

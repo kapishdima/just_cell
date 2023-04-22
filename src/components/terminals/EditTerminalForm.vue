@@ -130,6 +130,13 @@
         <timepicker-field v-model="values.shift_end" />
       </form-field>
 
+      <form-field label="Перелік сум на терміналі">
+        <input-field
+          v-model="values.amount_list"
+          placeholder="Наприклад, 1000|3000"
+        />
+      </form-field>
+
       <form-field label="Додаткова інформація">
         <textarea-field v-model="values.dop_info" />
       </form-field>
@@ -191,6 +198,7 @@ const createInitialData = (terminal: EditTerminalData) => ({
   allocation_type: terminal.allocation_type || "",
   dop_info: terminal.dop_info || "",
   ptks_num: terminal.ptks_num || "",
+  amount_list: terminal.amount_list || "",
 });
 
 export default defineComponent({
