@@ -17,7 +17,10 @@ export const getTerminalsList = async (
   filters: TerminalFilters
 ): Promise<Terminal[] | undefined> => {
   const { data } = await http.post(ApiRoutes.TERMINALS_LIST, filters);
-  return data.data || [];
+  return (data.data || []).map((terminal: Terminal) => ({
+    ...terminal,
+    amount_list: terminal.amount_list?.replaceAll("|", ","),
+  }));
 };
 
 export const getTerminalRefs = async (): Promise<TerminalRef> => {
@@ -68,6 +71,7 @@ export const getTerminalConfig = async () => {
 export const activateTeminal = async (terminalData: any) => {
   const stringifiedTerminalData = {
     ...terminalData,
+
     is_default_offline: `${terminalData.is_default_offline}`,
     is_for_all_card: `${terminalData.is_for_all_card}`,
     can_user_add_card: `${terminalData.can_user_add_card}`,
@@ -93,6 +97,7 @@ export const createKeyFile = (publicKey: string) => {
 export const editTerminal = async (terminalData: any) => {
   const stringifiedTerminalData = {
     ...terminalData,
+    amount_list: terminalData.amount_list.replaceAll(",", "|"),
     can_offline: `${terminalData.can_offline}`,
     can_user_reversal: `${terminalData.can_user_reversal}`,
     inShifts: `${terminalData.inShifts}`,
