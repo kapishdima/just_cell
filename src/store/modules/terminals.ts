@@ -250,6 +250,7 @@ const transformForTable = (terminals: Terminal[]) => {
         Компанія: terminal.client_name,
         "Додаткова інформація": terminal.dop_info,
         "Перелік сум на терміналі": terminal.amount_list,
+        "SN пристрою": terminal.serial_number,
       },
     ],
   }));

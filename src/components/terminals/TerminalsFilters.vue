@@ -13,6 +13,17 @@
         </form-field>
       </div>
       <companies-select v-model="filters.child_id" />
+      <div class="filters-item">
+        <form-field :shadow="true" small label="SN пристрою">
+          <input-field
+            name="serial_number"
+            v-model="filters.serial_number"
+            placeholder="SN пристрою"
+            :disabled="false"
+            size="sm"
+          />
+        </form-field>
+      </div>
       <div class="checkbox-container">
         <checkbox-field
           name="test_mode"
@@ -56,6 +67,7 @@ export default defineComponent({
         terminal_id: "",
         child_id: "",
         test_mode: "false",
+        serial_number: "",
       },
     };
   },
