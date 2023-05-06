@@ -242,7 +242,7 @@ const transformForTable = (terminals: Terminal[]) => {
         "Шаблон підпису": terminal.sign_stract,
         "Час тайм-ауту": terminal.timeout,
         "Час повторної відправки": terminal.resendPeriod,
-        "Відкриття зміни": JSON.parse(terminal.inShifts) ? "Так" : "Ні",
+        "Відкривати зміну": JSON.parse(terminal.inShifts) ? "Так" : "Ні",
         "Початок зміни": terminal.shift_start,
         "Кінець зміни": terminal.shift_end,
         Статус: terminal.status,
@@ -250,7 +250,6 @@ const transformForTable = (terminals: Terminal[]) => {
         Компанія: terminal.client_name,
         "Додаткова інформація": terminal.dop_info,
         "Перелік сум на терміналі": terminal.amount_list,
-        "SN пристрою": terminal.serial_number,
       },
     ],
   }));

@@ -23,6 +23,10 @@ const columns = [
     },
     header: (props) => props.column.id,
   }),
+  columnHelper.accessor("serial_number", {
+    cell: (info) => info.getValue(),
+    header: "SN пристрою",
+  }),
   columnHelper.accessor("name", {
     cell: (info) => info.getValue(),
     header: "Назва",
@@ -36,10 +40,7 @@ const columns = [
     header: "Максимальна оффлайн сумма",
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor("inShifts", {
-    cell: (info) => (JSON.parse(info.getValue()) ? "Так" : "Ні"),
-    header: "Відкриття зміни",
-  }),
+
   columnHelper.accessor("last_online", {
     cell: (info) => info.getValue(),
     header: "Востаннє онлайн",
