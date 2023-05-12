@@ -32,6 +32,7 @@ export type Terminal = {
   fontStyle?: boolean;
   amount_list?: string;
   serial_number?: string;
+  add_time?: string;
 };
 
 type SelectItem = {

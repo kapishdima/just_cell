@@ -42,6 +42,14 @@
   }
   &-th {
     text-align: left;
+
+    .sorting-icon {
+      display: inline-block;
+      margin-left: 12px;
+      img {
+        width: 12px;
+      }
+    }
   }
   &-td {
   }

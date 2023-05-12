@@ -1,5 +1,9 @@
 <template lang="">
-  <v-table :data="data" :columns="columns" :empty="empty" />
+  <v-table :data="data" :columns="columns" :empty="empty">
+    <template #context-menu="{ values }">
+      <terminal-actions :terminal="values" />
+    </template>
+  </v-table>
 </template>
 <script setup lang="ts">
 import { Terminal } from "@/api/terminals/terminal.model";
@@ -22,35 +26,42 @@ const columns = [
       return expandedButton(value, isExpanded, onClick);
     },
     header: (props) => props.column.id,
+    sortDescFirst: true,
   }),
   columnHelper.accessor("serial_number", {
     cell: (info) => info.getValue(),
     header: "SN пристрою",
-  }),
-  columnHelper.accessor("name", {
-    cell: (info) => info.getValue(),
-    header: "Назва",
+    sortDescFirst: true,
   }),
 
   columnHelper.accessor("can_offline", {
     header: "Чи працює оффлайн",
     cell: (info) => (JSON.parse(info.getValue()) ? "Так" : "Ні"),
+    sortDescFirst: true,
   }),
   columnHelper.accessor("max_offline_sum", {
     header: "Максимальна оффлайн сумма",
     cell: (info) => info.getValue(),
+    sortDescFirst: true,
   }),
 
   columnHelper.accessor("last_online", {
     cell: (info) => info.getValue(),
     header: "Востаннє онлайн",
+    sortDescFirst: true,
   }),
   columnHelper.accessor("last_start", {
     cell: (info) => info.getValue(),
     header: "Останній старт",
+    sortDescFirst: true,
+  }),
+  columnHelper.accessor("add_time", {
+    cell: (info) => info.getValue(),
+    header: "Дата активації",
+    sortDescFirst: true,
   }),
   columnHelper.display({
-    cell: (info) => h(TerminalActions, { terminal: info.row.original }),
+    cell: (info) => h(TerminalActionsColumn, { terminal: info.row.original }),
     header: "Дії",
   }),
 ];
@@ -60,7 +71,8 @@ defineProps<TerminalTableProps>();
 <script lang="ts">
 import VTable from "../table/VTable.vue";
 import { defineComponent, h } from "vue";
-import TerminalActions from "@/components/terminals/TerminalActions.vue";
+import TerminalActionsColumn from "./actions/TerminalActionsColumn.vue";
+import TerminalActions from "./actions/TerminalActions.vue";
 
 export default defineComponent({
   components: {

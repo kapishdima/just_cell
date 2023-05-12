@@ -12,12 +12,25 @@
         :style="{
           ...setActionColumnSize(header.column.columnDef.header as string),
         }"
+        @click="header.column.getToggleSortingHandler()?.($event)"
       >
         <FlexRender
           v-if="!header.isPlaceholder"
           :render="header.column.columnDef.header"
           :props="header.getContext()"
         />
+
+        <div class="sorting-icon" v-if="header.column.getCanSort()">
+          <img
+            :src="
+              {
+                asc: require('@/assets/icons/sort-asc.svg'),
+                desc: require('@/assets/icons/sort-desc.svg'),
+              }[header.column.getIsSorted() as string]
+            "
+            alt=""
+          />
+        </div>
       </div>
     </div>
   </div>

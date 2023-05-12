@@ -8,7 +8,11 @@
     :class="{ 'table--empty': empty }"
   >
     <table-header :table="table" />
-    <table-body :table="table" v-if="!empty" />
+    <table-body :table="table" v-if="!empty">
+      <template #context-menu="{ values }">
+        <slot name="context-menu" :values="values"></slot>
+      </template>
+    </table-body>
   </table>
 
   <v-pagination v-if="hasPagination" :total="total" />
@@ -16,8 +20,10 @@
 <script setup lang="ts">
 import {
   ColumnDef,
+  SortingState,
   getCoreRowModel,
   getExpandedRowModel,
+  getSortedRowModel,
   useVueTable,
 } from "@tanstack/vue-table";
 
@@ -30,19 +36,33 @@ interface TableProps {
 }
 
 const props = defineProps<TableProps>();
+const sorting = ref<SortingState>([]);
 
 const table = useVueTable({
   get data() {
     return props.data;
   },
+  state: {
+    get sorting() {
+      return sorting.value;
+    },
+  },
+  onSortingChange: (updaterOrValue) => {
+    console.log(sorting.value);
+    sorting.value =
+      typeof updaterOrValue === "function"
+        ? updaterOrValue(sorting.value)
+        : updaterOrValue;
+  },
   columns: props.columns,
   getSubRows: (row) => row.subRows,
   getCoreRowModel: getCoreRowModel(),
+  getSortedRowModel: getSortedRowModel(),
   getExpandedRowModel: getExpandedRowModel(),
 });
 </script>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import TableBody from "./TableBody.vue";
 import TableHeader from "./TableHeader.vue";
 import TableEmpty from "./EmptyTable.vue";

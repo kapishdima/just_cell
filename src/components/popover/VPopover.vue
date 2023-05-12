@@ -1,6 +1,7 @@
 <template>
   <div class="popover" v-click-outside="close" @click.stop ref="popover">
     <div class="popover-trigger" ref="trigger" @click="toggle">
+      <!-- TODO: Move this into slot -->
       <img src="@/assets/icons/kebab-icon.svg" alt="Actions" />
     </div>
     <div class="popover-tooltip" ref="tooltip" :data-show="opened">

@@ -224,6 +224,7 @@ const transformForTable = (terminals: Terminal[]) => {
     fontStyle: terminal.test_mode === "true",
     subRows: [
       {
+        Назва: terminal.name,
         Налаштування: terminal.settings,
         "Тип термінала": terminal.terminal_type,
         Адреса: terminal.address,
