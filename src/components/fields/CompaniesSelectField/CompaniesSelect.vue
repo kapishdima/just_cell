@@ -1,19 +1,17 @@
 <template>
-  <div class="filters-item" v-if="companies.length">
-    <form-field label="Компанії" small shadow>
-      <select-field
-        :options="companies"
-        name="companies"
-        input-placeholder="Оберіть компанію"
-        search-placeholder="Введіть компанію"
-        :has-search="false"
-        :model-value="modelValue"
-        @update:model-value="select"
-        size="sm"
-        :disabled="disabled"
-      />
-    </form-field>
-  </div>
+  <form-field label="Компанії">
+    <select-field
+      :options="companies"
+      name="companies"
+      input-placeholder="Оберіть компанію"
+      search-placeholder="Введіть компанію"
+      :has-search="false"
+      :model-value="modelValue"
+      @update:model-value="select"
+      size="sm"
+      :disabled="disabled"
+    />
+  </form-field>
 </template>
 <script lang="ts">
 import FormField from "../../fields/FormField/FormField.vue";
@@ -36,6 +34,31 @@ export default defineComponent({
   components: {
     FormField,
     SelectField,
+  },
+
+  data() {
+    return {
+      value: "",
+    };
+  },
+
+  watch: {
+    modelValue: {
+      handler(value) {
+        // Значение которое приходит это label, а для селекта нужен id. Поэтому выбираем по label нужные option и получаем его id
+        if (!this.companies || Number.isInteger(Number(value))) {
+          return;
+        }
+
+        const company =
+          this.companies.find((company) => company.label === value)?.value ||
+          "";
+
+        this.value = company;
+        this.$emit("update:modelValue", company);
+      },
+      immediate: true,
+    },
   },
 
   computed: {

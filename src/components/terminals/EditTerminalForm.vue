@@ -137,6 +137,8 @@
         />
       </form-field>
 
+      <companies-select v-model="values.client_name" />
+
       <form-field label="Додаткова інформація">
         <textarea-field v-model="values.dop_info" />
       </form-field>
@@ -164,6 +166,7 @@ import TextareaField from "@/components/fields/TextareaField/TextareaField.vue";
 import PayloadField from "@/components/terminals/fields/PayloadTemplateField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import TimepickerField from "@/components/fields/TimepickerField/TimepickerField.vue";
+import CompaniesSelect from "../fields/CompaniesSelectField/CompaniesSelect.vue";
 import StatusSelect from "../transactions/fields/StatusSelect.vue";
 
 import AllocTypeField from "./fields/AllocTypeField.vue";
@@ -199,6 +202,7 @@ const createInitialData = (terminal: EditTerminalData) => ({
   dop_info: terminal.dop_info || "",
   ptks_num: terminal.ptks_num || "",
   amount_list: terminal.amount_list || "",
+  client_name: terminal.client_name || "",
 });
 
 export default defineComponent({
@@ -228,6 +232,7 @@ export default defineComponent({
     StatusSelect,
     SignStractField,
     AllocTypeField,
+    CompaniesSelect,
   },
 
   setup() {
@@ -244,6 +249,7 @@ export default defineComponent({
 
   watch: {
     terminal(value: EditTerminalData) {
+      console.log(value);
       this.values = createInitialData(value);
     },
   },

@@ -12,7 +12,7 @@
           />
         </form-field>
       </div>
-      <companies-select v-model="filters.child_id" />
+      <companies-filter v-model="filters.child_id" />
       <div class="filters-item">
         <form-field :shadow="true" small label="SN пристрою">
           <input-field
@@ -46,7 +46,7 @@ import { defineComponent } from "vue";
 import FormField from "@/components/fields/FormField/FormField.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 
-import CompaniesSelect from "@/components/fields/CompaniesSelectField/CompaniesSelect.vue";
+import CompaniesFilter from "@/components/fields/CompaniesSelectField/CompaniesFilter.vue";
 import CheckboxField from "../fields/CheckboxField/CheckboxField.vue";
 
 import VButton from "../buttons/BaseButton/BaseButton.vue";
@@ -57,7 +57,7 @@ export default defineComponent({
     FormField,
     InputField,
     VButton,
-    CompaniesSelect,
+    CompaniesFilter,
     CheckboxField,
   },
 

@@ -161,6 +161,7 @@ export type EditTerminalData = {
   dop_info: string;
   ptks_num: string;
   amount_list: string;
+  client_name: string;
 };
 
 export type TerminalFilters = {

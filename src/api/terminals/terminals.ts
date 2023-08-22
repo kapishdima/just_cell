@@ -101,6 +101,7 @@ export const editTerminal = async (terminalData: any) => {
     can_offline: `${terminalData.can_offline}`,
     can_user_reversal: `${terminalData.can_user_reversal}`,
     inShifts: `${terminalData.inShifts}`,
+    client_name: terminalData.client_name === "" ? 0 : terminalData.client_name,
   };
   const editTerminaData = {
     ...stringifiedTerminalData,
@@ -110,6 +111,7 @@ export const editTerminal = async (terminalData: any) => {
         "allocation_type",
         "dop_info",
         "ptks_num",
+        "client_name",
       ]),
       getToken()
     ),

@@ -11,9 +11,15 @@
       </div>
     </template>
     <template #appTitle>Перегляд терміналів</template>
+
     <template #appContent>
       <terminal-filters @update:filters="filter" />
-      <terminal-table :data="terminals" :empty="!hasTerminals" />
+      <terminal-table
+        :data="terminals"
+        :empty="!hasTerminals"
+        :total="total"
+        :has-pagination="true"
+      />
     </template>
   </app-layout>
 </template>
@@ -53,6 +59,10 @@ export default defineComponent({
         this.$store.state.terminals.terminals &&
         this.$store.state.terminals.terminals.length > 0
       );
+    },
+    total(): number {
+      console.log(this.$store.state.terminals.total);
+      return this.$store.state.terminals.total;
     },
   },
 

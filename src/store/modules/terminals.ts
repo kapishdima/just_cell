@@ -31,6 +31,7 @@ type TerminalState = {
   loading: boolean;
   formLoading: boolean;
   key: KeyFile | null;
+  total: number;
 };
 
 export enum TerminalsActions {
@@ -49,12 +50,14 @@ export enum TerminalsActions {
   SET_KEY_LINK = "set_key_link",
   ACTIVATE_TERMINAL = "activate_terminal",
   EDIT_TERMINAL = "edit_terminal",
+  SET_TERMINALS_TOTAL = "set_terminals_total",
 }
 
 const TERMINAL_KEY_FILENAME = "JustSell_publicKey.pem";
 
 const state = (): TerminalState => ({
   terminals: [],
+  total: 0,
   terminalsRef: null,
   terminalConfig: null,
   loading: false,
@@ -68,6 +71,9 @@ const mutations = {
     terminals: Terminal[]
   ) {
     state.terminals = terminals;
+  },
+  [TerminalsActions.SET_TERMINALS_TOTAL](state: TerminalState, total: number) {
+    state.total = total;
   },
   [TerminalsActions.SET_TERMINALS_REF](
     state: TerminalState,
@@ -107,6 +113,7 @@ const actions = {
     const terminals = await getTerminalsList(filters);
 
     commit(TerminalsActions.SET_TERMINALS, transformForTable(terminals || []));
+    commit(TerminalsActions.SET_TERMINALS_TOTAL, terminals?.length);
     commit(TerminalsActions.SET_LOADING, false);
   },
   async [TerminalsActions.GET_TERMINALS_REF]({ commit }: any) {
