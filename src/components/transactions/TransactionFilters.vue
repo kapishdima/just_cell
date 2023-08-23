@@ -105,7 +105,7 @@
           />
         </form-field>
       </div>
-      <companies-select v-model="filters.child_id" />
+      <companies-filter v-model="filters.child_id" />
       <div class="filters-item filter-select__container">
         <status-select small v-model="filters.status" :disabled="false" />
       </div>
@@ -124,7 +124,7 @@ import FormField from "@/components/fields/FormField/FormField.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 import DatepickerField from "@/components/fields/DatepickerField/DatepickerField.vue";
 import { format } from "@/components/fields/DatepickerField/format";
-import CompaniesSelect from "@/components/fields/CompaniesSelectField/CompaniesSelect.vue";
+import CompaniesFilter from "@/components/fields/CompaniesSelectField/CompaniesFilter.vue";
 
 import VButton from "../buttons/BaseButton/BaseButton.vue";
 import StatusSelect from "./fields/StatusSelect.vue";
@@ -137,7 +137,7 @@ export default defineComponent({
     DatepickerField,
     StatusSelect,
     VButton,
-    CompaniesSelect,
+    CompaniesFilter,
   },
 
   data() {
