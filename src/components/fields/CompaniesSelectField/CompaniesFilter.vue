@@ -1,5 +1,5 @@
 <template>
-  <div class="filters-item" v-if="companies.length">
+  <div class="filters-item filters-companies-select" v-if="companies.length">
     <form-field label="Компанії" small shadow>
       <select-field
         :options="companies"

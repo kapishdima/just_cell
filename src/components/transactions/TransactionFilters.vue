@@ -1,5 +1,5 @@
 <template>
-  <div class="filters">
+  <div class="filters transactions-filters">
     <div class="filters-row">
       <div class="filters-item">
         <form-field :shadow="true" small label="Темінал">
@@ -49,7 +49,7 @@
       </div>
 
       <div class="filters-item" v-if="isPTKS">
-        <form-field :shadow="true" small label="№ ПТКС">
+        <form-field :shadow="true" small label="ID ПТКС">
           <input-field
             name="ptks_num"
             v-model="filters.ptks_num"
@@ -105,7 +105,7 @@
           />
         </form-field>
       </div>
-      <companies-filter v-model="filters.child_id" />
+      <companies-filter v-model="filters.company_id" />
       <div class="filters-item filter-select__container">
         <status-select small v-model="filters.status" :disabled="false" />
       </div>
@@ -151,7 +151,7 @@ export default defineComponent({
         ticket_num: "",
         status: "",
         rrn: "",
-        child_id: "",
+        company_id: "",
         DateFrom: format(new Date()),
         DateTo: format(new Date()),
       },

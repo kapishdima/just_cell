@@ -38,3 +38,13 @@
     width: 100%;
   }
 }
+
+.transactions-filters {
+  .filters-companies-select {
+    width: 30%;
+
+    @include mobile {
+      width: 100%;
+    }
+  }
+}
