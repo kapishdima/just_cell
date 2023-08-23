@@ -1,5 +1,5 @@
 <template lang="">
-  <v-table :data="data" :columns="columns" :empty="empty">
+  <v-table :data="data" :columns="columns" :empty="empty" :total="total">
     <template #context-menu="{ values }">
       <terminal-actions :terminal="values" />
     </template>
@@ -13,6 +13,7 @@ import { createColumnHelper } from "@tanstack/vue-table";
 interface TerminalTableProps {
   data: Terminal[];
   empty: boolean;
+  total: number;
 }
 
 const columnHelper = createColumnHelper<Terminal>();
@@ -36,7 +37,7 @@ const columns = [
 
   columnHelper.accessor("can_offline", {
     header: "Чи працює оффлайн",
-    cell: (info) => (JSON.parse(info.getValue()) ? "Так" : "Ні"),
+    cell: (info) => (JSON.parse(info.getValue() || "false") ? "Так" : "Ні"),
     sortDescFirst: true,
   }),
   columnHelper.accessor("max_offline_sum", {

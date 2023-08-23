@@ -12,7 +12,7 @@
           />
         </form-field>
       </div>
-      <companies-filter v-model="filters.child_id" />
+      <companies-filter v-model="filters.company_id" />
       <div class="filters-item">
         <form-field :shadow="true" small label="SN пристрою">
           <input-field
@@ -65,7 +65,7 @@ export default defineComponent({
     return {
       filters: {
         terminal_id: "",
-        child_id: "",
+        company_id: "",
         test_mode: "false",
         serial_number: "",
       },

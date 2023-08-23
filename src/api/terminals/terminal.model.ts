@@ -33,6 +33,8 @@ export type Terminal = {
   amount_list?: string;
   serial_number?: string;
   add_time?: string;
+  company_id?: string;
+  company_name?: string;
 };
 
 type SelectItem = {
@@ -161,12 +163,14 @@ export type EditTerminalData = {
   dop_info: string;
   ptks_num: string;
   amount_list: string;
-  client_name: string;
+  company_id: string;
 };
 
 export type TerminalFilters = {
   terminal_id: string;
-  child_id: string;
+  company_id: string;
+  page: string;
+  perPage: string;
 };
 
 export type SendCommandData = {

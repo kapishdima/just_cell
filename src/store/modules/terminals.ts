@@ -110,10 +110,19 @@ const actions = {
     filters: TerminalFilters
   ) {
     commit(TerminalsActions.SET_LOADING, true);
-    const terminals = await getTerminalsList(filters);
+    const filtersData = {
+      ...filters,
+      page: filters.page || "0",
+      perPage: filters.perPage || "10",
+    };
+    console.log(filtersData);
+    const terminalsList = await getTerminalsList(filtersData);
 
-    commit(TerminalsActions.SET_TERMINALS, transformForTable(terminals || []));
-    commit(TerminalsActions.SET_TERMINALS_TOTAL, terminals?.length);
+    commit(
+      TerminalsActions.SET_TERMINALS,
+      transformForTable(terminalsList?.terminals || [])
+    );
+    commit(TerminalsActions.SET_TERMINALS_TOTAL, terminalsList?.total);
     commit(TerminalsActions.SET_LOADING, false);
   },
   async [TerminalsActions.GET_TERMINALS_REF]({ commit }: any) {
@@ -238,7 +247,7 @@ const transformForTable = (terminals: Terminal[]) => {
         "Тип інтерфейса": terminal.interface_type,
         Система: terminal.system,
         "Чи може користувач робити відміну": JSON.parse(
-          terminal.can_user_reversal
+          terminal.can_user_reversal || "false"
         )
           ? "Так"
           : "Ні",
@@ -250,12 +259,14 @@ const transformForTable = (terminals: Terminal[]) => {
         "Шаблон підпису": terminal.sign_stract,
         "Час тайм-ауту": terminal.timeout,
         "Час повторної відправки": terminal.resendPeriod,
-        "Відкривати зміну": JSON.parse(terminal.inShifts) ? "Так" : "Ні",
+        "Відкривати зміну": JSON.parse(terminal.inShifts || "false")
+          ? "Так"
+          : "Ні",
         "Початок зміни": terminal.shift_start,
         "Кінець зміни": terminal.shift_end,
         Статус: terminal.status,
         "Тип встановлення": terminal.allocation_type,
-        Компанія: terminal.client_name,
+        Компанія: terminal.company_name,
         "Додаткова інформація": terminal.dop_info,
         "Перелік сум на терміналі": terminal.amount_list,
       },

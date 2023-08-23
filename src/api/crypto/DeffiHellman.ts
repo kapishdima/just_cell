@@ -20,7 +20,6 @@ export const sign = async (data: any, token: string) => {
   if (!data) {
     return "";
   }
-  console.log(Object.keys(data));
   const values = Object.values(data) || {};
   const message = values.join("") + token;
 

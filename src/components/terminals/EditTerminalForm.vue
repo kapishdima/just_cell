@@ -137,7 +137,7 @@
         />
       </form-field>
 
-      <companies-select v-model="values.client_name" />
+      <companies-select v-model="values.company_id" />
 
       <form-field label="Додаткова інформація">
         <textarea-field v-model="values.dop_info" />
@@ -202,7 +202,7 @@ const createInitialData = (terminal: EditTerminalData) => ({
   dop_info: terminal.dop_info || "",
   ptks_num: terminal.ptks_num || "",
   amount_list: terminal.amount_list || "",
-  client_name: terminal.client_name || "",
+  company_id: terminal.company_id || "",
 });
 
 export default defineComponent({

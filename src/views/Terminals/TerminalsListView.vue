@@ -61,13 +61,23 @@ export default defineComponent({
       );
     },
     total(): number {
-      console.log(this.$store.state.terminals.total);
       return this.$store.state.terminals.total;
     },
   },
 
+  watch: {
+    "$route.query": {
+      handler(value) {
+        //@ts-ignore
+        this.filter(value);
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
+
   mounted() {
-    this.$store.dispatch(TerminalsActions.GET_TERMINALS);
+    this.$store.dispatch(TerminalsActions.GET_TERMINALS, {});
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
   },
 
@@ -77,6 +87,7 @@ export default defineComponent({
 
   methods: {
     filter(filterData: any) {
+      console.log(filterData);
       this.$store.dispatch(TerminalsActions.GET_TERMINALS, filterData);
     },
   },

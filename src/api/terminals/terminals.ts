@@ -13,14 +13,23 @@ import {
 
 import omit from "lodash.omit";
 
+type TerminalsList = {
+  terminals: Terminal[];
+  total: number;
+};
+
 export const getTerminalsList = async (
   filters: TerminalFilters
-): Promise<Terminal[] | undefined> => {
+): Promise<TerminalsList | undefined> => {
   const { data } = await http.post(ApiRoutes.TERMINALS_LIST, filters);
-  return (data.data || []).map((terminal: Terminal) => ({
-    ...terminal,
-    amount_list: terminal.amount_list?.replaceAll("|", ","),
-  }));
+
+  return {
+    terminals: data.data?.map((terminal: Terminal) => ({
+      ...terminal,
+      amount_list: terminal.amount_list?.replaceAll("|", ","),
+    })),
+    total: parseInt(data.total),
+  };
 };
 
 export const getTerminalRefs = async (): Promise<TerminalRef> => {
@@ -101,7 +110,6 @@ export const editTerminal = async (terminalData: any) => {
     can_offline: `${terminalData.can_offline}`,
     can_user_reversal: `${terminalData.can_user_reversal}`,
     inShifts: `${terminalData.inShifts}`,
-    client_name: terminalData.client_name === "" ? 0 : terminalData.client_name,
   };
   const editTerminaData = {
     ...stringifiedTerminalData,
@@ -111,7 +119,6 @@ export const editTerminal = async (terminalData: any) => {
         "allocation_type",
         "dop_info",
         "ptks_num",
-        "client_name",
       ]),
       getToken()
     ),
