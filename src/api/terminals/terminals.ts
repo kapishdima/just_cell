@@ -110,6 +110,7 @@ export const editTerminal = async (terminalData: any) => {
     can_offline: `${terminalData.can_offline}`,
     can_user_reversal: `${terminalData.can_user_reversal}`,
     inShifts: `${terminalData.inShifts}`,
+    company_id: terminalData.company_id === "" ? 0 : terminalData.company_id,
   };
   const editTerminaData = {
     ...stringifiedTerminalData,

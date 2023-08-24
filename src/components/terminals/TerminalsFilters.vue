@@ -12,6 +12,17 @@
           />
         </form-field>
       </div>
+      <div class="filters-item">
+        <form-field :shadow="true" small label="ID ПТКС">
+          <input-field
+            name="ptks_num"
+            v-model="filters.ptks_num"
+            placeholder="ID ПТКС"
+            :disabled="false"
+            size="sm"
+          />
+        </form-field>
+      </div>
       <companies-filter v-model="filters.company_id" />
       <div class="filters-item">
         <form-field :shadow="true" small label="SN пристрою">
@@ -65,6 +76,7 @@ export default defineComponent({
     return {
       filters: {
         terminal_id: "",
+        ptks_num: "",
         company_id: "",
         test_mode: "false",
         serial_number: "",

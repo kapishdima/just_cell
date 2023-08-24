@@ -12,6 +12,7 @@
           />
         </form-field>
       </div>
+
       <div class="filters-item">
         <form-field :shadow="true" small label="Order ID">
           <input-field
@@ -48,7 +49,7 @@
         </form-field>
       </div>
 
-      <div class="filters-item" v-if="isPTKS">
+      <!-- <div class="filters-item" v-if="isPTKS">
         <form-field :shadow="true" small label="ID ПТКС">
           <input-field
             name="ptks_num"
@@ -58,8 +59,8 @@
             size="sm"
           />
         </form-field>
-      </div>
-      <div class="filters-item" v-else>
+      </div> -->
+      <div class="filters-item" v-if="!isPTKS">
         <form-field :shadow="true" small label="№ квитка">
           <input-field
             name="ptks_num"
@@ -147,7 +148,7 @@ export default defineComponent({
         amount: "",
         terminal_id: "",
         terminal_name: "",
-        ptks_num: undefined,
+        // ptks_num: undefined,
         ticket_num: "",
         status: "",
         rrn: "",

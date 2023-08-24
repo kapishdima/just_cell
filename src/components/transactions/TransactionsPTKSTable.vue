@@ -33,10 +33,10 @@ const columns = [
     cell: (info) => info.getValue(),
     header: "Order ID",
   }),
-  columnHelper.accessor("ptks_num", {
-    cell: (info) => info.getValue(),
-    header: "ID ПТКС",
-  }),
+  // columnHelper.accessor("ptks_num", {
+  //   cell: (info) => info.getValue(),
+  //   header: "ID ПТКС",
+  // }),
   columnHelper.accessor("amount", {
     cell: (info) => info.getValue(),
     header: "Сума",
