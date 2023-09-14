@@ -77,7 +77,6 @@ export default defineComponent({
   },
 
   mounted() {
-    this.$store.dispatch(TerminalsActions.GET_TERMINALS, {});
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
   },
 
@@ -87,7 +86,6 @@ export default defineComponent({
 
   methods: {
     filter(filterData: any) {
-      console.log(filterData);
       this.$store.dispatch(TerminalsActions.GET_TERMINALS, filterData);
     },
   },

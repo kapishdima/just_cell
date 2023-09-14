@@ -208,7 +208,8 @@ const actions = {
 
       if (data.code === 0) {
         toast.success("Термінал успішно змінено!");
-        router.push({ name: "terminals" });
+        // router.push({ name: "terminals" });
+        router.go(-1);
       }
 
       commit(TerminalsActions.SET_FORM_LOADING, false);
