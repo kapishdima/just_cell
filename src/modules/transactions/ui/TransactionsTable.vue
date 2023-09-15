@@ -8,14 +8,18 @@
   />
 </template>
 <script setup lang="ts">
-import { Transaction } from "@/api/transactions/transactions.model";
-import { createColumnHelper } from "@tanstack/vue-table";
+import { CellContext, createColumnHelper } from "@tanstack/vue-table";
+
+import { extraColumn } from "../config/columns";
+import { Transaction } from "../api/transactions.model";
 
 interface TerminalTableProps {
   data: Transaction[];
   total: number;
   empty?: boolean;
+  alloc_type: string;
 }
+const props = defineProps<TerminalTableProps>();
 
 const columnHelper = createColumnHelper<Transaction>();
 
@@ -33,10 +37,12 @@ const columns = [
     cell: (info) => info.getValue(),
     header: "Order ID",
   }),
-  // columnHelper.accessor("ptks_num", {
-  //   cell: (info) => info.getValue(),
-  //   header: "ID ПТКС",
-  // }),
+  // @ts-ignore
+  columnHelper.accessor(extraColumn[props.alloc_type].accessor, {
+    cell: (info: CellContext<Transaction, string>): string => info.getValue(),
+    // @ts-ignore
+    header: extraColumn[props.alloc_type].header,
+  }),
   columnHelper.accessor("amount", {
     cell: (info) => info.getValue(),
     header: "Сума",
@@ -64,15 +70,14 @@ const columns = [
     header: "Дії",
   }),
 ];
-
-defineProps<TerminalTableProps>();
 </script>
 <script lang="ts">
-import VTable from "../table/VTable.vue";
 import { h } from "vue";
-import { expandedButton } from "../table/ExpandedButton";
-import TransactionActions from "./TransactionActions.vue";
+import { expandedButton } from "@/components/table/ExpandedButton";
+import VTable from "@/components/table/VTable.vue";
 import { TransactionStatuses } from "@/contants/statuses";
+
+import TransactionActions from "./TransactionActions.vue";
 
 export default {
   components: {

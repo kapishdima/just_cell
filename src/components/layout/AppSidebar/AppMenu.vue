@@ -26,7 +26,7 @@
             v-if="Boolean(child.children)"
           />
           <router-link
-            :to="`/${child.LINK}`"
+            :to="{ path: `/${child.LINK}` }"
             :class="{ 'app-menu__item--active': $route.path === child.LINK }"
             class="app-menu__item"
             v-else

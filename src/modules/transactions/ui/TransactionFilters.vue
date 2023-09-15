@@ -126,8 +126,8 @@ import InputField from "@/components/fields/InputField/InputField.vue";
 import DatepickerField from "@/components/fields/DatepickerField/DatepickerField.vue";
 import { format } from "@/components/fields/DatepickerField/format";
 import CompaniesFilter from "@/components/fields/CompaniesSelectField/CompaniesFilter.vue";
+import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 
-import VButton from "../buttons/BaseButton/BaseButton.vue";
 import StatusSelect from "./fields/StatusSelect.vue";
 
 export default defineComponent({
@@ -204,4 +204,6 @@ export default defineComponent({
 });
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+@import "./transaction.scss";
+</style>

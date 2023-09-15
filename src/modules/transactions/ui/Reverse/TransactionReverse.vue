@@ -14,11 +14,11 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { TransactionsActions } from "@/store/modules/transactions";
 import VModal from "@/components/Modal/VModal.vue";
-
 import ReverseAction from "../buttons/ReverseAction.vue";
 import ReverseForm from "./ReverseForm.vue";
+
+import { TransactionsActions } from "../../store/transactions.store";
 
 export default defineComponent({
   emits: ["opened", "closed"],

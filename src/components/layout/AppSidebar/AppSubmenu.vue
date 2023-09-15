@@ -12,7 +12,10 @@
       <router-link
         v-for="child in submenu.children"
         :key="child.NAME"
-        :to="`/${child.LINK}`"
+        :to="{
+          path: `/${child.LINK}`,
+          query: { alloc_type: child.alloc_type || '' },
+        }"
         class="app-menu__item"
       >
         {{ child.NAME }}

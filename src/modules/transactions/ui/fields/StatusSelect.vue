@@ -14,10 +14,11 @@
   </form-field>
 </template>
 <script lang="ts">
-import FormField from "../../fields/FormField/FormField.vue";
+import { defineComponent } from "vue";
+
+import FormField from "@/components/fields/FormField/FormField.vue";
 import SelectField from "@/components/fields/SelectField/SelectField.vue";
 import { TerminalRef } from "@/api/terminals/terminal.model";
-import { defineComponent } from "vue";
 
 export default defineComponent({
   props: {

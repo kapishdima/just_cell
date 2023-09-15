@@ -13,8 +13,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { Rules } from "@/contants/rules";
 
+import { Rules } from "@/contants/rules";
 import VProtected from "@/components/protected/VProtected.vue";
 
 export default defineComponent({

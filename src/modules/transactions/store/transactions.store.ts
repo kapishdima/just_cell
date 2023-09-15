@@ -1,12 +1,8 @@
-import { getAllocTypId } from "@/api/terminals/terminals";
 import {
-  getAllTransactions,
+  getTransactionForExport,
   getTransactionsList,
-} from "@/api/transactions/transactions";
-import {
-  Transaction,
-  TransactionFilters,
-} from "@/api/transactions/transactions.model";
+} from "../api/transactions.api";
+import { Transaction, TransactionFilters } from "../api/transactions.model";
 import { format } from "@/components/fields/DatepickerField/format";
 
 type TransactionState = {
@@ -110,7 +106,7 @@ const actions = {
         DateTo,
       };
 
-      const transactionsList = await getAllTransactions(filtersData);
+      const transactionsList = await getTransactionForExport(filtersData);
 
       commit(
         TransactionsActions.SET_EXPORT_TRANSACTIONS,

@@ -3,21 +3,20 @@
     <template #appLoading>
       <app-loading :loading="loading" />
     </template>
-    <template #appTitle>Перегляд транспортних транзакцій</template>
+    <template #appTitle>
+      <transactions-header :alloc_type="allocType" />
+    </template>
     <template #appContent>
       <transaction-filters @update:filters="filter" />
       <div class="table-actions" v-if="total > 0">
-        <export-button
-          :export-data="exportTransactions"
-          :loading="exportLoading"
-          @click="fetchExportData"
-        />
+        <export-transactions-button />
       </div>
       <transactions-table
         :data="transactions"
         :empty="!hasTransactions"
         :total="total"
         :has-pagination="true"
+        :alloc_type="allocType"
       />
     </template>
   </app-layout>
@@ -26,13 +25,14 @@
 import { defineComponent } from "vue";
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
-import TransactionsTable from "@/components/transactions/TransactionsTransportTable.vue";
 
-import TransactionFilters from "@/components/transactions/TransactionFilters.vue";
-import { TransactionsActions } from "@/store/modules/transactions";
+import TransactionsTable from "../ui/TransactionsTable.vue";
+import TransactionFilters from "../ui/TransactionFilters.vue";
+import ExportTransactionsButton from "../ui/ExportTransactionsButton.vue";
+import TransactionsHeader from "../ui/TransactionsHeader.vue";
+
+import { TransactionsActions } from "../store/transactions.store";
 import { TerminalsActions } from "@/store/modules/terminals";
-import ExportButton from "@/components/table/ExportButton.vue";
-import { TerminalRef } from "@/api/terminals/terminal.model";
 
 export default defineComponent({
   components: {
@@ -40,7 +40,8 @@ export default defineComponent({
     AppLoading,
     TransactionsTable,
     TransactionFilters,
-    ExportButton,
+    ExportTransactionsButton,
+    TransactionsHeader,
   },
 
   computed: {
@@ -50,11 +51,8 @@ export default defineComponent({
     transactions(): any {
       return this.$store.state.transactions.transactions;
     },
-    terminalRef(): TerminalRef {
-      return this.$store.state.terminals.terminalRef;
-    },
-    allocType(): number {
-      return this.$store.getters.allocTypeId("Транспорт");
+    allocType(): string {
+      return this.$route.query.alloc_type as string;
     },
     hasTransactions(): boolean {
       return (
@@ -63,14 +61,7 @@ export default defineComponent({
       );
     },
     total(): number {
-      console.log(this.$store.state.transactions.total);
       return this.$store.state.transactions.total;
-    },
-    exportLoading(): boolean {
-      return this.$store.state.transactions.exportLoading;
-    },
-    exportTransactions(): any {
-      return this.$store.state.transactions.exportTransactions;
     },
   },
 
@@ -80,24 +71,18 @@ export default defineComponent({
         this.filter(value);
       },
       deep: true,
+      immediate: true,
     },
   },
 
   mounted() {
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
-    this.filter({});
   },
 
   methods: {
     filter(filterData: any) {
       this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
         ...filterData,
-        alloc_type: this.allocType,
-      });
-    },
-    fetchExportData() {
-      this.$store.dispatch(TransactionsActions.GET_EXPORT_TRANSACTIONS, {
-        ...this.$route.query,
         alloc_type: this.allocType,
       });
     },

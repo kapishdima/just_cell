@@ -3,6 +3,7 @@ import { MENU_STORE_KEY } from "@/contants/storage";
 export type Menu = {
   NAME: string;
   LINK: string | null;
+  alloc_type?: number;
   children?: Menu[];
 };
 export type MenuList = { [key: string]: Menu };
@@ -27,7 +28,10 @@ export const getMenu = () => {
     return {
       index,
       title: menuItem[0],
-      children: children.map((child, index) => ({ ...child, index })),
+      children: children.map((child, index) => ({
+        ...child,
+        index,
+      })),
     };
   });
 

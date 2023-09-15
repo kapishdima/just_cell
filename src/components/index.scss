@@ -12,7 +12,8 @@
 @import "./table/table.scss";
 
 @import "./terminals/index.scss";
-@import "./transactions/transaction.scss";
+@import "@/modules/transactions/ui/transaction.scss";
+// @import "./transactions/transaction.scss";
 
 @import "./popover/index.scss";
 

@@ -1,5 +1,6 @@
-import { http } from "../client";
-import { ApiRoutes } from "../routes";
+import { http } from "@/api/client";
+import { ApiRoutes } from "@/api/routes";
+
 import {
   ExportTransactionFilters,
   Transaction,
@@ -39,7 +40,9 @@ export const getTransactionsList = async (
   };
 };
 
-export const getAllTransactions = async (filters: ExportTransactionFilters) => {
+export const getTransactionForExport = async (
+  filters: ExportTransactionFilters
+) => {
   const { data } = await http.post(ApiRoutes.TRANSACTIONS_LIST, filters);
 
   return data.data?.map((item: any) => ({

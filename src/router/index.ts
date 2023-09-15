@@ -126,12 +126,12 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/transac_ptks",
     component: () =>
-      import("@/views/Transactions/TransactionsPTKSListView.vue"),
+      import("@/modules/transactions/pages/TransactionsListPage.vue"),
   },
   {
     path: "/transac_transport",
     component: () =>
-      import("@/views/Transactions/TransactionsTransportListView.vue"),
+      import("@/modules/transactions/pages/TransactionsListPage.vue"),
   },
   {
     path: "/ecomm_terminal",

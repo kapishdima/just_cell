@@ -167,7 +167,8 @@ import PayloadField from "@/components/terminals/fields/PayloadTemplateField.vue
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 import TimepickerField from "@/components/fields/TimepickerField/TimepickerField.vue";
 import CompaniesSelect from "../fields/CompaniesSelectField/CompaniesSelect.vue";
-import StatusSelect from "../transactions/fields/StatusSelect.vue";
+
+import StatusSelect from "@/modules/transactions/ui/fields/StatusSelect.vue"; // TODO Remove this
 
 import AllocTypeField from "./fields/AllocTypeField.vue";
 import RequestTypeSelect from "./fields/RequestTypeSelect.vue";
