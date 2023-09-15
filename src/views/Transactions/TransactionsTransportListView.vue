@@ -32,6 +32,7 @@ import TransactionFilters from "@/components/transactions/TransactionFilters.vue
 import { TransactionsActions } from "@/store/modules/transactions";
 import { TerminalsActions } from "@/store/modules/terminals";
 import ExportButton from "@/components/table/ExportButton.vue";
+import { TerminalRef } from "@/api/terminals/terminal.model";
 
 export default defineComponent({
   components: {
@@ -48,6 +49,12 @@ export default defineComponent({
     },
     transactions(): any {
       return this.$store.state.transactions.transactions;
+    },
+    terminalRef(): TerminalRef {
+      return this.$store.state.terminals.terminalRef;
+    },
+    allocType(): number {
+      return this.$store.getters.allocTypeId("Транспорт");
     },
     hasTransactions(): boolean {
       return (
@@ -73,25 +80,25 @@ export default defineComponent({
         this.filter(value);
       },
       deep: true,
-      immediate: true,
     },
   },
 
   mounted() {
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
+    this.filter({});
   },
 
   methods: {
     filter(filterData: any) {
       this.$store.dispatch(TransactionsActions.GET_TRANSACTIONS, {
         ...filterData,
-        type: "TRANSPORT",
+        alloc_type: this.allocType,
       });
     },
     fetchExportData() {
       this.$store.dispatch(TransactionsActions.GET_EXPORT_TRANSACTIONS, {
         ...this.$route.query,
-        type: "PTKS",
+        alloc_type: this.allocType,
       });
     },
   },

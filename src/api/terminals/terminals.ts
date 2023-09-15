@@ -9,6 +9,7 @@ import {
   TerminalFilters,
   EcommTerminalRef,
   TerminalRef,
+  AllocType,
 } from "./terminal.model";
 
 import omit from "lodash.omit";
@@ -143,4 +144,8 @@ export const sendTerminalCommand = async (
   );
 
   return data;
+};
+
+export const getAllocTypId = (allocTypes: AllocType[], name: string) => {
+  return allocTypes.find((type) => type.name === name)?.id;
 };

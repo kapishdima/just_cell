@@ -26,7 +26,7 @@ export type Transaction = {
 export type TransactionFilters = {
   DateFrom: string;
   DateTo: string;
-  type: "PTKS";
+  alloc_type: number;
   page: number;
   perPage: number;
 };

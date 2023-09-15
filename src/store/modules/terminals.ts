@@ -128,7 +128,7 @@ const actions = {
   async [TerminalsActions.GET_TERMINALS_REF]({ commit }: any) {
     commit(TerminalsActions.SET_LOADING, true);
     const terminalsRef = await getTerminalRefs();
-
+    console.log(terminalsRef);
     commit(TerminalsActions.SET_TERMINALS_REF, terminalsRef);
     commit(TerminalsActions.SET_LOADING, false);
   },
@@ -230,6 +230,11 @@ const getters = {
     return (state.terminalsRef as TerminalRef)?.transport_support.find(
       (model) => model.id === id
     );
+  },
+  allocTypeId: (state: TerminalState) => (name: string) => {
+    return (state.terminalsRef as TerminalRef)?.alloc_type.find(
+      (type) => type.name === name
+    )?.id;
   },
 };
 
