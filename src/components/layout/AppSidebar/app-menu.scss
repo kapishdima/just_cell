@@ -1,3 +1,19 @@
+.app-menu__subgroup-subchildren {
+  .app-menu__item.router-link-active {
+    &::before {
+      width: 0;
+    }
+  }
+}
+
+.app-menu {
+  &__item.router-link-active {
+    &::before {
+      width: 100%;
+    }
+  }
+}
+
 .app-menu {
   height: 100%;
 
@@ -8,11 +24,6 @@
     height: auto;
   }
 
-  &__item.router-link-active {
-    &::before {
-      width: 100%;
-    }
-  }
   &__item {
     width: 100%;
 

@@ -7,4 +7,8 @@ export const extraColumn = {
     accessor: "ticket_num",
     header: "№ квитка",
   },
+  "7": {
+    accessor: "pay_type",
+    header: "Форма оплаты",
+  },
 };

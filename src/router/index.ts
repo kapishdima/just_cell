@@ -124,12 +124,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/Terminals/CreateOfflineTerminalView.vue"),
   },
   {
-    path: "/transac_ptks",
-    component: () =>
-      import("@/modules/transactions/pages/TransactionsListPage.vue"),
-  },
-  {
-    path: "/transac_transport",
+    path: "/transactions",
     component: () =>
       import("@/modules/transactions/pages/TransactionsListPage.vue"),
   },
