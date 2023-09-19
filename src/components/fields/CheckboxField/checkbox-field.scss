@@ -120,3 +120,11 @@
     color: $dark-primary;
   }
 }
+
+// Points List
+
+.points-list {
+  .checkbox-field.checkbox-field--left {
+    justify-content: flex-end;
+  }
+}

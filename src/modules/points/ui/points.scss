@@ -1,0 +1,67 @@
+.points-list {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+
+  .checkbox-field.checkbox-field--left {
+    justify-content: flex-start;
+  }
+
+  &__actions {
+    margin-top: 2%;
+  }
+
+  .point-card {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+
+    padding: 14px;
+    border: 1px solid $accent-primary;
+    border-radius: 8px;
+
+    @include mobile {
+      width: 100%;
+    }
+
+    &__name {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 16px;
+      white-space: collapse;
+      word-wrap: break-word;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    padding: 8px 0;
+
+    font-size: 18px;
+    font-weight: 500;
+
+    cursor: pointer;
+  }
+
+  &__actions {
+    margin-top: 5%;
+  }
+}
+
+.point-fiscal__form {
+  margin: 5% 0;
+}
+
+.point-form {
+  &__actions {
+    margin-top: 5%;
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 18px;
+  }
+}
