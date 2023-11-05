@@ -4,19 +4,24 @@
       <app-loading :loading="loading" />
     </template>
     <template #appTitle>
-      <transactions-header :alloc_type="allocType" />
+      <transactions-header
+        :alloc_type="allocType"
+        v-if="Boolean(allocType.length)"
+      />
     </template>
     <template #appContent>
-      <transaction-filters @update:filters="filter" />
+      <transaction-filters @update:filters="filter" :alloc-type="allocType" />
       <div class="table-actions" v-if="total > 0">
         <export-transactions-button />
       </div>
       <transactions-table
+        v-if="Boolean(tableFields.length)"
         :data="transactions"
         :empty="!hasTransactions"
         :total="total"
         :has-pagination="true"
         :alloc_type="allocType"
+        :fields="tableFields"
       />
     </template>
   </app-layout>
@@ -33,6 +38,7 @@ import TransactionsHeader from "../ui/TransactionsHeader.vue";
 
 import { TransactionsActions } from "../store/transactions.store";
 import { TerminalsActions } from "@/store/modules/terminals";
+import { TableField, TerminalRef } from "@/api/terminals/terminal.model";
 
 export default defineComponent({
   components: {
@@ -63,6 +69,15 @@ export default defineComponent({
     total(): number {
       return this.$store.state.transactions.total;
     },
+    tableFields(): TableField[] {
+      const ref: TerminalRef = this.$store.state.terminals.terminalsRef;
+
+      if (!ref) {
+        return [];
+      }
+
+      return ref.table_fields;
+    },
   },
 
   watch: {
@@ -89,4 +104,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang=""></style>

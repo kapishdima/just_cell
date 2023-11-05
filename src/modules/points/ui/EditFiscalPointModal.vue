@@ -131,6 +131,7 @@ export default {
 
   methods: {
     show() {
+      // @ts-ignore
       const modal = this.$refs.modal as typeof VModal;
       modal.open();
     },

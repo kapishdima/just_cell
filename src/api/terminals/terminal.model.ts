@@ -94,6 +94,22 @@ export type TerminalRef = {
     id: string;
   }[];
   sign: string;
+  table_fields: TableField[];
+  table_filters: TableFilter[];
+};
+
+export type TableFilter = {
+  alloc_type: string;
+  name: string;
+  alias: string;
+  filter_type: "text" | "date" | "ref_tag";
+  ref_tag: string;
+};
+
+export type TableField = {
+  alloc_type: string;
+  alias: string;
+  name: string;
 };
 
 export type EcommTerminalRef = {

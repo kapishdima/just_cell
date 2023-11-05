@@ -38,6 +38,8 @@ interface TableProps {
 const props = defineProps<TableProps>();
 const sorting = ref<SortingState>([]);
 
+console.log("VTable", props.columns);
+
 const table = useVueTable({
   get data() {
     return props.data;
@@ -48,7 +50,6 @@ const table = useVueTable({
     },
   },
   onSortingChange: (updaterOrValue) => {
-    console.log(sorting.value);
     sorting.value =
       typeof updaterOrValue === "function"
         ? updaterOrValue(sorting.value)
@@ -77,4 +78,3 @@ export default defineComponent({
   },
 });
 </script>
-<style lang=""></style>

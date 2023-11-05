@@ -35,15 +35,17 @@
           />
         </form-field>
       </div>
-      <div class="checkbox-container">
+      <div class="filters-checkbox">
         <checkbox-field
           name="test_mode"
           v-model="filters.test_mode"
           label="У тестовому режимі"
           direction="left"
+          justify="none"
         />
       </div>
-      <div class="filters-item filters-actions">
+
+      <div class="filters-actions">
         <v-button :has-max-width="false" type="button" @click="applyFilter">
           <template #text>Фільтрувати</template>
         </v-button>

@@ -35,3 +35,19 @@ export type ExportTransactionFilters = {
   DateFrom: string;
   DateTo: string;
 };
+
+export const TransactionsSubFields = [
+  "ID термінала",
+  "RRN",
+  "Фіскальний номер",
+  "Транзакцію повернуто",
+  "Сумма повернення",
+  "Час повернення",
+  "Час оплати",
+  "Відповідь",
+  "Код відповіді",
+  "Дата",
+  "Компанія",
+  "Маска карти",
+  "Форма оплати",
+];
