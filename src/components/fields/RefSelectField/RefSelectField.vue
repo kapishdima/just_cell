@@ -15,6 +15,7 @@
     </form-field>
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent } from "vue";
 import SelectField from "@/components/fields/SelectField/SelectField.vue";
@@ -49,10 +50,15 @@ export default defineComponent({
         return [];
       }
 
+      // @ts-ignore
       const values = ref[this.refTag].map((type) => ({
         value: type.id.toString(),
         label: type.name || "",
       }));
+
+      if (this.refTag === "status_list") {
+        values.unshift({ value: "", label: "Усі" });
+      }
 
       return values;
     },
