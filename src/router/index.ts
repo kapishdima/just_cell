@@ -49,10 +49,29 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("@/views/AuthWelcome/AuthWelcomeView.vue"),
   },
   {
-    path: "/point_create",
-    name: "departmentCreate",
-    component: () => import("@/views/Department/CreateDepartmentView.vue"),
+    path: "/points",
+    children: [
+      {
+        path: "fiscal",
+        name: "fiscalCreate",
+        component: () =>
+          import("@/modules/points/pages/CreateFiscalPointPage.vue"),
+      },
+      {
+        path: "non-fiscal",
+        name: "nonFiscalCreate",
+        component: () =>
+          import("@/modules/points/pages/CreateNonFiscalPointPage.vue"),
+      },
+      {
+        path: "fiscal/add",
+        name: "fiscalAdd",
+        component: () =>
+          import("@/modules/points/pages/AddPointsFromKeyPage.vue"),
+      },
+    ],
   },
+
   {
     path: "/users",
     children: [

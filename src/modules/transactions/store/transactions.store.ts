@@ -70,6 +70,7 @@ const actions = {
       const DateFrom = filters.DateFrom || format(new Date());
       const DateTo = filters.DateTo || format(new Date());
       const filtersData = {
+        ...filters,
         DateFrom,
         DateTo,
         page: filters.page || 0,
@@ -97,10 +98,10 @@ const actions = {
   ) {
     try {
       commit(TransactionsActions.SET_EXPORT_LOADING, true);
-
       const DateFrom = filters.DateFrom || format(new Date());
       const DateTo = filters.DateTo || format(new Date());
       const filtersData = {
+        ...filters,
         alloc_type: filters.alloc_type,
         DateFrom,
         DateTo,

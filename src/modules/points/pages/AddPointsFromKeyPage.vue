@@ -3,7 +3,7 @@
     <template #appTitle>Додати нову точку/відділення</template>
     <template #appContent>
       <div class="department-content">
-        <create-department />
+        <points-by-key />
       </div>
     </template>
   </app-layout>
@@ -12,12 +12,17 @@
 import { defineComponent } from "vue";
 
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
-import CreateDepartment from "./CreateDepartmentForm.vue";
+import PointsByKey from "../ui/PointsByKey.vue";
 
 export default defineComponent({
   components: {
     AppLayout,
-    CreateDepartment,
+    PointsByKey,
+  },
+  methods: {
+    onSubmit(values: any) {
+      console.log(values);
+    },
   },
 });
 </script>
