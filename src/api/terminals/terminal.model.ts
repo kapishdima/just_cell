@@ -94,6 +94,7 @@ export type TerminalRef = {
     id: string;
   }[];
   sign: string;
+  add_data_fields: any[];
 };
 
 export type EcommTerminalRef = {

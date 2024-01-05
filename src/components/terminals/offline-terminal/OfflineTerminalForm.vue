@@ -12,10 +12,19 @@
             <general-config :form-values="values" :form-errors="errors" />
           </v-tab>
           <v-tab title="Додадкові налаштування">
-            <add-config
+            <add-config-selector
+              v-if="hasAddFields"
               :form-values="{
                 add_config: values.add_config,
-                // add_data: values.add_data,
+                add_data: values.add_data || [],
+              }"
+              :form-errors="errors.add_config"
+            />
+            <add-config
+              v-else
+              :form-values="{
+                add_config: values.add_config,
+                add_data: values.add_data || [],
               }"
               :form-errors="errors.add_config"
             />
@@ -48,6 +57,8 @@ import { offlineTerminal } from "../validation/terminal.schema";
 
 import GeneralConfig from "./GeneralConfig.vue";
 import AddConfig from "./AddConfig.vue";
+import AddConfigSelector from "./AddConfigSelector.vue";
+import { TerminalRef } from "@/api/terminals/terminal.model";
 
 const defaultConfigData = {
   name: "",
@@ -68,7 +79,7 @@ const defaultConfigData = {
   sync_type: "",
   sync_period: 30,
   update_all_term: false,
-  // add_data: "",
+  add_data: [],
   callback_req_type: "",
   regen_key: false,
   allocation_type: "",
@@ -99,6 +110,7 @@ export default defineComponent({
     VButton,
     GeneralConfig,
     AddConfig,
+    AddConfigSelector,
   },
 
   setup() {
@@ -123,19 +135,43 @@ export default defineComponent({
     loading(): boolean {
       return this.$store.state.terminals.formLoading;
     },
+    allocType(): string {
+      return this.$route.query.alloc_type as string;
+    },
+    terminalRef(): TerminalRef {
+      return this.$store.state.terminals.terminalsRef;
+    },
+    hasAddFields(): boolean {
+      return this.terminalRef?.add_data_fields?.some(
+        (field) => field.alloc_type === this.allocType
+      );
+    },
   },
 
   methods: {
     sendConfig(values: any) {
-      console.log(values);
-      const allocType = this.$route.query.alloc_type;
-      this.$store.dispatch(TerminalsActions.CREATE_OFFLINE_TERMINAL, {
-        terminalData: {
-          ...values,
-          alloc_type: allocType,
-        },
-        toast: this.toast,
+      console.log({
+        ...values,
+        // alloc_type: allocType,
+        add_data: values.add_config.reduce((acc: any, field: any) => {
+          acc[field.name] = field.value;
+
+          return acc;
+        }, {}),
       });
+      // const allocType = this.$route.query.alloc_type;
+      // this.$store.dispatch(TerminalsActions.CREATE_OFFLINE_TERMINAL, {
+      //   terminalData: {
+      //     ...values,
+      //     alloc_type: allocType,
+      //     add_data: values.add_config.reduce((acc: any, field: any) => {
+      //       acc[field.name] = field.value;
+
+      //       return acc;
+      //     }, {}),
+      //   },
+      //   toast: this.toast,
+      // });
     },
   },
 });

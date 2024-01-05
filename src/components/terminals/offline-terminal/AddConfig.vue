@@ -5,8 +5,10 @@
       Додайти натиснувши на кнопку нижче</template
     >
   </form-title>
-  <add-config-modal
-    :form-values="{ add_config: values.add_config, add_data: values.add_data }"
+  <AddConfigModal
+    :form-values="{
+      add_config: values.add_config,
+    }"
   />
   <div class="fields-container">
     <form-field
