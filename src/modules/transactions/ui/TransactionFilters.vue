@@ -130,6 +130,19 @@ import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 
 import StatusSelect from "./fields/StatusSelect.vue";
 
+const intialFilters = {
+  order_id: "",
+  amount: "",
+  terminal_id: "",
+  terminal_name: "",
+  ticket_num: "",
+  status: "",
+  rrn: "",
+  company_id: "",
+  DateFrom: format(new Date()),
+  DateTo: format(new Date()),
+};
+
 export default defineComponent({
   emits: ["update:filters"],
   components: {
@@ -143,30 +156,20 @@ export default defineComponent({
 
   data() {
     return {
-      filters: {
-        order_id: "",
-        amount: "",
-        terminal_id: "",
-        terminal_name: "",
-        // ptks_num: undefined,
-        ticket_num: "",
-        status: "",
-        rrn: "",
-        company_id: "",
-        DateFrom: format(new Date()),
-        DateTo: format(new Date()),
-      },
+      filters: intialFilters,
     };
   },
 
   mounted() {
-    this.filters = { ...this.filters, ...this.$route.query };
+    console.log("MOUNTED");
+    this.filters = { ...intialFilters, ...this.$route.query };
   },
 
   watch: {
     "$route.query": {
       handler(value) {
-        this.filters = { ...this.filters, ...value };
+        console.log("this.filters", this.filters);
+        this.filters = { ...intialFilters, ...value };
       },
       deep: true,
       immediate: true,

@@ -65,7 +65,6 @@ const actions = {
   ) {
     try {
       commit(TransactionsActions.SET_LOADING, true);
-      console.log(filters);
 
       const DateFrom = filters.DateFrom || format(new Date());
       const DateTo = filters.DateTo || format(new Date());
