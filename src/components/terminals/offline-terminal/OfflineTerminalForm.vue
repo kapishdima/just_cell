@@ -14,17 +14,14 @@
           <v-tab title="Додадкові налаштування">
             <add-config-selector
               v-if="hasAddFields"
-              :form-values="{
-                add_config: values.add_config,
-                add_data: values.add_data || [],
-              }"
+              :form-values="values"
               :form-errors="errors.add_config"
             />
             <add-config
               v-else
               :form-values="{
-                add_config: values.add_config,
-                add_data: values.add_data || [],
+                add_config: values.add_config || [],
+                add_data: values.add_data || {},
               }"
               :form-errors="errors.add_config"
             />
@@ -126,8 +123,11 @@ export default defineComponent({
   },
 
   watch: {
-    configData(value) {
-      this.initialValues = { ...this.initialValues, ...value };
+    configData: {
+      handler(value) {
+        this.initialValues = { ...this.initialValues, ...value };
+      },
+      immediate: true,
     },
   },
 
@@ -150,28 +150,21 @@ export default defineComponent({
 
   methods: {
     sendConfig(values: any) {
-      console.log({
+      const allocType = this.$route.query.alloc_type;
+      const configPayload = {
         ...values,
-        // alloc_type: allocType,
+        alloc_type: allocType,
         add_data: values.add_config.reduce((acc: any, field: any) => {
           acc[field.name] = field.value;
 
           return acc;
         }, {}),
+      };
+      console.log(configPayload);
+      this.$store.dispatch(TerminalsActions.CREATE_OFFLINE_TERMINAL, {
+        terminalData: configPayload,
+        toast: this.toast,
       });
-      // const allocType = this.$route.query.alloc_type;
-      // this.$store.dispatch(TerminalsActions.CREATE_OFFLINE_TERMINAL, {
-      //   terminalData: {
-      //     ...values,
-      //     alloc_type: allocType,
-      //     add_data: values.add_config.reduce((acc: any, field: any) => {
-      //       acc[field.name] = field.value;
-
-      //       return acc;
-      //     }, {}),
-      //   },
-      //   toast: this.toast,
-      // });
     },
   },
 });

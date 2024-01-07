@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
-import TerminalForm from "@/components/terminals/OfflineTerminalForm.vue";
+import TerminalForm from "@/components/terminals/offline-terminal/OfflineTerminalForm.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 
 import { TerminalsActions } from "@/store/modules/terminals";

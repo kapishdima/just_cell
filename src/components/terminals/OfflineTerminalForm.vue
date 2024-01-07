@@ -31,7 +31,7 @@
             placeholder="Введіть максимальну суму для оффлайн платежу"
           />
         </form-field>
-        <!-- <alloc-type-field v-model="values.allocation_type" /> -->
+        <alloc-type-field v-model="values.allocation_type" />
         <form-field
           label="Ідентифікатор ПТКС"
           :error="errors.ptks_num"
@@ -159,7 +159,7 @@
             та отримання даних
           </template>
         </form-field>
-        <!-- <form-field label="Додаткова інформація">
+        <form-field label="Додаткова інформація">
           <textarea-field
             v-model="values.add_data"
             :maxLength="1500"
@@ -170,7 +170,7 @@
             іншими додатками, наприклад, токен для авторизації на сторонньому
             сервері. Їх можна отримувати на самому терміналі запитом /Config/get
           </template>
-        </form-field> -->
+        </form-field>
         <update-all-terminals v-model="values.update_all_term" />
 
         <div
@@ -203,7 +203,7 @@ import { TerminalsActions } from "@/store/modules/terminals";
 import { Rules } from "@/contants/rules";
 import { offlineTerminal } from "./validation/terminal.schema";
 
-// import AllocTypeField from "./fields/AllocTypeField.vue";
+import AllocTypeField from "./fields/AllocTypeField.vue";
 import UpdateAllTerminals from "./fields/UpdateAllTerminals.vue";
 import SignStractField from "./fields/SignStractField.vue";
 import SettingsSelect from "./fields/SettingsSelect.vue";
@@ -230,7 +230,7 @@ const defaultConfigData = {
   sync_type: "",
   sync_period: 30,
   update_all_term: false,
-  // add_data: "",
+  add_data: "",
   callback_req_type: "",
   regen_key: false,
   allocation_type: "",
@@ -269,7 +269,7 @@ export default defineComponent({
     FormTitle,
     UpdateAllTerminals,
     PasswordField,
-    // AllocTypeField,
+    AllocTypeField,
   },
 
   setup() {

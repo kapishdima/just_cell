@@ -27,7 +27,7 @@ import FormField from "@/components/fields/FormField/FormField.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 
 export default defineComponent({
-  props: ["label", "values", "min", "max", "canEdit"],
+  props: ["label", "values", "min", "max", "canEdit", "name"],
   components: {
     FormField,
     InputField,
