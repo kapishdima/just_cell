@@ -115,7 +115,6 @@ const actions = {
       page: filters.page || "0",
       perPage: filters.perPage || "10",
     };
-    console.log(filtersData);
     const terminalsList = await getTerminalsList(filtersData);
 
     commit(
@@ -134,7 +133,6 @@ const actions = {
   async [TerminalsActions.GET_ECOMM_TERMINALS_REF]({ commit }: any) {
     commit(TerminalsActions.SET_LOADING, true);
     const terminalsRef = await getEcommTermilaRefs();
-    console.log("GET_REF", terminalsRef);
 
     commit(TerminalsActions.SET_ECOMM_TERMINALS_REF, terminalsRef);
     commit(TerminalsActions.SET_LOADING, false);
@@ -169,9 +167,12 @@ const actions = {
       commit(TerminalsActions.SET_LOADING, false);
     }
   },
-  async [TerminalsActions.GET_TERMINAL_CONFIG]({ commit }: any) {
+  async [TerminalsActions.GET_TERMINAL_CONFIG](
+    { commit }: any,
+    { alloc_type }: any
+  ) {
     commit(TerminalsActions.SET_LOADING, true);
-    const terminalConfig = await getTerminalConfig();
+    const terminalConfig = await getTerminalConfig(alloc_type);
 
     commit(TerminalsActions.SET_TERMINAL_CONFIG, terminalConfig);
     commit(TerminalsActions.SET_LOADING, false);

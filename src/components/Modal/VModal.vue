@@ -11,7 +11,11 @@
       @click="close"
       ref="modal"
     >
-      <div class="modal-content" :style="{ minWidth, maxWidth }" @click.stop>
+      <div
+        class="modal-content"
+        :style="{ minWidth, maxWidth, minHeight, maxHeight }"
+        @click.stop
+      >
         <div class="modal-header">
           <h4 class="modal-title">
             <slot name="title"></slot>
@@ -42,6 +46,8 @@ export default defineComponent({
     },
     minWidth: String,
     maxWidth: String,
+    minHeight: String,
+    maxHeight: String,
   },
   data() {
     return {

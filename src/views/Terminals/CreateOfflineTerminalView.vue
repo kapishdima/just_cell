@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import AppLayout from "@/components/layout/AppLayout/AppLayout.vue";
-import TerminalForm from "@/components/terminals/OfflineTerminalForm.vue";
+import TerminalForm from "@/components/terminals/offline-terminal/OfflineTerminalForm.vue";
 import AppLoading from "@/components/layout/AppLoading/AppLoading.vue";
 
 import { TerminalsActions } from "@/store/modules/terminals";
@@ -28,8 +28,11 @@ export default defineComponent({
   },
 
   computed: {
-    loading() {
+    loading(): boolean {
       return this.$store.state.terminals.loading;
+    },
+    allocType(): string {
+      return this.$route.query.alloc_type as string;
     },
     configData(): OfflineTerminalPayload {
       return this.$store.state.terminals.terminalConfig;
@@ -38,7 +41,9 @@ export default defineComponent({
 
   mounted() {
     this.$store.dispatch(TerminalsActions.GET_TERMINALS_REF);
-    this.$store.dispatch(TerminalsActions.GET_TERMINAL_CONFIG);
+    this.$store.dispatch(TerminalsActions.GET_TERMINAL_CONFIG, {
+      alloc_type: this.allocType,
+    });
   },
 });
 </script>

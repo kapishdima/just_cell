@@ -110,6 +110,7 @@ export type TableField = {
   alloc_type: string;
   alias: string;
   name: string;
+  add_data_fields: any[];
 };
 
 export type EcommTerminalRef = {

@@ -8,7 +8,7 @@
     :required="required"
     :class="`
     form-field__input--${size} form-field__input--${variant}`"
-    :value="modelValue"
+    :value="value"
     autocomplete="false"
     @input="input($event)"
     @blur="$emit('blur')"
@@ -30,7 +30,6 @@ Object.assign(Datepicker.locales, uk);
 
 const datepickerOptions = {
   language: "uk",
-  // minDate: new Date("01.01.1900"),
   format: "yyyy-mm-dd",
   autohide: true,
 };
@@ -78,6 +77,7 @@ export default defineComponent({
 
   data() {
     return {
+      value: this.modelValue || format(new Date()),
       mask: maskOptions,
     };
   },
@@ -89,6 +89,16 @@ export default defineComponent({
     this.initDatepicker();
   },
 
+  watch: {
+    modelValue: {
+      handler(value) {
+        console.log("value", value);
+        this.value = value;
+      },
+      immediate: true,
+    },
+  },
+
   methods: {
     input(event: Event) {
       const value = (event.target as HTMLInputElement)?.value;
@@ -97,7 +107,10 @@ export default defineComponent({
     initDatepicker() {
       const input = this.$refs.datepickerInput as HTMLInputElement;
 
-      new Datepicker(input, datepickerOptions);
+      new Datepicker(input, {
+        ...datepickerOptions,
+        defaultViewDate: this.value || new Date(),
+      });
 
       input.addEventListener("changeDate", this.onDateChange);
       input.addEventListener("hide", this.onDatepickerHide);

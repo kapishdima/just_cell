@@ -64,6 +64,19 @@ import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 
 import { TableFilter, TerminalRef } from "@/api/terminals/terminal.model";
 
+const intialFilters = {
+  order_id: "",
+  amount: "",
+  terminal_id: "",
+  terminal_name: "",
+  ticket_num: "",
+  status: "",
+  rrn: "",
+  company_id: "",
+  DateFrom: format(new Date()),
+  DateTo: format(new Date()),
+};
+
 export default defineComponent({
   props: ["allocType"],
   emits: ["update:filters"],
@@ -77,14 +90,20 @@ export default defineComponent({
 
   data(): { filters: any } {
     return {
-      filters: {},
+      filters: intialFilters,
     };
+  },
+
+  mounted() {
+    console.log("MOUNTED");
+    this.filters = { ...intialFilters, ...this.$route.query };
   },
 
   watch: {
     "$route.query": {
       handler(value) {
-        this.filters = { ...this.filters, ...value };
+        console.log("this.filters", this.filters);
+        this.filters = { ...intialFilters, ...value };
       },
       deep: true,
       immediate: true,
