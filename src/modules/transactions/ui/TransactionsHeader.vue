@@ -18,7 +18,6 @@ export default defineComponent({
         return "";
       }
 
-      console.log(ref);
       const name =
         ref.alloc_type.find((type) => type.id === this.alloc_type)?.name || "";
 

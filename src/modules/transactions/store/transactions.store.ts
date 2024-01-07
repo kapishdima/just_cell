@@ -32,6 +32,7 @@ const state = (): TransactionState => ({
   total: 0,
   sum: 0,
   exportTransactions: [],
+  sum: 0,
 });
 
 const mutations = {
@@ -93,6 +94,7 @@ const actions = {
       commit(TransactionsActions.SET_TOTAL, transactionsList.total);
       commit(TransactionsActions.SET_TOTAL_SUM, transactionsList.sum);
       commit(TransactionsActions.SET_LOADING, false);
+      commit(TransactionsActions.SET_TOTAL_SUM, transactionsList.sum);
     } catch (error) {
       commit(TransactionsActions.SET_TRANSACTIONS, []);
       commit(TransactionsActions.SET_LOADING, false);

@@ -23,7 +23,7 @@
       placeholder="Введіть максимальну суму для оффлайн платежу"
     />
   </form-field>
-  <alloc-type-field v-model="values.allocation_type" />
+  <!-- <alloc-type-field v-model="values.allocation_type" /> -->
   <form-field
     label="Ідентифікатор ПТКС"
     :error="errors.ptks_num"
@@ -189,7 +189,7 @@ export default defineComponent({
     SignStractField,
     FormTitle,
     PasswordField,
-    AllocTypeField,
+    // AllocTypeField,
   },
 
   data() {

@@ -38,11 +38,16 @@ export const getTransactionsList = async (
           Компанія: item.client_name,
           "Маска карти": item.pan_mask,
           Банк: item.bank_name,
+<<<<<<< HEAD
+=======
+          // "Форма оплати": item.pay_type,
+>>>>>>> master
         },
       ],
     })),
     sum: data.sum,
     total: parseInt(data.total),
+    sum: data.sum,
   };
 };
 

@@ -1,116 +1,50 @@
 <template>
   <div class="filters transactions-filters">
     <div class="filters-row">
-      <div class="filters-item">
-        <form-field :shadow="true" small label="Темінал">
+      <div
+        class="filters-item"
+        v-for="tableFilter of tableFilters"
+        :key="tableFilter.alias"
+      >
+        <form-field
+          :shadow="true"
+          small
+          :label="tableFilter.name"
+          v-if="tableFilter.filter_type === 'text'"
+        >
           <input-field
-            name="terminal_name"
-            v-model="filters.terminal_name"
-            placeholder="Темінал"
+            :name="tableFilter.alias"
+            v-model="filters[tableFilter.alias]"
+            :placeholder="tableFilter.name"
             :disabled="false"
             size="sm"
           />
         </form-field>
-      </div>
 
-      <div class="filters-item">
-        <form-field :shadow="true" small label="Order ID">
-          <input-field
-            name="order_id"
-            v-model="filters.order_id"
-            placeholder="Order ID"
-            :disabled="false"
-            size="sm"
-          />
-        </form-field>
-      </div>
-
-      <div class="filters-item">
-        <form-field :shadow="true" small label="ID термінала">
-          <input-field
-            name="terminal_id"
-            v-model="filters.terminal_id"
-            placeholder="ID термінала"
-            :disabled="false"
-            size="sm"
-          />
-        </form-field>
-      </div>
-
-      <div class="filters-item">
-        <form-field :shadow="true" small label="Сума">
-          <input-field
-            name="amount"
-            v-model="filters.amount"
-            placeholder="Сума"
-            :disabled="false"
-            size="sm"
-          />
-        </form-field>
-      </div>
-
-      <!-- <div class="filters-item" v-if="isPTKS">
-        <form-field :shadow="true" small label="ID ПТКС">
-          <input-field
-            name="ptks_num"
-            v-model="filters.ptks_num"
-            placeholder="№ ПТКС"
-            :disabled="false"
-            size="sm"
-          />
-        </form-field>
-      </div> -->
-      <div class="filters-item" v-if="!isPTKS">
-        <form-field :shadow="true" small label="№ квитка">
-          <input-field
-            name="ptks_num"
-            v-model="filters.ticket_num"
-            placeholder="№ квитка"
-            :disabled="false"
-            size="sm"
-          />
-        </form-field>
-      </div>
-    </div>
-    <div class="filters-row">
-      <div class="filters-item">
-        <form-field :shadow="true" label="RRN" small>
-          <input-field
-            name="rrn"
-            v-model="filters.rrn"
-            placeholder="RRN"
-            :disabled="false"
-            size="sm"
-          />
-        </form-field>
-      </div>
-      <div class="filters-item">
-        <form-field :shadow="true" label="Дата початку" small>
+        <form-field
+          :shadow="true"
+          small
+          :label="tableFilter.name"
+          v-if="tableFilter.filter_type === 'date'"
+        >
           <datepicker-field
-            name="dateFrom"
-            v-model="filters.DateFrom"
-            placeholder="Дата початку"
+            :name="tableFilter.alias"
+            v-model="filters[tableFilter.alias]"
+            :placeholder="tableFilter.name"
             :disabled="false"
             size="sm"
           />
         </form-field>
+
+        <ref-select-field
+          v-model="filters[tableFilter.alias]"
+          :name="tableFilter.name"
+          :ref-tag="tableFilter.ref_tag"
+          :label="tableFilter.name"
+          v-if="tableFilter.filter_type === 'ref_tag'"
+        />
       </div>
-      <div class="filters-item">
-        <form-field :shadow="true" label="Дата кінця" small>
-          <datepicker-field
-            name="dateTo"
-            v-model="filters.DateTo"
-            placeholder="Дата "
-            :disabled="false"
-            size="sm"
-          />
-        </form-field>
-      </div>
-      <companies-filter v-model="filters.company_id" />
-      <div class="filters-item filter-select__container">
-        <status-select small v-model="filters.status" :disabled="false" />
-      </div>
-      <div class="filters-item filters-actions">
+      <div class="filters-actions" v-if="Boolean(tableFilters.length)">
         <v-button :has-max-width="false" type="button" @click="applyFilter">
           <template #text>Фільтрувати</template>
         </v-button>
@@ -121,14 +55,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { format } from "@/components/fields/DatepickerField/format";
 import FormField from "@/components/fields/FormField/FormField.vue";
 import InputField from "@/components/fields/InputField/InputField.vue";
 import DatepickerField from "@/components/fields/DatepickerField/DatepickerField.vue";
-import { format } from "@/components/fields/DatepickerField/format";
-import CompaniesFilter from "@/components/fields/CompaniesSelectField/CompaniesFilter.vue";
+import RefSelectField from "@/components/fields/RefSelectField/RefSelectField.vue";
 import VButton from "@/components/buttons/BaseButton/BaseButton.vue";
 
-import StatusSelect from "./fields/StatusSelect.vue";
+import { TableFilter, TerminalRef } from "@/api/terminals/terminal.model";
 
 const intialFilters = {
   order_id: "",
@@ -144,17 +78,17 @@ const intialFilters = {
 };
 
 export default defineComponent({
+  props: ["allocType"],
   emits: ["update:filters"],
   components: {
     FormField,
     InputField,
     DatepickerField,
-    StatusSelect,
     VButton,
-    CompaniesFilter,
+    RefSelectField,
   },
 
-  data() {
+  data(): { filters: any } {
     return {
       filters: intialFilters,
     };
@@ -174,11 +108,25 @@ export default defineComponent({
       deep: true,
       immediate: true,
     },
+    tableFilters: {
+      handler() {
+        this.prepareDefaultFilters();
+      },
+      immediate: true,
+    },
   },
 
   computed: {
-    isPTKS(): boolean {
-      return this.$route.path === "/transac_ptks";
+    tableFilters(): TableFilter[] {
+      const ref: TerminalRef = this.$store.state.terminals.terminalsRef;
+
+      if (!ref) {
+        return [];
+      }
+
+      return ref.table_filters.filter(
+        (filter) => filter.alloc_type === this.allocType
+      );
     },
   },
 
@@ -190,8 +138,9 @@ export default defineComponent({
         )
       );
 
-      const filtersData = {
+      const filtersData: any = {
         ...filters,
+        alloc_type: this.allocType,
         perPage: filters.perPage || "10",
         page: "0",
       };
@@ -202,6 +151,20 @@ export default defineComponent({
         path: this.$route.path,
         query: filtersData,
       });
+    },
+
+    prepareDefaultFilters() {
+      const filters = this.tableFilters.reduce((acc, value) => {
+        if (value.filter_type === "date") {
+          acc[value.alias] = format(new Date());
+        } else {
+          acc[value.alias] = "";
+        }
+
+        return acc;
+      }, {} as any);
+
+      this.filters = filters;
     },
   },
 });

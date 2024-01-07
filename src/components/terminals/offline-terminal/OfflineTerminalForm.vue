@@ -160,7 +160,6 @@ export default defineComponent({
           return acc;
         }, {}),
       };
-      console.log(configPayload);
       this.$store.dispatch(TerminalsActions.CREATE_OFFLINE_TERMINAL, {
         terminalData: configPayload,
         toast: this.toast,

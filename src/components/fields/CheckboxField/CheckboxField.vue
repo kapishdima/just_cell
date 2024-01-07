@@ -16,6 +16,10 @@
       [`checkbox-field--${variant}`]: true,
       [`checkbox-field--${size}`]: true,
     }"
+    :style="{
+      justifyContent:
+        justify === 'space-between' ? 'space-between' : 'flex-start',
+    }"
     @click="check"
   >
     <label
@@ -44,12 +48,14 @@ interface CheckboxFieldProps {
   modelValue?: boolean;
   disabled?: any;
   error?: string;
+  justify?: "space-between" | "none";
 }
 
 withDefaults(defineProps<CheckboxFieldProps>(), {
   direction: "right",
   variant: "primary",
   size: "md",
+  justify: "space-between",
 });
 </script>
 <script lang="ts">

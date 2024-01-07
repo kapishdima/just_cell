@@ -2,9 +2,22 @@
 @import "./QR/index.scss";
 
 .terminal-filters {
+  .filters-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
   .checkbox-container {
     width: 13%;
     padding-bottom: 0.6%;
     margin-right: 20px;
+  }
+  .filters-checkbox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding-bottom: 8px;
+
+    .checkbox-field {
+      width: auto;
+    }
   }
 }
