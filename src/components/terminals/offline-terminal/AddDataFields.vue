@@ -7,7 +7,7 @@
         type="text"
         v-model="values.value"
         :placeholder="field.info"
-        :disabled="!values.canEdit"
+        :disabled="!JSON.parse(field.can_user_edit)"
       />
     </form-field>
   </div>
@@ -18,7 +18,7 @@
         type="text"
         v-model="values.value"
         :placeholder="field.info"
-        :disabled="!values.canEdit"
+        :disabled="!JSON.parse(field.can_user_edit)"
       />
     </form-field>
   </div>
@@ -27,7 +27,7 @@
       name="is_default_offline"
       v-model="values.value"
       :label="field.info"
-      :disabled="!values.canEdit"
+      :disabled="!JSON.parse(field.can_user_edit)"
     />
   </div>
   <div v-if="field?.type === 'select'">
@@ -40,10 +40,12 @@
   </div>
   <div v-if="field?.type === 'array_text'">
     <array-field
+      :name="field.field_name"
       :label="field.info"
       :min="field.data.min"
       :max="field.data.max"
       :values="values"
+      :disabled="!JSON.parse(field.can_user_edit)"
     />
   </div>
 </template>
@@ -71,8 +73,21 @@ export default defineComponent({
   },
 
   watch: {
-    fieldData(value) {
-      this.field = value;
+    fieldData: {
+      handler(value) {
+        this.field = value;
+      },
+      immediate: true,
+    },
+    values: {
+      handler(value) {
+        console.log(value);
+        if (!value || !value.length) {
+          return;
+        }
+        this.fieldValues = value;
+      },
+      immediate: true,
     },
   },
 });

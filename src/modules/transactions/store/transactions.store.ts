@@ -10,6 +10,7 @@ type TransactionState = {
   loading: boolean;
   exportLoading: boolean;
   total: number;
+  sum: number;
   exportTransactions: any;
 };
 
@@ -21,6 +22,7 @@ export enum TransactionsActions {
   SET_LOADING = "set_loading",
   SET_EXPORT_LOADING = "set_export_loading",
   SET_TOTAL = "set_total",
+  SET_TOTAL_SUM = "set_total_sum",
 }
 
 const state = (): TransactionState => ({
@@ -29,6 +31,7 @@ const state = (): TransactionState => ({
   exportLoading: false,
   total: 0,
   exportTransactions: [],
+  sum: 0,
 });
 
 const mutations = {
@@ -55,6 +58,9 @@ const mutations = {
   },
   [TransactionsActions.SET_TOTAL](state: TransactionState, total: number) {
     state.total = total;
+  },
+  [TransactionsActions.SET_TOTAL_SUM](state: TransactionState, sum: number) {
+    state.sum = sum;
   },
 };
 
@@ -86,6 +92,7 @@ const actions = {
 
       commit(TransactionsActions.SET_TOTAL, transactionsList.total);
       commit(TransactionsActions.SET_LOADING, false);
+      commit(TransactionsActions.SET_TOTAL_SUM, transactionsList.sum);
     } catch (error) {
       commit(TransactionsActions.SET_TRANSACTIONS, []);
       commit(TransactionsActions.SET_LOADING, false);
@@ -93,7 +100,7 @@ const actions = {
   },
   async [TransactionsActions.GET_EXPORT_TRANSACTIONS](
     { commit }: any,
-    filters: TransactionFilters
+    { page, perPage, ...filters }: TransactionFilters
   ) {
     try {
       commit(TransactionsActions.SET_EXPORT_LOADING, true);

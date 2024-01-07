@@ -10,6 +10,7 @@ import {
 type TransactionsList = {
   transactions: Transaction[];
   total: number;
+  sum: number;
 };
 
 export const getTransactionsList = async (
@@ -34,11 +35,13 @@ export const getTransactionsList = async (
           Дата: item.add_time,
           Компанія: item.client_name,
           "Маска карти": item.pan_mask,
-          "Форма оплати": item.pay_type,
+          Банк: item.bank_name,
+          // "Форма оплати": item.pay_type,
         },
       ],
     })),
     total: parseInt(data.total),
+    sum: data.sum,
   };
 };
 
@@ -53,7 +56,7 @@ export const getTransactionForExport = async (
     [item.ptks_num ? "ID ПТКС" : "ID квитка"]: item.ptks_num
       ? item.ptks_num
       : item.ticket_num,
-    Сума: item.amount,
+    Сума: item.amount.replace(".", ","),
     Банк: item.bank_name,
     "Карта/Токен": item.pan_mask,
     Статус: item.status_name,
