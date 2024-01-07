@@ -12,6 +12,9 @@
     <template #appContent>
       <transaction-filters @update:filters="filter" :alloc-type="allocType" />
       <div class="table-actions" v-if="total > 0">
+        <h2 class="form-title" v-if="sum > 0">
+          Загальна сума: <strong>{{ sum }}</strong>
+        </h2>
         <export-transactions-button />
       </div>
       <transactions-table
@@ -60,6 +63,9 @@ export default defineComponent({
     allocType(): string {
       return this.$route.query.alloc_type as string;
     },
+    sum(): number {
+      return this.$store.state.transactions.sum;
+    },
     hasTransactions(): boolean {
       return (
         this.$store.state.transactions.transactions &&
@@ -104,3 +110,18 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss">
+.table-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 0;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+</style>

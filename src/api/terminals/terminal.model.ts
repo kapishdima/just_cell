@@ -96,6 +96,7 @@ export type TerminalRef = {
   sign: string;
   table_fields: TableField[];
   table_filters: TableFilter[];
+  add_data_fields: any[];
 };
 
 export type TableFilter = {
@@ -110,7 +111,6 @@ export type TableField = {
   alloc_type: string;
   alias: string;
   name: string;
-  add_data_fields: any[];
 };
 
 export type EcommTerminalRef = {
