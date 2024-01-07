@@ -10,12 +10,15 @@ import {
 type TransactionsList = {
   transactions: Transaction[];
   total: number;
+  sum: number;
 };
 
 export const getTransactionsList = async (
   filters: TransactionFilters
 ): Promise<TransactionsList> => {
   const { data } = await http.post(ApiRoutes.TRANSACTIONS_LIST, filters);
+
+  console.log(data.sum);
 
   return {
     transactions: data.data?.map((item: any) => ({
@@ -24,18 +27,21 @@ export const getTransactionsList = async (
         {
           "ID термінала": item.terminal_id,
           RRN: item.rrn,
-          tax_num: item.tax_num,
-          "Чи повернення": JSON.parse(item.is_revers) ? "Так" : "Ні",
+          "Фіскальний номер": item.tax_num,
+          "Транзакцію повернуто": JSON.parse(item.is_revers) ? "Так" : "Ні",
           "Сумма повернення": item.revers_amount,
           "Час повернення": item.revers_time,
-          "Фіскальний номер": item.FISCAL_TRANSACTION_ID,
+          "Час оплати": item.payment_time,
           Відповідь: item.answ_description,
           "Код відповіді": item.answ_code,
           Дата: item.add_time,
           Компанія: item.client_name,
+          "Маска карти": item.pan_mask,
+          Банк: item.bank_name,
         },
       ],
     })),
+    sum: data.sum,
     total: parseInt(data.total),
   };
 };
@@ -51,7 +57,7 @@ export const getTransactionForExport = async (
     [item.ptks_num ? "ID ПТКС" : "ID квитка"]: item.ptks_num
       ? item.ptks_num
       : item.ticket_num,
-    Сума: item.amount,
+    Сума: item.amount.replace(".", ","),
     Банк: item.bank_name,
     "Карта/Токен": item.pan_mask,
     Статус: item.status_name,

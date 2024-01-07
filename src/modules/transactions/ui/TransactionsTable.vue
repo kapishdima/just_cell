@@ -47,9 +47,9 @@ const columns = [
     cell: (info) => info.getValue(),
     header: "Сума",
   }),
-  columnHelper.accessor("bank_name", {
+  columnHelper.accessor("pay_type", {
     cell: (info) => info.getValue(),
-    header: "Банк",
+    header: "Форма оплати",
   }),
   columnHelper.accessor("pan_mask", {
     cell: (info) => info.getValue(),
