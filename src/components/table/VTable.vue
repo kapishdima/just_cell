@@ -38,8 +38,6 @@ interface TableProps {
 const props = defineProps<TableProps>();
 const sorting = ref<SortingState>([]);
 
-console.log("VTable", props.columns);
-
 const table = useVueTable({
   get data() {
     return props.data;

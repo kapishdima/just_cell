@@ -1,5 +1,4 @@
 <template lang="">
-  <!-- {{ formValues }} -->
   <div
     class="fields-container"
     v-if="Boolean(values.add_config && values.add_config.length)"
@@ -73,8 +72,6 @@ export default defineComponent({
     },
     addDataFields: {
       handler(values) {
-        console.log("ADD", values);
-
         // eslint-disable-next-line vue/no-mutating-props
         this.values.add_config = values.map((field: any) => {
           const defaultValues = {
@@ -98,8 +95,6 @@ export default defineComponent({
             field,
           };
         });
-
-        console.log("this.values.add_config", this.formValues.add_config);
       },
       immediate: true,
     },

@@ -13,8 +13,8 @@
           v-if="tableFilter.filter_type === 'text'"
         >
           <input-field
-            :name="tableFilter.alias"
             v-model="filters[tableFilter.alias]"
+            :name="tableFilter.alias"
             :placeholder="tableFilter.name"
             :disabled="false"
             size="sm"
@@ -90,30 +90,29 @@ export default defineComponent({
 
   data(): { filters: any } {
     return {
-      filters: intialFilters,
+      filters: { ...intialFilters, ...this.$route.query },
     };
   },
 
-  mounted() {
-    console.log("MOUNTED");
-    this.filters = { ...intialFilters, ...this.$route.query };
-  },
+  // mounted() {
+  //   console.log("MOUNTED");
+  //   this.filters = { ...intialFilters, ...this.$route.query };
+  // },
 
   watch: {
     "$route.query": {
       handler(value) {
-        console.log("this.filters", this.filters);
         this.filters = { ...intialFilters, ...value };
       },
       deep: true,
       immediate: true,
     },
-    tableFilters: {
-      handler() {
-        this.prepareDefaultFilters();
-      },
-      immediate: true,
-    },
+    // tableFilters: {
+    //   handler() {
+    //     this.prepareDefaultFilters();
+    //   },
+    //   immediate: true,
+    // },
   },
 
   computed: {
@@ -156,9 +155,9 @@ export default defineComponent({
     prepareDefaultFilters() {
       const filters = this.tableFilters.reduce((acc, value) => {
         if (value.filter_type === "date") {
-          acc[value.alias] = format(new Date());
+          acc[value.alias] = this.filters[value.alias] || format(new Date());
         } else {
-          acc[value.alias] = "";
+          acc[value.alias] = this.filters[value.alias] || "";
         }
 
         return acc;

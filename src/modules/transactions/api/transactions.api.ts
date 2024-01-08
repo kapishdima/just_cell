@@ -50,25 +50,26 @@ export const getTransactionForExport = async (
 ) => {
   const { data } = await http.post(ApiRoutes.TRANSACTIONS_LIST, filters);
 
-  return data.data?.map((item: any) => ({
-    Темінал: item.term_name,
-    "Order ID": item.order_id,
-    [item.ptks_num ? "ID ПТКС" : "ID квитка"]: item.ptks_num
-      ? item.ptks_num
-      : item.ticket_num,
-    Сума: item.amount.replace(".", ","),
-    Банк: item.bank_name,
-    "Карта/Токен": item.pan_mask,
-    Статус: item.status_name,
-    "ID термінала": item.terminal_id,
-    RRN: item.rrn,
-    tax_num: item.tax_num,
-    "Чи повернення": JSON.parse(item.is_revers) ? "Так" : "Ні",
-    "Сумма повернення": item.revers_amount,
-    "Час повернення": item.revers_time,
-    "Фіскальний номер": item.FISCAL_TRANSACTION_ID,
-    Відповідь: item.answ_description,
-    "Код відповіді": item.answ_code,
-    Дата: item.add_time,
-  }));
+  return data.data;
+  // return data.data?.map((item: any) => ({
+  //   Темінал: item.term_name,
+  //   "Order ID": item.order_id,
+  //   [item.ptks_num ? "ID ПТКС" : "ID квитка"]: item.ptks_num
+  //     ? item.ptks_num
+  //     : item.ticket_num,
+  //   Сума: item.amount.replace(".", ","),
+  //   Банк: item.bank_name,
+  //   "Карта/Токен": item.pan_mask,
+  //   Статус: item.status_name,
+  //   "ID термінала": item.terminal_id,
+  //   RRN: item.rrn,
+  //   tax_num: item.tax_num,
+  //   "Чи повернення": JSON.parse(item.is_revers) ? "Так" : "Ні",
+  //   "Сумма повернення": item.revers_amount,
+  //   "Час повернення": item.revers_time,
+  //   "Фіскальний номер": item.FISCAL_TRANSACTION_ID,
+  //   Відповідь: item.answ_description,
+  //   "Код відповіді": item.answ_code,
+  //   Дата: item.add_time,
+  // }));
 };
