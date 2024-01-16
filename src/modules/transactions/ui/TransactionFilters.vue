@@ -94,11 +94,6 @@ export default defineComponent({
     };
   },
 
-  // mounted() {
-  //   console.log("MOUNTED");
-  //   this.filters = { ...intialFilters, ...this.$route.query };
-  // },
-
   watch: {
     "$route.query": {
       handler(value) {
@@ -107,12 +102,6 @@ export default defineComponent({
       deep: true,
       immediate: true,
     },
-    // tableFilters: {
-    //   handler() {
-    //     this.prepareDefaultFilters();
-    //   },
-    //   immediate: true,
-    // },
   },
 
   computed: {

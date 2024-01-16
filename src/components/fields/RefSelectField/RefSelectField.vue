@@ -56,9 +56,7 @@ export default defineComponent({
         label: type.name || "",
       }));
 
-      if (this.refTag === "status_list") {
-        values.unshift({ value: "", label: "Усі" });
-      }
+      values.unshift({ value: "", label: "Усі" });
 
       return values;
     },

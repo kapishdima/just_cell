@@ -4,7 +4,7 @@
 set -e
 
 # build
-yarn build:staging
+yarn build:prod
 
 # navigate into the build output directory
 cd dist
