@@ -69,7 +69,9 @@ export const createOfflineTerminal = async (terminalData: any) => {
 
 export const getTerminalConfig = async (alloc_type: any) => {
   const { data } = await http.get(
-    `${ApiRoutes.GET_TERMINAL_CONFIG}?alloc_type=${alloc_type}`
+    `${ApiRoutes.GET_TERMINAL_CONFIG}${
+      alloc_type.length ? `?alloc_type=${alloc_type}` : ""
+    }`
   );
   const terminalConfig = data.terminal_config.at(0);
 
